@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#C8102E">
-<title>Student App — Университет</title>
+<title>University App — Университет порталы</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
@@ -27,7 +27,8 @@
   --white: #FFFFFF;
   --border: #E5E7EB;
   --success: #10B981;
-  --success-soft: #D1FAE5;
+  --warning: #F59E0B;
+  --info: #06B6D4;
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
   --shadow-md: 0 2px 12px rgba(0,0,0,0.06);
   --radius: 14px;
@@ -47,10 +48,10 @@ body {
   overflow-x: hidden;
 }
 
-button, input { font-family: inherit; font-size: 16px; }
+button, input, select { font-family: inherit; font-size: 16px; }
 button { border: none; background: none; cursor: pointer; color: inherit; }
 a { text-decoration: none; color: inherit; }
-input:focus { outline: none; }
+input:focus, select:focus { outline: none; }
 
 /* ============================================================
    LOGIN
@@ -85,10 +86,9 @@ input:focus { outline: none; }
   background: rgba(255,255,255,0.98);
   backdrop-filter: blur(20px);
   border-radius: 22px;
-  padding: 44px 32px 36px;
-  width: 100%; max-width: 420px;
+  padding: 32px 28px 28px;
+  width: 100%; max-width: 440px;
   box-shadow: 0 20px 50px rgba(0,0,0,0.25);
-  text-align: center;
   animation: slideUp 0.6s cubic-bezier(0.16,1,0.3,1);
 }
 
@@ -97,35 +97,91 @@ input:focus { outline: none; }
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Language switcher (top-right of login) */
+.lang-switch {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.lang-btn {
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: var(--gray-bg);
+  color: var(--gray);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+}
+.lang-btn.active {
+  background: var(--primary);
+  color: var(--white);
+}
+
 .logo-circle {
-  width: 76px; height: 76px; margin: 0 auto 18px;
+  width: 68px; height: 68px; margin: 0 auto 14px;
   background: linear-gradient(135deg, var(--primary), var(--primary-light));
-  border-radius: 22px;
+  border-radius: 20px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 38px;
+  font-size: 34px;
   box-shadow: 0 12px 30px rgba(200,16,46,0.35);
 }
 
 .login-card h1 {
-  font-size: 26px; font-weight: 900;
+  font-size: 23px; font-weight: 900;
   color: var(--primary);
-  margin-bottom: 6px; letter-spacing: -0.5px;
+  margin-bottom: 4px; letter-spacing: -0.5px;
+  text-align: center;
 }
 
-.subtitle { color: var(--gray); font-size: 14px; margin-bottom: 28px; }
+.subtitle {
+  color: var(--gray); font-size: 13px;
+  margin-bottom: 20px; text-align: center;
+}
 
-.input-group { position: relative; margin-bottom: 14px; }
+/* Рөл таңдау */
+.role-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 16px;
+  background: var(--gray-bg);
+  padding: 5px;
+  border-radius: 14px;
+}
+
+.role-btn {
+  padding: 10px 8px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gray);
+  transition: all 0.25s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.role-btn.active {
+  background: var(--white);
+  color: var(--primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.input-group { position: relative; margin-bottom: 12px; }
 .input-icon {
-  position: absolute; left: 18px; top: 50%;
+  position: absolute; left: 16px; top: 50%;
   transform: translateY(-50%);
-  font-size: 18px; opacity: 0.5; pointer-events: none;
+  font-size: 17px; opacity: 0.5; pointer-events: none;
 }
 .input-group input {
   width: 100%;
-  padding: 16px 16px 16px 50px;
+  padding: 14px 14px 14px 46px;
   border: 2px solid var(--border);
   border-radius: 12px;
-  font-size: 15px;
+  font-size: 14.5px;
   transition: all 0.2s;
   background: #FAFAFA;
 }
@@ -136,11 +192,11 @@ input:focus { outline: none; }
 }
 
 .btn-primary {
-  width: 100%; padding: 16px; margin-top: 8px;
+  width: 100%; padding: 15px; margin-top: 6px;
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: var(--white);
   border-radius: 12px;
-  font-size: 16px; font-weight: 700;
+  font-size: 15px; font-weight: 700;
   transition: all 0.25s;
   box-shadow: 0 8px 20px rgba(200,16,46,0.3);
 }
@@ -148,15 +204,17 @@ input:focus { outline: none; }
 .btn-primary:disabled { opacity: 0.6; }
 
 .error-msg {
-  color: var(--primary); font-size: 14px;
-  margin-top: 12px; min-height: 20px; font-weight: 600;
+  color: var(--primary); font-size: 13px;
+  margin-top: 10px; min-height: 18px; font-weight: 600;
+  text-align: center;
 }
 
 .hint-box {
-  margin-top: 22px; padding: 12px 16px;
+  margin-top: 16px; padding: 10px 14px;
   background: var(--primary-soft);
-  border-radius: 10px; font-size: 13px;
+  border-radius: 10px; font-size: 12px;
   color: var(--gray); border: 1px solid #FECACA;
+  text-align: center;
 }
 .hint-box b { color: var(--primary); }
 
@@ -175,34 +233,32 @@ input:focus { outline: none; }
 #appView { display: none; min-height: 100vh; min-height: 100dvh; }
 #appView.active { display: block; }
 
-/* ---------- TOP BAR ---------- */
 .topbar {
   position: sticky; top: 0;
   background: var(--white);
-  padding: calc(14px + var(--safe-top)) 16px 14px;
+  padding: calc(12px + var(--safe-top)) 16px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
   z-index: 100;
   border-bottom: 1px solid var(--border);
 }
-
-.topbar-left, .topbar-right { display: flex; align-items: center; gap: 8px; min-width: 44px; }
+.topbar-left, .topbar-right { display: flex; align-items: center; gap: 6px; min-width: 44px; }
 .topbar-right { justify-content: flex-end; }
 
 .icon-btn {
-  width: 40px; height: 40px;
-  border-radius: 12px;
+  width: 38px; height: 38px;
+  border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
+  font-size: 18px;
   color: var(--dark);
   transition: background 0.2s;
 }
 .icon-btn:active { background: var(--gray-bg); }
 
 .topbar-title {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 800;
   color: var(--dark);
   letter-spacing: -0.3px;
@@ -210,7 +266,6 @@ input:focus { outline: none; }
   text-align: center;
 }
 
-/* ---------- PAGE CONTENT ---------- */
 .page-content {
   padding: 16px 16px calc(96px + var(--safe-bottom));
   max-width: 720px;
@@ -225,26 +280,55 @@ input:focus { outline: none; }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ---------- TABS (Занятия/Экзамены/ИГА) ---------- */
+/* Role indicator bar */
+.role-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, var(--primary-soft), #FFF5F5);
+  border: 1px solid #FECACA;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+.role-bar .role-icon {
+  width: 28px; height: 28px;
+  background: var(--white);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+}
+.role-bar .role-info { flex: 1; }
+.role-bar .role-info small {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--gray);
+  letter-spacing: 0.3px;
+}
+
+/* Tabs */
 .tabs-row {
   display: flex;
-  gap: 8px;
-  padding: 4px 0 14px;
+  gap: 6px;
+  padding: 4px 0 12px;
   align-items: center;
 }
 
 .tab-pill {
-  padding: 10px 20px;
-  border-radius: 24px;
+  padding: 9px 16px;
+  border-radius: 22px;
   background: var(--white);
   border: 1px solid var(--border);
   color: var(--dark);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   transition: all 0.2s;
   white-space: nowrap;
 }
-
 .tab-pill.active {
   background: var(--primary);
   color: var(--white);
@@ -252,31 +336,18 @@ input:focus { outline: none; }
   box-shadow: 0 4px 12px rgba(200,16,46,0.25);
 }
 
-.filter-btn {
-  margin-left: auto;
-  width: 44px; height: 44px;
-  border-radius: 12px;
-  background: var(--white);
-  border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--primary);
-  font-size: 18px;
-}
-.filter-btn:active { background: var(--gray-bg); }
-
-/* ---------- LESSON CARD (Kaitesin стилі) ---------- */
+/* Lesson card */
 .lesson-card {
   background: var(--white);
   border-radius: var(--radius);
-  margin-bottom: 12px;
-  padding: 16px;
+  margin-bottom: 10px;
+  padding: 14px;
   display: flex;
-  gap: 16px;
+  gap: 14px;
   box-shadow: var(--shadow-sm);
   animation: slideUp 0.35s ease backwards;
   transition: transform 0.2s;
 }
-
 .lesson-card:active { transform: scale(0.99); }
 
 @keyframes slideUp {
@@ -288,78 +359,58 @@ input:focus { outline: none; }
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   padding-top: 2px;
-  min-width: 52px;
+  min-width: 50px;
 }
-
 .lesson-time .time-start {
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--dark);
-  letter-spacing: -0.3px;
+  font-size: 15px; font-weight: 800;
+  color: var(--dark); letter-spacing: -0.3px;
   line-height: 1.2;
 }
-
 .lesson-time .time-end {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--gray-light);
-  line-height: 1.2;
+  font-size: 13px; font-weight: 500;
+  color: var(--gray-light); line-height: 1.2;
   margin-top: 2px;
 }
 
 .lesson-body { flex: 1; min-width: 0; }
 
 .lesson-subject {
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--dark);
-  line-height: 1.3;
-  margin-bottom: 10px;
-  letter-spacing: -0.2px;
+  font-size: 14.5px; font-weight: 800;
+  color: var(--dark); line-height: 1.3;
+  margin-bottom: 8px; letter-spacing: -0.2px;
 }
 
 .lesson-info {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
 }
-
 .info-row {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  font-size: 13px;
+  gap: 7px;
+  font-size: 12.5px;
   color: var(--gray);
-  line-height: 1.45;
+  line-height: 1.4;
 }
-
 .info-row .info-icon {
   flex-shrink: 0;
-  width: 18px;
-  height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 16px; height: 16px;
+  display: flex; align-items: center; justify-content: center;
   opacity: 0.6;
   margin-top: 1px;
 }
-
 .info-row .info-text {
-  flex: 1;
-  min-width: 0;
-  color: var(--gray);
-  font-weight: 500;
+  flex: 1; min-width: 0;
+  color: var(--gray); font-weight: 500;
   word-wrap: break-word;
 }
-
 .info-row .info-text.strong {
-  color: var(--dark);
-  font-weight: 600;
+  color: var(--dark); font-weight: 600;
 }
 
-/* ---------- DAY SELECTOR (horizontal scroll) ---------- */
+/* Day strip */
 .day-strip {
   display: flex;
   gap: 6px;
@@ -369,38 +420,30 @@ input:focus { outline: none; }
   padding-left: 16px;
   padding-right: 16px;
   scrollbar-width: none;
-  scroll-behavior: smooth;
 }
 .day-strip::-webkit-scrollbar { display: none; }
 
 .day-chip {
   flex-shrink: 0;
-  padding: 10px 16px;
+  padding: 9px 14px;
   border-radius: 12px;
   background: var(--white);
   border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 58px;
+  min-width: 56px;
   transition: all 0.2s;
 }
-
 .day-chip .day-name {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--gray);
-  text-transform: uppercase;
+  font-size: 10.5px; font-weight: 700;
+  color: var(--gray); text-transform: uppercase;
   letter-spacing: 0.5px;
 }
-
 .day-chip .day-num {
-  font-size: 17px;
-  font-weight: 900;
-  color: var(--dark);
-  margin-top: 2px;
+  font-size: 16px; font-weight: 900;
+  color: var(--dark); margin-top: 2px;
 }
-
 .day-chip.active {
   background: var(--primary);
   border-color: var(--primary);
@@ -409,20 +452,20 @@ input:focus { outline: none; }
 .day-chip.active .day-name { color: rgba(255,255,255,0.85); }
 .day-chip.active .day-num { color: var(--white); }
 
-/* ---------- EMPTY ---------- */
+/* Empty */
 .empty-state {
   text-align: center;
-  padding: 60px 20px;
+  padding: 50px 20px;
 }
-.empty-state .icon { font-size: 56px; margin-bottom: 12px; opacity: 0.4; }
-.empty-state p { font-size: 15px; font-weight: 600; color: var(--gray); }
+.empty-state .icon { font-size: 52px; margin-bottom: 10px; opacity: 0.4; }
+.empty-state p { font-size: 14px; font-weight: 600; color: var(--gray); }
 
-/* ---------- EXAMS ---------- */
+/* Exams */
 .exam-card {
   background: var(--white);
   border-radius: var(--radius);
-  padding: 16px;
-  margin-bottom: 12px;
+  padding: 14px;
+  margin-bottom: 10px;
   box-shadow: var(--shadow-sm);
   border-left: 4px solid var(--primary);
 }
@@ -432,12 +475,12 @@ input:focus { outline: none; }
   background: var(--primary-soft);
   color: var(--primary);
   border-radius: 8px;
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 800;
   margin-bottom: 8px;
 }
 .exam-subject {
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 800;
   margin-bottom: 8px;
   color: var(--dark);
@@ -445,8 +488,8 @@ input:focus { outline: none; }
 .exam-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  font-size: 13px;
+  gap: 6px;
+  font-size: 12px;
   color: var(--gray);
 }
 .exam-meta span {
@@ -465,92 +508,82 @@ input:focus { outline: none; }
 .grades-summary {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-bottom: 16px;
+  gap: 8px;
+  margin-bottom: 14px;
 }
-
 .summary-card {
   background: var(--white);
   border-radius: var(--radius);
-  padding: 16px 10px;
+  padding: 14px 8px;
   text-align: center;
   box-shadow: var(--shadow-sm);
 }
-
-.summary-card .icon { font-size: 20px; margin-bottom: 4px; }
+.summary-card .icon { font-size: 18px; margin-bottom: 3px; }
 .summary-card .value {
-  font-size: 22px; font-weight: 900;
+  font-size: 20px; font-weight: 900;
   letter-spacing: -0.5px; line-height: 1.1;
 }
 .summary-card .label {
-  font-size: 10.5px; color: var(--gray);
+  font-size: 10px; color: var(--gray);
   font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.5px; margin-top: 2px;
+  letter-spacing: 0.4px; margin-top: 2px;
 }
 .summary-card.gpa .value { color: var(--primary); }
-.summary-card.credits .value { color: #06B6D4; }
-.summary-card.rank .value { color: #F59E0B; }
+.summary-card.credits .value { color: var(--info); }
+.summary-card.rank .value { color: var(--warning); }
 
 .grade-card {
   background: var(--white);
   border-radius: var(--radius);
-  padding: 16px;
-  margin-bottom: 12px;
+  padding: 14px;
+  margin-bottom: 10px;
   box-shadow: var(--shadow-sm);
   animation: slideUp 0.35s ease backwards;
 }
-
 .grade-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 .grade-subject {
-  font-size: 15px;
-  font-weight: 800;
-  line-height: 1.3;
-  color: var(--dark);
+  font-size: 14.5px; font-weight: 800;
+  line-height: 1.3; color: var(--dark);
   letter-spacing: -0.2px;
 }
 .grade-teacher {
-  font-size: 12px;
-  color: var(--gray);
-  margin-top: 3px;
-  font-weight: 500;
+  font-size: 11.5px; color: var(--gray);
+  margin-top: 3px; font-weight: 500;
 }
 .grade-badge {
   flex-shrink: 0;
-  min-width: 46px;
-  height: 46px;
+  min-width: 44px; height: 44px;
   border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 15px;
 }
 .grade-A  { background: #D1FAE5; color: #065F46; }
 .grade-A- { background: #D1FAE5; color: #065F46; }
 .grade-B+ { background: #DBEAFE; color: #1E40AF; }
 .grade-B  { background: #DBEAFE; color: #1E40AF; }
+.grade-C  { background: #FEF3C7; color: #92400E; }
 
 .grade-scores {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  padding-top: 12px;
+  gap: 6px;
+  padding-top: 10px;
   border-top: 1px dashed var(--border);
 }
 .score-item { text-align: center; }
 .score-item .score-label {
-  font-size: 10.5px; color: var(--gray);
+  font-size: 10px; color: var(--gray);
   font-weight: 700; text-transform: uppercase;
   letter-spacing: 0.3px; margin-bottom: 3px;
 }
 .score-item .score-value {
-  font-size: 15px; font-weight: 800; color: var(--dark);
+  font-size: 14px; font-weight: 800; color: var(--dark);
 }
 .score-item.best .score-value { color: var(--success); }
 
@@ -559,7 +592,7 @@ input:focus { outline: none; }
   background: var(--gray-bg);
   border-radius: 5px;
   overflow: hidden;
-  margin-top: 12px;
+  margin-top: 10px;
 }
 .progress-fill {
   height: 100%;
@@ -569,14 +602,14 @@ input:focus { outline: none; }
 }
 
 /* ============================================================
-   HOME
+   HOME / HERO
 ============================================================ */
 .hero-card {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   border-radius: var(--radius);
-  padding: 22px 20px;
+  padding: 20px 18px;
   color: var(--white);
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   position: relative;
   overflow: hidden;
   box-shadow: 0 10px 24px rgba(200,16,46,0.25);
@@ -590,28 +623,28 @@ input:focus { outline: none; }
   top: -80px; right: -60px;
 }
 .hero-card h2 {
-  font-size: 20px;
-  font-weight: 900;
-  margin-bottom: 4px;
-  letter-spacing: -0.3px;
+  font-size: 18px; font-weight: 900;
+  margin-bottom: 4px; letter-spacing: -0.3px;
   position: relative;
 }
 .hero-card p {
-  font-size: 13px;
-  opacity: 0.9;
-  font-weight: 500;
-  position: relative;
+  font-size: 12.5px; opacity: 0.9;
+  font-weight: 500; position: relative;
 }
 
 .section-title {
-  font-size: 15px;
-  font-weight: 800;
+  font-size: 14px; font-weight: 800;
   color: var(--dark);
-  margin: 20px 0 12px;
+  margin: 18px 0 10px;
   letter-spacing: -0.2px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.section-title .count {
+  font-size: 11.5px;
+  color: var(--gray);
+  font-weight: 600;
 }
 
 .quick-grid {
@@ -622,26 +655,27 @@ input:focus { outline: none; }
 .quick-card {
   background: var(--white);
   border-radius: var(--radius);
-  padding: 16px;
+  padding: 14px;
   box-shadow: var(--shadow-sm);
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   transition: transform 0.15s;
+  cursor: pointer;
 }
 .quick-card:active { transform: scale(0.97); }
 .quick-card .q-icon {
-  width: 42px; height: 42px;
+  width: 40px; height: 40px;
   border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
+  font-size: 19px;
   background: var(--primary-soft);
 }
 .quick-card .q-text .q-title {
-  font-size: 14px; font-weight: 800; color: var(--dark);
+  font-size: 13px; font-weight: 800; color: var(--dark);
 }
 .quick-card .q-text .q-sub {
-  font-size: 12px; color: var(--gray); font-weight: 500;
+  font-size: 11px; color: var(--gray); font-weight: 500;
 }
 
 /* ============================================================
@@ -650,10 +684,10 @@ input:focus { outline: none; }
 .profile-hero {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   border-radius: var(--radius);
-  padding: 24px 20px;
+  padding: 22px 18px;
   text-align: center;
   color: var(--white);
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   position: relative;
   overflow: hidden;
   box-shadow: 0 10px 24px rgba(200,16,46,0.25);
@@ -667,44 +701,55 @@ input:focus { outline: none; }
   top: -100px; right: -60px;
 }
 .profile-avatar-lg {
-  width: 84px; height: 84px;
+  width: 78px; height: 78px;
   border-radius: 50%;
   background: rgba(255,255,255,0.22);
   display: flex; align-items: center; justify-content: center;
-  font-size: 42px;
+  font-size: 38px;
   margin: 0 auto 12px;
   border: 3px solid rgba(255,255,255,0.5);
   position: relative;
 }
 .profile-hero h2 {
-  font-size: 19px; font-weight: 900;
+  font-size: 18px; font-weight: 900;
   letter-spacing: -0.3px; margin-bottom: 3px;
   position: relative;
 }
 .profile-hero .group-info {
-  font-size: 13px; opacity: 0.9;
+  font-size: 12.5px; opacity: 0.9;
   font-weight: 600; position: relative;
+}
+.role-badge-pill {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 12px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  position: relative;
 }
 
 .form-card {
   background: var(--white);
   border-radius: var(--radius);
-  padding: 20px;
+  padding: 18px;
   box-shadow: var(--shadow-sm);
 }
-.form-row { margin-bottom: 14px; }
+.form-row { margin-bottom: 13px; }
 .form-row label {
   display: flex; align-items: center; gap: 6px;
-  font-size: 11.5px; font-weight: 800;
+  font-size: 11px; font-weight: 800;
   color: var(--gray); margin-bottom: 6px;
   text-transform: uppercase; letter-spacing: 0.6px;
 }
 .form-row input {
   width: 100%;
-  padding: 14px 16px;
+  padding: 13px 15px;
   border: 2px solid var(--border);
-  border-radius: 12px;
-  font-size: 15px;
+  border-radius: 11px;
+  font-size: 14.5px;
   background: #FAFAFA;
   transition: all 0.2s;
   color: var(--dark);
@@ -717,9 +762,159 @@ input:focus { outline: none; }
 }
 
 .success-msg {
-  color: var(--success); font-size: 14px;
+  color: var(--success); font-size: 13px;
   font-weight: 700; margin-top: 12px;
-  text-align: center; min-height: 20px;
+  text-align: center; min-height: 18px;
+}
+
+/* Language section in profile */
+.lang-section {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-top: 12px;
+  box-shadow: var(--shadow-sm);
+}
+.lang-section h3 {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 10px;
+}
+.lang-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.lang-option {
+  padding: 12px;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  background: var(--white);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gray);
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.lang-option.active {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+/* ============================================================
+   TEACHER: ATTENDANCE / GRADE ENTRY
+============================================================ */
+.student-row {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.student-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-light), var(--primary));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 800; color: var(--white);
+  flex-shrink: 0;
+}
+
+.student-info { flex: 1; min-width: 0; }
+.student-name {
+  font-size: 14px; font-weight: 800;
+  color: var(--dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.student-meta {
+  font-size: 11.5px;
+  color: var(--gray);
+  font-weight: 500;
+}
+
+.attendance-btns {
+  display: flex;
+  gap: 4px;
+}
+.att-btn {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  font-size: 16px;
+  border: 2px solid var(--border);
+  background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.att-btn.present.active { background: #D1FAE5; border-color: var(--success); }
+.att-btn.absent.active  { background: #FEE2E2; border-color: #EF4444; }
+.att-btn.late.active    { background: #FEF3C7; border-color: var(--warning); }
+
+.grade-input {
+  width: 60px;
+  padding: 8px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--dark);
+  background: var(--white);
+}
+.grade-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(200,16,46,0.1);
+}
+
+.save-fab {
+  position: fixed;
+  bottom: calc(100px + var(--safe-bottom));
+  right: 20px;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: var(--white);
+  font-size: 22px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 10px 24px rgba(200,16,46,0.4);
+  z-index: 95;
+  transition: transform 0.2s;
+}
+.save-fab:active { transform: scale(0.92); }
+
+/* Student list search */
+.search-box {
+  position: relative;
+  margin-bottom: 12px;
+}
+.search-box input {
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 14px;
+  background: var(--white);
+  font-weight: 500;
+}
+.search-box .search-icon {
+  position: absolute;
+  left: 16px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 /* ============================================================
@@ -750,38 +945,32 @@ input:focus { outline: none; }
   padding: 8px 4px;
   border-radius: 12px;
   color: var(--gray);
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.2px;
   transition: color 0.2s;
   position: relative;
 }
-
 .bottom-nav-item .nav-icon {
-  font-size: 22px;
+  font-size: 21px;
   line-height: 1;
   transition: transform 0.2s;
 }
-
-.bottom-nav-item.active {
-  color: var(--primary);
-}
-.bottom-nav-item.active .nav-icon {
-  transform: translateY(-1px) scale(1.08);
-}
+.bottom-nav-item.active { color: var(--primary); }
+.bottom-nav-item.active .nav-icon { transform: translateY(-1px) scale(1.08); }
 
 /* ============================================================
    NOTIFICATION & TOAST
 ============================================================ */
 .notification {
-  margin-top: 16px;
-  padding: 14px 16px;
+  margin-top: 14px;
+  padding: 13px 15px;
   background: linear-gradient(135deg, #ECFDF5, #D1FAE5);
   color: #065F46;
   border-left: 4px solid var(--success);
   border-radius: 12px;
   font-weight: 600;
-  font-size: 13.5px;
+  font-size: 13px;
   display: flex; align-items: flex-start; gap: 10px;
   animation: slideDown 0.4s ease;
 }
@@ -798,15 +987,15 @@ input:focus { outline: none; }
   transform: translateX(-50%) translateY(200px);
   background: var(--dark);
   color: var(--white);
-  padding: 13px 22px;
+  padding: 12px 20px;
   border-radius: 14px;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 700;
   box-shadow: 0 20px 50px rgba(0,0,0,0.25);
   z-index: 1000;
   transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
   max-width: calc(100% - 32px);
-  white-space: nowrap;
+  text-align: center;
 }
 .toast.show { transform: translateX(-50%) translateY(0); }
 .toast.success { background: linear-gradient(135deg, #059669, #10B981); }
@@ -817,12 +1006,12 @@ input:focus { outline: none; }
 ============================================================ */
 @media (max-width: 360px) {
   .page-content { padding: 12px 12px calc(96px + var(--safe-bottom)); }
-  .lesson-card { padding: 14px; gap: 12px; }
-  .lesson-time { min-width: 46px; }
-  .lesson-time .time-start { font-size: 14px; }
-  .lesson-time .time-end { font-size: 12px; }
-  .lesson-subject { font-size: 14px; }
-  .info-row { font-size: 12.5px; }
+  .lesson-card { padding: 12px; gap: 10px; }
+  .lesson-time { min-width: 44px; }
+  .lesson-time .time-start { font-size: 13.5px; }
+  .lesson-time .time-end { font-size: 11.5px; }
+  .lesson-subject { font-size: 13.5px; }
+  .info-row { font-size: 11.5px; }
 }
 </style>
 </head>
@@ -838,9 +1027,25 @@ input:focus { outline: none; }
   </div>
 
   <div class="login-card" id="loginCard">
+    <!-- Language switch -->
+    <div class="lang-switch">
+      <button class="lang-btn active" data-lang="kk">ҚАЗ</button>
+      <button class="lang-btn" data-lang="ru">РУС</button>
+    </div>
+
     <div class="logo-circle">🎓</div>
-    <h1>Student App</h1>
-    <p class="subtitle">Университет порталы</p>
+    <h1 id="loginTitle">University App</h1>
+    <p class="subtitle" id="loginSubtitle">Университет порталы</p>
+
+    <!-- Рөл таңдау -->
+    <div class="role-selector">
+      <button class="role-btn active" data-role="student" id="roleStudent">
+        🎓 <span data-i18n="roleStudent">Студент</span>
+      </button>
+      <button class="role-btn" data-role="teacher" id="roleTeacher">
+        👨‍🏫 <span data-i18n="roleTeacher">Оқытушы</span>
+      </button>
+    </div>
 
     <form id="loginForm" autocomplete="off" novalidate>
       <div class="input-group">
@@ -851,13 +1056,13 @@ input:focus { outline: none; }
         <span class="input-icon">🔒</span>
         <input type="password" id="password" placeholder="Құпия сөз" autocomplete="off">
       </div>
-      <button type="submit" class="btn-primary" id="loginBtn">Кіру</button>
+      <button type="submit" class="btn-primary" id="loginBtn" data-i18n="loginBtn">Кіру</button>
     </form>
 
     <p id="errorMsg" class="error-msg"></p>
 
-    <div class="hint-box">
-      💡 Тестілеу: <b>student</b> / <b>1234</b>
+    <div class="hint-box" id="hintBox">
+      💡 <span data-i18n="hint">Тестілеу</span>: <b id="hintCred">student / 1234</b>
     </div>
   </div>
 </div>
@@ -867,128 +1072,131 @@ input:focus { outline: none; }
 ============================================================ -->
 <div id="appView">
 
-  <!-- TOP BAR -->
   <header class="topbar">
     <div class="topbar-left">
       <button class="icon-btn" id="backBtn" style="display:none;">←</button>
     </div>
-    <div class="topbar-title" id="topbarTitle">Кесте</div>
+    <div class="topbar-title" id="topbarTitle">—</div>
     <div class="topbar-right">
+      <button class="icon-btn" id="langToggleTop" title="Тіл">🌐</button>
       <button class="icon-btn" id="headerLogout" title="Шығу">🚪</button>
     </div>
   </header>
 
-  <!-- PAGES -->
   <main class="page-content">
 
-    <!-- ============ БАСТЫ ============ -->
+    <!-- ============ БАСТЫ БЕТ ============ -->
     <section class="page" id="page-home">
+      <div class="role-bar">
+        <div class="role-icon" id="roleBarIcon">🎓</div>
+        <div class="role-info">
+          <span id="roleBarText">Студент</span>
+          <small id="roleBarSub">Активті режим</small>
+        </div>
+      </div>
+
       <div class="hero-card">
         <h2 id="heroGreeting">Қайырлы күн! 👋</h2>
-        <p id="heroName">Асқар Нұрлан • IT-21</p>
+        <p id="heroName">—</p>
       </div>
 
       <div class="section-title">
-        <span>Бүгінгі сабақтар</span>
-        <span style="font-size:12px;color:var(--gray);font-weight:600" id="todayCount">—</span>
+        <span id="todayTitle">Бүгінгі сабақтар</span>
+        <span class="count" id="todayCount">—</span>
       </div>
       <div id="todayPreview"></div>
 
-      <div class="section-title">Жылдам әрекеттер</div>
-      <div class="quick-grid">
-        <div class="quick-card" data-goto="schedule">
-          <div class="q-icon">📅</div>
-          <div class="q-text">
-            <div class="q-title">Кесте</div>
-            <div class="q-sub">Апталық</div>
-          </div>
-        </div>
-        <div class="quick-card" data-goto="grades">
-          <div class="q-icon">📊</div>
-          <div class="q-text">
-            <div class="q-title">Бағалар</div>
-            <div class="q-sub">Үлгерім</div>
-          </div>
-        </div>
+      <div class="section-title" id="quickTitle">Жылдам әрекеттер</div>
+      <div class="quick-grid" id="quickGrid">
+        <!-- Dynamically filled -->
       </div>
     </section>
 
-    <!-- ============ КЕСТЕ ============ -->
+    <!-- ============ КЕСТЕ (STUDENT) ============ -->
     <section class="page active" id="page-schedule">
-      <!-- Tabs: Занятия / Экзамены / ИГА -->
       <div class="tabs-row">
-        <button class="tab-pill active" data-tab="classes">Сабақтар</button>
-        <button class="tab-pill" data-tab="exams">Емтихандар</button>
-        <button class="tab-pill" data-tab="iga">ҚИА</button>
-        <button class="filter-btn" title="Сүзгі">▼</button>
+        <button class="tab-pill active" data-tab="classes" data-i18n="tabClasses">Сабақтар</button>
+        <button class="tab-pill" data-tab="exams" data-i18n="tabExams">Емтихандар</button>
+        <button class="tab-pill" data-tab="iga" data-i18n="tabIGA">ҚИА</button>
       </div>
 
-      <!-- Day strip -->
       <div class="day-strip" id="dayStrip"></div>
-
-      <!-- Lessons list -->
       <div id="lessonsList"></div>
     </section>
 
-    <!-- ============ БАҒАЛАР ============ -->
+    <!-- ============ БАҒАЛАР (STUDENT) ============ -->
     <section class="page" id="page-grades">
       <div class="grades-summary" id="gradesSummary"></div>
       <div id="gradesList"></div>
       <div id="notification" class="notification hidden"></div>
     </section>
 
+    <!-- ============ ЖУРНАЛ (TEACHER) ============ -->
+    <section class="page" id="page-journal">
+      <div class="tabs-row">
+        <button class="tab-pill active" data-jtab="attendance" data-i18n="tabAttendance">Қатысу</button>
+        <button class="tab-pill" data-jtab="entry" data-i18n="tabGradeEntry">Баға қою</button>
+      </div>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="studentSearch" placeholder="Студентті іздеу...">
+      </div>
+
+      <div id="journalList"></div>
+      <button class="save-fab" id="saveFab" title="Сақтау">✓</button>
+    </section>
+
     <!-- ============ ПРОФИЛЬ ============ -->
     <section class="page" id="page-profile">
       <div class="profile-hero">
-        <div class="profile-avatar-lg">👤</div>
-        <h2 id="heroName2">Студент</h2>
-        <p class="group-info" id="heroGroup">Топ: —</p>
+        <div class="profile-avatar-lg" id="profileAvatar">👤</div>
+        <h2 id="heroName2">—</h2>
+        <p class="group-info" id="heroGroup">—</p>
+        <span class="role-badge-pill" id="roleBadge">СТУДЕНТ</span>
       </div>
 
       <div class="form-card">
         <form id="profileForm" novalidate>
           <div class="form-row">
-            <label>👤 Аты-жөні</label>
+            <label data-i18n="lblFullName">👤 Аты-жөні</label>
             <input type="text" id="fullName" placeholder="Аты-жөніңіз">
           </div>
           <div class="form-row">
-            <label>📧 Email</label>
+            <label data-i18n="lblEmail">📧 Email</label>
             <input type="email" id="email" placeholder="email@university.kz">
           </div>
           <div class="form-row">
-            <label>📱 Телефон</label>
+            <label data-i18n="lblPhone">📱 Телефон</label>
             <input type="tel" id="phone" placeholder="+7 700 000 0000">
           </div>
-          <div class="form-row">
-            <label>🎓 Топ</label>
+          <div class="form-row" id="groupRow">
+            <label data-i18n="lblGroup">🎓 Топ</label>
             <input type="text" id="group" placeholder="IT-21">
           </div>
-          <button type="submit" class="btn-primary">Сақтау</button>
+          <div class="form-row" id="deptRow" style="display:none;">
+            <label data-i18n="lblDept">🏛 Кафедра</label>
+            <input type="text" id="department" placeholder="Информатика">
+          </div>
+          <button type="submit" class="btn-primary" data-i18n="saveBtn">Сақтау</button>
         </form>
         <p id="saveMsg" class="success-msg"></p>
+      </div>
+
+      <div class="lang-section">
+        <h3 data-i18n="languageTitle">Интерфейс тілі</h3>
+        <div class="lang-options">
+          <button class="lang-option active" data-lang="kk">🇰🇿 Қазақша</button>
+          <button class="lang-option" data-lang="ru">🇷🇺 Русский</button>
+        </div>
       </div>
     </section>
 
   </main>
 
   <!-- BOTTOM NAV -->
-  <nav class="bottom-nav">
-    <button class="bottom-nav-item" data-nav="home">
-      <span class="nav-icon">🏠</span>
-      <span>Басты</span>
-    </button>
-    <button class="bottom-nav-item active" data-nav="schedule">
-      <span class="nav-icon">📅</span>
-      <span>Кесте</span>
-    </button>
-    <button class="bottom-nav-item" data-nav="grades">
-      <span class="nav-icon">📊</span>
-      <span>Бағалар</span>
-    </button>
-    <button class="bottom-nav-item" data-nav="profile">
-      <span class="nav-icon">👤</span>
-      <span>Профиль</span>
-    </button>
+  <nav class="bottom-nav" id="bottomNav">
+    <!-- Dynamically filled based on role -->
   </nav>
 </div>
 
@@ -1018,198 +1226,272 @@ input:focus { outline: none; }
   }
 
   /* ============================================================
-     ДЕРЕКТЕР — КЕСТЕ (Kaitesin стилінде)
+     ТІЛДЕР (i18n)
+  ============================================================ */
+  const I18N = {
+    kk: {
+      loginTitle: 'University App',
+      loginSubtitle: 'Университет порталы',
+      roleStudent: 'Студент',
+      roleTeacher: 'Оқытушы',
+      loginBtn: 'Кіру',
+      hint: 'Тестілеу',
+      // Navigation
+      navHome: 'Басты',
+      navSchedule: 'Кесте',
+      navGrades: 'Бағалар',
+      navJournal: 'Журнал',
+      navProfile: 'Профиль',
+      // Page titles
+      pageHome: 'Басты',
+      pageSchedule: 'Кесте',
+      pageGrades: 'Бағалар',
+      pageJournal: 'Журнал',
+      pageProfile: 'Профиль',
+      // Tabs
+      tabClasses: 'Сабақтар',
+      tabExams: 'Емтихандар',
+      tabIGA: 'ҚИА',
+      tabAttendance: 'Қатысу',
+      tabGradeEntry: 'Баға қою',
+      // Home
+      greetMorning: 'Қайырлы таң!',
+      greetDay: 'Қайырлы күн!',
+      greetEvening: 'Қайырлы кеш!',
+      todayTitle: 'Бүгінгі сабақтар',
+      todayTitleTeacher: 'Бүгінгі жұптар',
+      quickTitle: 'Жылдам әрекеттер',
+      quickSchedule: 'Кесте',
+      quickScheduleSub: 'Апталық',
+      quickGrades: 'Бағалар',
+      quickGradesSub: 'Үлгерім',
+      quickJournal: 'Журнал',
+      quickJournalSub: 'Қатысу & баға',
+      quickProfile: 'Профиль',
+      quickProfileSub: 'Жеке деректер',
+      noLessonsToday: 'Бүгін сабақ жоқ',
+      lessonsCount: 'сабақ',
+      // Role
+      roleActiveMode: 'Активті режим',
+      roleBadgeStudent: 'СТУДЕНТ',
+      roleBadgeTeacher: 'ОҚЫТУШЫ',
+      // Grades
+      gpa: 'GPA',
+      credits: 'Кредит',
+      average: 'Орташа',
+      // Profile
+      lblFullName: '👤 Аты-жөні',
+      lblEmail: '📧 Email',
+      lblPhone: '📱 Телефон',
+      lblGroup: '🎓 Топ',
+      lblDept: '🏛 Кафедра',
+      saveBtn: 'Сақтау',
+      saved: '✅ Мәліметтер сәті сақталды!',
+      languageTitle: 'Интерфейс тілі',
+      // Journal
+      searchStudent: 'Студентті іздеу...',
+      present: 'Келді',
+      absent: 'Келмеді',
+      late: 'Кешікті',
+      // Toasts
+      welcome: 'Қош келдіңіз! 👋',
+      loggedOut: 'Жүйеден шықтыңыз',
+      profileUpdated: 'Профиль жаңартылды ✅',
+      journalSaved: 'Журнал сәтті сақталды ✅',
+      // Login errors
+      errEmpty: '⚠️ Барлық өрісті толтырыңыз!',
+      errWrong: '❌ Қате логин немесе құпия сөз!',
+      // Days
+      days: {
+        'Дүйсенбі': 'Дс', 'Сейсенбі': 'Сс', 'Сәрсенбі': 'Ср',
+        'Бейсенбі': 'Бс', 'Жұма': 'Жм', 'Сенбі': 'Сб'
+      },
+      daysFull: ['Дүйсенбі','Сейсенбі','Сәрсенбі','Бейсенбі','Жұма','Сенбі','Жексенбі']
+    },
+    ru: {
+      loginTitle: 'University App',
+      loginSubtitle: 'Университетский портал',
+      roleStudent: 'Студент',
+      roleTeacher: 'Преподаватель',
+      loginBtn: 'Войти',
+      hint: 'Тестирование',
+      navHome: 'Главная',
+      navSchedule: 'Расписание',
+      navGrades: 'Оценки',
+      navJournal: 'Журнал',
+      navProfile: 'Профиль',
+      pageHome: 'Главная',
+      pageSchedule: 'Расписание',
+      pageGrades: 'Оценки',
+      pageJournal: 'Журнал',
+      pageProfile: 'Профиль',
+      tabClasses: 'Занятия',
+      tabExams: 'Экзамены',
+      tabIGA: 'ИГА',
+      tabAttendance: 'Посещаемость',
+      tabGradeEntry: 'Выставление оценок',
+      greetMorning: 'Доброе утро!',
+      greetDay: 'Добрый день!',
+      greetEvening: 'Добрый вечер!',
+      todayTitle: 'Занятия сегодня',
+      todayTitleTeacher: 'Пары сегодня',
+      quickTitle: 'Быстрые действия',
+      quickSchedule: 'Расписание',
+      quickScheduleSub: 'Неделя',
+      quickGrades: 'Оценки',
+      quickGradesSub: 'Успеваемость',
+      quickJournal: 'Журнал',
+      quickJournalSub: 'Посещаемость и оценки',
+      quickProfile: 'Профиль',
+      quickProfileSub: 'Личные данные',
+      noLessonsToday: 'Сегодня занятий нет',
+      lessonsCount: 'занятий',
+      roleActiveMode: 'Активный режим',
+      roleBadgeStudent: 'СТУДЕНТ',
+      roleBadgeTeacher: 'ПРЕПОДАВАТЕЛЬ',
+      gpa: 'GPA',
+      credits: 'Кредиты',
+      average: 'Средний',
+      lblFullName: '👤 ФИО',
+      lblEmail: '📧 Email',
+      lblPhone: '📱 Телефон',
+      lblGroup: '🎓 Группа',
+      lblDept: '🏛 Кафедра',
+      saveBtn: 'Сохранить',
+      saved: '✅ Данные успешно сохранены!',
+      languageTitle: 'Язык интерфейса',
+      searchStudent: 'Поиск студента...',
+      present: 'Присутствовал',
+      absent: 'Отсутствовал',
+      late: 'Опоздал',
+      welcome: 'Добро пожаловать! 👋',
+      loggedOut: 'Вы вышли из системы',
+      profileUpdated: 'Профиль обновлён ✅',
+      journalSaved: 'Журнал успешно сохранён ✅',
+      errEmpty: '⚠️ Заполните все поля!',
+      errWrong: '❌ Неверный логин или пароль!',
+      days: {
+        'Дүйсенбі': 'Пн', 'Сейсенбі': 'Вт', 'Сәрсенбі': 'Ср',
+        'Бейсенбі': 'Чт', 'Жұма': 'Пт', 'Сенбі': 'Сб'
+      },
+      daysFull: ['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота','Воскресенье']
+    }
+  };
+
+  let currentLang = safeGet('lang') || 'kk';
+  let currentRole = safeGet('role') || 'student';
+
+  function t(key) {
+    return (I18N[currentLang] && I18N[currentLang][key]) || key;
+  }
+
+  function applyTranslations() {
+    document.documentElement.lang = currentLang;
+
+    // Login page
+    $('#loginTitle').textContent = t('loginTitle');
+    $('#loginSubtitle').textContent = t('loginSubtitle');
+    $('#loginBtn').textContent = t('loginBtn');
+    $('#username').placeholder = currentLang === 'kk' ? 'Логин' : 'Логин';
+    $('#password').placeholder = currentLang === 'kk' ? 'Құпия сөз' : 'Пароль';
+
+    // Role buttons
+    $('#roleStudent').querySelector('span').textContent = t('roleStudent');
+    $('#roleTeacher').querySelector('span').textContent = t('roleTeacher');
+
+    // Hint
+    $('#hintBox').innerHTML = `💡 ${t('hint')}: <b id="hintCred">${currentRole === 'student' ? 'student / 1234' : 'teacher / 1234'}</b>`;
+
+    // Lang buttons
+    $$('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === currentLang));
+    $$('.lang-option').forEach(b => b.classList.toggle('active', b.dataset.lang === currentLang));
+
+    // Tabs i18n
+    $$('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      el.textContent = t(key);
+    });
+
+    // Bottom nav (re-render)
+    renderBottomNav();
+
+    // Page title
+    updateTopbarTitle();
+
+    // Placeholders
+    const search = $('#studentSearch');
+    if (search) search.placeholder = t('searchStudent');
+  }
+
+  /* ============================================================
+     ДЕРЕКТЕР — КЕСТЕ
   ============================================================ */
   const SCHEDULE = {
     'Дүйсенбі': [
-      {
-        start: '08:55', end: '09:45',
-        subject: 'Эксперттік жүйелер және жасанды интеллект негіздері',
-        building: '№7 оқу корпусы', room: '219 кабинет',
-        group: 'Эксперттік жүйелер және ЖИ негіздері, "Д"',
-        type: 'Дәрістер',
-        teacher: 'Карменова М.А.'
-      },
-      {
-        start: '09:50', end: '10:40',
-        subject: 'Деректер қорын басқару жүйелері',
-        building: '№7 оқу корпусы', room: '213 кабинет',
-        group: 'Деректер қорын басқару жүйелері, "Д"',
-        type: 'Дәрістер',
-        teacher: 'Жантасова Ж.З.'
-      },
-      {
-        start: '10:45', end: '11:35',
-        subject: 'Веб-бағдарламалау',
-        building: '№7 оқу корпусы', room: '312 кабинет',
-        group: 'Веб-бағдарламалау, "П"',
-        type: 'Практикалық',
-        teacher: 'Нұрланұлы А.'
-      },
-      {
-        start: '12:50', end: '13:40',
-        subject: 'Компьютерлік жүйелердегі ақпаратты қорғау',
-        building: '№7 оқу корпусы', room: '405 кабинет',
-        group: 'Ақпаратты қорғау, "Д"',
-        type: 'Дәрістер',
-        teacher: 'Қайдарова М.А.'
-      }
+      { start: '08:55', end: '09:45', subject: 'Эксперттік жүйелер және ЖИ негіздері',
+        building: '№7 корпус', room: '219', group: 'ЭЖ және ЖИ, "Д"', type: 'Дәрістер', teacher: 'Карменова М.А.' },
+      { start: '09:50', end: '10:40', subject: 'Деректер қорын басқару жүйелері',
+        building: '№7 корпус', room: '213', group: 'ДҚБЖ, "Д"', type: 'Дәрістер', teacher: 'Жантасова Ж.З.' },
+      { start: '10:45', end: '11:35', subject: 'Веб-бағдарламалау',
+        building: '№7 корпус', room: '312', group: 'Веб-бағдарламалау, "П"', type: 'Практикалық', teacher: 'Нұрланұлы А.' },
+      { start: '12:50', end: '13:40', subject: 'Компьютерлік жүйелердегі ақпаратты қорғау',
+        building: '№7 корпус', room: '405', group: 'Ақпаратты қорғау, "Д"', type: 'Дәрістер', teacher: 'Қайдарова М.А.' }
     ],
     'Сейсенбі': [
-      {
-        start: '08:55', end: '09:45',
-        subject: 'Алгоритмдер және деректер құрылымы',
-        building: '№7 оқу корпусы', room: '301 кабинет',
-        group: 'Алгоритмдер, "Д"',
-        type: 'Дәрістер',
-        teacher: 'Тұрсынов Е.М.'
-      },
-      {
-        start: '09:50', end: '10:40',
-        subject: 'Деректер қоры',
-        building: 'IT-орталық', room: '418 кабинет',
-        group: 'Деректер қоры, "З"',
-        type: 'Зертханалық',
-        teacher: 'Әбдіраш Д.Қ.'
-      },
-      {
-        start: '10:45', end: '11:35',
-        subject: 'Математикалық анализ',
-        building: '№1 оқу корпусы', room: '301 кабинет',
-        group: 'Математикалық анализ, "П"',
-        type: 'Практикалық',
-        teacher: 'Ахметов Н.Б.'
-      }
+      { start: '08:55', end: '09:45', subject: 'Алгоритмдер және деректер құрылымы',
+        building: '№7 корпус', room: '301', group: 'Алгоритмдер, "Д"', type: 'Дәрістер', teacher: 'Тұрсынов Е.М.' },
+      { start: '09:50', end: '10:40', subject: 'Деректер қоры',
+        building: 'IT-орталық', room: '418', group: 'ДҚ, "З"', type: 'Зертханалық', teacher: 'Әбдіраш Д.Қ.' },
+      { start: '10:45', end: '11:35', subject: 'Математикалық анализ',
+        building: '№1 корпус', room: '301', group: 'МА, "П"', type: 'Практикалық', teacher: 'Ахметов Н.Б.' }
     ],
     'Сәрсенбі': [
-      {
-        start: '08:55', end: '09:45',
-        subject: 'Физика',
-        building: '№2 оқу корпусы', room: '110 кабинет',
-        group: 'Физика, "Д"',
-        type: 'Дәрістер',
-        teacher: 'Серікбаева Г.Т.'
-      },
-      {
-        start: '09:50', end: '10:40',
-        subject: 'Веб-технологиялар',
-        building: 'IT-орталық', room: '407 кабинет',
-        group: 'Веб-технологиялар, "З"',
-        type: 'Зертханалық',
-        teacher: 'Жұмабаев А.С.'
-      },
-      {
-        start: '10:45', end: '11:35',
-        subject: 'Қазақстан тарихы',
-        building: '№1 оқу корпусы', room: '202 кабинет',
-        group: 'Тарих, "Д"',
-        type: 'Дәрістер',
-        teacher: 'Оспанова Л.Т.'
-      },
-      {
-        start: '12:50', end: '13:40',
-        subject: 'Ағылшын тілі',
-        building: '№3 оқу корпусы', room: '108 кабинет',
-        group: 'Ағылшын тілі, "П"',
-        type: 'Практикалық',
-        teacher: 'Johnson M.'
-      }
+      { start: '08:55', end: '09:45', subject: 'Физика',
+        building: '№2 корпус', room: '110', group: 'Физика, "Д"', type: 'Дәрістер', teacher: 'Серікбаева Г.Т.' },
+      { start: '09:50', end: '10:40', subject: 'Веб-технологиялар',
+        building: 'IT-орталық', room: '407', group: 'ВТ, "З"', type: 'Зертханалық', teacher: 'Жұмабаев А.С.' },
+      { start: '10:45', end: '11:35', subject: 'Қазақстан тарихы',
+        building: '№1 корпус', room: '202', group: 'Тарих, "Д"', type: 'Дәрістер', teacher: 'Оспанова Л.Т.' },
+      { start: '12:50', end: '13:40', subject: 'Ағылшын тілі',
+        building: '№3 корпус', room: '108', group: 'Ағылшын, "П"', type: 'Практикалық', teacher: 'Johnson M.' }
     ],
     'Бейсенбі': [
-      {
-        start: '08:55', end: '09:45',
-        subject: 'Алгоритмдер және деректер құрылымы',
-        building: 'IT-орталық', room: '312 кабинет',
-        group: 'Алгоритмдер, "П"',
-        type: 'Практикалық',
-        teacher: 'Тұрсынов Е.М.'
-      },
-      {
-        start: '09:50', end: '10:40',
-        subject: 'Деректер қоры',
-        building: 'IT-орталық', room: '305 кабинет',
-        group: 'Деректер қоры, "Д"',
-        type: 'Дәрістер',
-        teacher: 'Әбдіраш Д.Қ.'
-      },
-      {
-        start: '10:45', end: '11:35',
-        subject: 'Бағдарламалау негіздері',
-        building: 'IT-орталық', room: '412 кабинет',
-        group: 'Бағдарламалау, "П"',
-        type: 'Практикалық',
-        teacher: 'Нұрланұлы А.'
-      }
+      { start: '08:55', end: '09:45', subject: 'Алгоритмдер және деректер құрылымы',
+        building: 'IT-орталық', room: '312', group: 'Алгоритмдер, "П"', type: 'Практикалық', teacher: 'Тұрсынов Е.М.' },
+      { start: '09:50', end: '10:40', subject: 'Деректер қоры',
+        building: 'IT-орталық', room: '305', group: 'ДҚ, "Д"', type: 'Дәрістер', teacher: 'Әбдіраш Д.Қ.' },
+      { start: '10:45', end: '11:35', subject: 'Бағдарламалау негіздері',
+        building: 'IT-орталық', room: '412', group: 'БН, "П"', type: 'Практикалық', teacher: 'Нұрланұлы А.' }
     ],
     'Жұма': [
-      {
-        start: '08:55', end: '09:45',
-        subject: 'Веб-технологиялар',
-        building: 'IT-орталық', room: '301 кабинет',
-        group: 'Веб-технологиялар, "Д"',
-        type: 'Дәрістер',
-        teacher: 'Жұмабаев А.С.'
-      },
-      {
-        start: '09:50', end: '10:40',
-        subject: 'Математикалық анализ',
-        building: '№1 оқу корпусы', room: '301 кабинет',
-        group: 'Математикалық анализ, "П"',
-        type: 'Практикалық',
-        teacher: 'Ахметов Н.Б.'
-      },
-      {
-        start: '10:45', end: '11:35',
-        subject: 'Физика',
-        building: '№2 оқу корпусы', room: '215 кабинет',
-        group: 'Физика, "З"',
-        type: 'Зертханалық',
-        teacher: 'Серікбаева Г.Т.'
-      }
+      { start: '08:55', end: '09:45', subject: 'Веб-технологиялар',
+        building: 'IT-орталық', room: '301', group: 'ВТ, "Д"', type: 'Дәрістер', teacher: 'Жұмабаев А.С.' },
+      { start: '09:50', end: '10:40', subject: 'Математикалық анализ',
+        building: '№1 корпус', room: '301', group: 'МА, "П"', type: 'Практикалық', teacher: 'Ахметов Н.Б.' },
+      { start: '10:45', end: '11:35', subject: 'Физика',
+        building: '№2 корпус', room: '215', group: 'Физика, "З"', type: 'Зертханалық', teacher: 'Серікбаева Г.Т.' }
     ],
     'Сенбі': []
   };
 
-  const DAY_SHORT = {
-    'Дүйсенбі': 'Дс', 'Сейсенбі': 'Сс', 'Сәрсенбі': 'Ср',
-    'Бейсенбі': 'Бс', 'Жұма': 'Жм', 'Сенбі': 'Сб'
-  };
   const DAY_ORDER = ['Дүйсенбі', 'Сейсенбі', 'Сәрсенбі', 'Бейсенбі', 'Жұма', 'Сенбі'];
 
-  /* ---------- Емтихандар ---------- */
   const EXAMS = [
-    {
-      date: '15.01.2026', start: '09:00',
-      subject: 'Деректер қорын басқару жүйелері',
-      building: '№7 корпус', room: '213',
-      teacher: 'Жантасова Ж.З.'
-    },
-    {
-      date: '17.01.2026', start: '11:00',
-      subject: 'Эксперттік жүйелер және ЖИ негіздері',
-      building: '№7 корпус', room: '219',
-      teacher: 'Карменова М.А.'
-    },
-    {
-      date: '20.01.2026', start: '09:00',
-      subject: 'Компьютерлік жүйелердегі ақпаратты қорғау',
-      building: '№7 корпус', room: '405',
-      teacher: 'Қайдарова М.А.'
-    }
+    { date: '15.01.2026', start: '09:00', subject: 'Деректер қорын басқару жүйелері',
+      building: '№7 корпус', room: '213', teacher: 'Жантасова Ж.З.' },
+    { date: '17.01.2026', start: '11:00', subject: 'Эксперттік жүйелер және ЖИ негіздері',
+      building: '№7 корпус', room: '219', teacher: 'Карменова М.А.' },
+    { date: '20.01.2026', start: '09:00', subject: 'Компьютерлік жүйелердегі ақпаратты қорғау',
+      building: '№7 корпус', room: '405', teacher: 'Қайдарова М.А.' }
   ];
 
-  /* ---------- ҚИА ---------- */
   const IGA = [
-    {
-      date: '25.01.2026', start: '10:00',
-      subject: 'Кешенді мемлекеттік емтихан',
-      building: 'Актовый зал', room: '—',
-      teacher: 'Комиссия'
-    }
+    { date: '25.01.2026', start: '10:00', subject: 'Кешенді мемлекеттік емтихан',
+      building: 'Актовый зал', room: '—', teacher: 'Комиссия' }
   ];
 
   /* ============================================================
-     ДЕРЕКТЕР — БАҒАЛАР
+     ДЕРЕКТЕР — БАҒАЛАР (STUDENT)
   ============================================================ */
   const GRADES = [
     { subject: 'Математикалық анализ', teacher: 'Ахметов Н.Б.', r1: 88, r2: 92, exam: 90, total: 'A', credits: 5 },
@@ -1223,10 +1505,28 @@ input:focus { outline: none; }
   ];
 
   /* ============================================================
+     ДЕРЕКТЕР — СТУДЕНТТЕР (TEACHER)
+  ============================================================ */
+  const STUDENTS = [
+    { id: 1, name: 'Асқар Нұрлан', group: 'IT-21' },
+    { id: 2, name: 'Айгүл Сейітқали', group: 'IT-21' },
+    { id: 3, name: 'Дәурен Бекмұратов', group: 'IT-21' },
+    { id: 4, name: 'Жанна Әбенова', group: 'IT-21' },
+    { id: 5, name: 'Ержан Қуаныш', group: 'IT-21' },
+    { id: 6, name: 'Мадина Серікбай', group: 'IT-22' },
+    { id: 7, name: 'Нұрсұлтан Оспанов', group: 'IT-22' },
+    { id: 8, name: 'Сая Қайрат', group: 'IT-22' },
+    { id: 9, name: 'Темірлан Жақсылық', group: 'IT-22' },
+    { id: 10, name: 'Ұлжан Мұрат', group: 'IT-22' }
+  ];
+
+  /* ============================================================
      АУТЕНТИФИКАЦИЯ
   ============================================================ */
-  const DEMO_USER = 'student';
-  const DEMO_PASS = '1234';
+  const USERS = {
+    student: { pass: '1234', role: 'student', name: 'Асқар Нұрлан' },
+    teacher: { pass: '1234', role: 'teacher', name: 'Карменова М.А.' }
+  };
 
   const isLoggedIn = () => safeGet('loggedIn') === 'true';
 
@@ -1238,9 +1538,38 @@ input:focus { outline: none; }
   function showApp() {
     $('#loginView').style.display = 'none';
     $('#appView').classList.add('active');
+    renderBottomNav();
     renderAll();
   }
 
+  /* Role selection */
+  $$('.role-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      $$('.role-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      currentRole = this.dataset.role;
+      const hint = $('#hintCred');
+      if (hint) hint.textContent = currentRole === 'student' ? 'student / 1234' : 'teacher / 1234';
+    });
+  });
+
+  /* Language switch */
+  function switchLang(lang) {
+    currentLang = lang;
+    safeSet('lang', lang);
+    applyTranslations();
+  }
+
+  $$('.lang-btn, .lang-option').forEach(btn => {
+    btn.addEventListener('click', () => switchLang(btn.dataset.lang));
+  });
+
+  $('#langToggleTop').addEventListener('click', () => {
+    switchLang(currentLang === 'kk' ? 'ru' : 'kk');
+    showToast(currentLang === 'kk' ? 'Тіл ауыстырылды: Қазақша' : 'Язык изменён: Русский');
+  });
+
+  /* Login */
   $('#loginForm').addEventListener('submit', function (e) {
     e.preventDefault();
     const user = $('#username').value.trim();
@@ -1248,19 +1577,27 @@ input:focus { outline: none; }
     const err = $('#errorMsg');
 
     if (!user || !pass) {
-      err.textContent = '⚠️ Барлық өрісті толтырыңыз!';
+      err.textContent = t('errEmpty');
       $('#loginCard').classList.add('shake');
       setTimeout(() => $('#loginCard').classList.remove('shake'), 500);
       return;
     }
 
-    if (user === DEMO_USER && pass === DEMO_PASS) {
+    const u = USERS[user];
+    if (u && u.pass === pass && u.role === currentRole) {
       err.textContent = '';
       safeSet('loggedIn', 'true');
       safeSet('username', user);
-      setTimeout(() => { showApp(); showToast('Қош келдіңіз! 👋'); }, 250);
+      safeSet('role', u.role);
+      safeSet('displayName', u.name);
+      currentRole = u.role;
+
+      setTimeout(() => {
+        showApp();
+        showToast(t('welcome'));
+      }, 200);
     } else {
-      err.textContent = '❌ Қате логин немесе құпия сөз!';
+      err.textContent = t('errWrong');
       $('#loginCard').classList.add('shake');
       setTimeout(() => $('#loginCard').classList.remove('shake'), 500);
     }
@@ -1269,41 +1606,74 @@ input:focus { outline: none; }
   function logout() {
     safeRemove('loggedIn');
     safeRemove('username');
+    safeRemove('displayName');
     showLogin();
     $('#username').value = '';
     $('#password').value = '';
     $('#errorMsg').textContent = '';
+    showToast(t('loggedOut'));
   }
 
   $('#headerLogout').addEventListener('click', logout);
 
   /* ============================================================
-     НАВИГАЦИЯ
+     НАВИГАЦИЯ / BOTTOM NAV
   ============================================================ */
-  const PAGE_TITLES = {
-    home: 'Басты',
-    schedule: 'Кесте',
-    grades: 'Бағалар',
-    profile: 'Профиль'
-  };
+  const NAV_STUDENT = [
+    { key: 'home', icon: '🏠', label: 'navHome' },
+    { key: 'schedule', icon: '📅', label: 'navSchedule' },
+    { key: 'grades', icon: '📊', label: 'navGrades' },
+    { key: 'profile', icon: '👤', label: 'navProfile' }
+  ];
+
+  const NAV_TEACHER = [
+    { key: 'home', icon: '🏠', label: 'navHome' },
+    { key: 'schedule', icon: '📅', label: 'navSchedule' },
+    { key: 'journal', icon: '📋', label: 'navJournal' },
+    { key: 'profile', icon: '👤', label: 'navProfile' }
+  ];
+
+  let currentPage = 'home';
+
+  function renderBottomNav() {
+    const nav = $('#bottomNav');
+    const items = currentRole === 'teacher' ? NAV_TEACHER : NAV_STUDENT;
+    nav.innerHTML = '';
+    items.forEach(item => {
+      const btn = document.createElement('button');
+      btn.className = 'bottom-nav-item' + (item.key === currentPage ? ' active' : '');
+      btn.dataset.nav = item.key;
+      btn.innerHTML = `
+        <span class="nav-icon">${item.icon}</span>
+        <span>${t(item.label)}</span>
+      `;
+      btn.addEventListener('click', () => navigateTo(item.key));
+      nav.appendChild(btn);
+    });
+  }
+
+  function updateTopbarTitle() {
+    const map = {
+      home: t('pageHome'),
+      schedule: t('pageSchedule'),
+      grades: t('pageGrades'),
+      journal: t('pageJournal'),
+      profile: t('pageProfile')
+    };
+    $('#topbarTitle').textContent = map[currentPage] || '';
+  }
 
   function navigateTo(target) {
+    currentPage = target;
     $$('.bottom-nav-item').forEach(b => b.classList.toggle('active', b.dataset.nav === target));
     $$('.page').forEach(p => p.classList.remove('active'));
     const page = $('#page-' + target);
     if (page) page.classList.add('active');
-    $('#topbarTitle').textContent = PAGE_TITLES[target] || '';
-    $('#notification').classList.add('hidden');
+    updateTopbarTitle();
+    const n = $('#notification');
+    if (n) n.classList.add('hidden');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-
-  $$('.bottom-nav-item').forEach(btn => {
-    btn.addEventListener('click', function () { navigateTo(this.dataset.nav); });
-  });
-
-  $$('[data-goto]').forEach(card => {
-    card.addEventListener('click', function () { navigateTo(this.dataset.goto); });
-  });
 
   /* ============================================================
      КЕСТЕ
@@ -1314,14 +1684,14 @@ input:focus { outline: none; }
   function getTodayKey() {
     const map = ['Дүйсенбі','Сейсенбі','Сәрсенбі','Бейсенбі','Жұма','Сенбі'];
     const idx = new Date().getDay();
-    if (idx === 0) return 'Дүйсенбі'; // Жексенбі
+    if (idx === 0) return 'Дүйсенбі';
     return map[idx - 1] || 'Дүйсенбі';
   }
 
   function renderSchedule() {
     // Tabs
     $$('.tab-pill').forEach(p => {
-      p.classList.toggle('active', p.dataset.tab === activeTab);
+      if (p.dataset.tab) p.classList.toggle('active', p.dataset.tab === activeTab);
     });
 
     // Day strip
@@ -1331,27 +1701,21 @@ input:focus { outline: none; }
       DAY_ORDER.forEach(day => {
         const chip = document.createElement('button');
         chip.className = 'day-chip' + (day === activeDay ? ' active' : '');
-        chip.innerHTML = `<span class="day-name">${DAY_SHORT[day]}</span><span class="day-num">${day.slice(0,1)}</span>`;
-        chip.addEventListener('click', () => {
-          activeDay = day;
-          renderSchedule();
-        });
+        chip.innerHTML = `<span class="day-name">${t('days')[day]}</span><span class="day-num">${day.slice(0,1)}</span>`;
+        chip.addEventListener('click', () => { activeDay = day; renderSchedule(); });
         strip.appendChild(chip);
       });
     }
 
-    // List
     const list = $('#lessonsList');
     list.innerHTML = '';
 
     if (activeTab === 'classes') {
       const lessons = SCHEDULE[activeDay] || [];
       if (lessons.length === 0) {
-        list.innerHTML = `
-          <div class="empty-state">
-            <div class="icon">🎉</div>
-            <p>Бұл күні сабақ жоқ</p>
-          </div>`;
+        list.innerHTML = `<div class="empty-state"><div class="icon">🎉</div><p>${
+          currentLang === 'kk' ? 'Бұл күні сабақ жоқ' : 'В этот день занятий нет'
+        }</p></div>`;
         return;
       }
       lessons.forEach((l, i) => list.appendChild(buildLessonCard(l, i)));
@@ -1374,22 +1738,10 @@ input:focus { outline: none; }
       <div class="lesson-body">
         <div class="lesson-subject">${l.subject}</div>
         <div class="lesson-info">
-          <div class="info-row">
-            <span class="info-icon">📍</span>
-            <span class="info-text">${l.building}, ${l.room}</span>
-          </div>
-          <div class="info-row">
-            <span class="info-icon">👥</span>
-            <span class="info-text">${l.group}</span>
-          </div>
-          <div class="info-row">
-            <span class="info-icon">📖</span>
-            <span class="info-text">${l.type}</span>
-          </div>
-          <div class="info-row">
-            <span class="info-icon">🎓</span>
-            <span class="info-text strong">— ${l.teacher}</span>
-          </div>
+          <div class="info-row"><span class="info-icon">📍</span><span class="info-text">${l.building}, ${l.room}</span></div>
+          <div class="info-row"><span class="info-icon">👥</span><span class="info-text">${l.group}</span></div>
+          <div class="info-row"><span class="info-icon">📖</span><span class="info-text">${l.type}</span></div>
+          <div class="info-row"><span class="info-icon">🎓</span><span class="info-text strong">— ${l.teacher}</span></div>
         </div>
       </div>
     `;
@@ -1412,15 +1764,16 @@ input:focus { outline: none; }
   }
 
   // Tab switch
-  $$('.tab-pill').forEach(p => {
-    p.addEventListener('click', function () {
-      activeTab = this.dataset.tab;
+  document.addEventListener('click', function (e) {
+    const pill = e.target.closest('.tab-pill[data-tab]');
+    if (pill) {
+      activeTab = pill.dataset.tab;
       renderSchedule();
-    });
+    }
   });
 
   /* ============================================================
-     БАҒАЛАР
+     БАҒАЛАР (STUDENT)
   ============================================================ */
   function renderGrades() {
     const gradePoint = { 'A': 4.0, 'A-': 3.67, 'B+': 3.33, 'B': 3.0, 'B-': 2.67, 'C+': 2.33 };
@@ -1433,21 +1786,9 @@ input:focus { outline: none; }
     const avg = Math.round(GRADES.reduce((s, g) => s + (g.r1 + g.r2 + g.exam) / 3, 0) / GRADES.length);
 
     $('#gradesSummary').innerHTML = `
-      <div class="summary-card gpa">
-        <div class="icon">🎯</div>
-        <div class="value">${gpa}</div>
-        <div class="label">GPA</div>
-      </div>
-      <div class="summary-card credits">
-        <div class="icon">📚</div>
-        <div class="value">${totalCredits}</div>
-        <div class="label">Кредит</div>
-      </div>
-      <div class="summary-card rank">
-        <div class="icon">📈</div>
-        <div class="value">${avg}</div>
-        <div class="label">Орташа</div>
-      </div>
+      <div class="summary-card gpa"><div class="icon">🎯</div><div class="value">${gpa}</div><div class="label">${t('gpa')}</div></div>
+      <div class="summary-card credits"><div class="icon">📚</div><div class="value">${totalCredits}</div><div class="label">${t('credits')}</div></div>
+      <div class="summary-card rank"><div class="icon">📈</div><div class="value">${avg}</div><div class="label">${t('average')}</div></div>
     `;
 
     const list = $('#gradesList');
@@ -1469,8 +1810,8 @@ input:focus { outline: none; }
         <div class="grade-scores">
           <div class="score-item"><div class="score-label">1-РК</div><div class="score-value">${g.r1}</div></div>
           <div class="score-item"><div class="score-label">2-РК</div><div class="score-value">${g.r2}</div></div>
-          <div class="score-item"><div class="score-label">Емтихан</div><div class="score-value">${g.exam}</div></div>
-          <div class="score-item best"><div class="score-label">Орташа</div><div class="score-value">${avgScore}</div></div>
+          <div class="score-item"><div class="score-label">${currentLang === 'kk' ? 'Емтихан' : 'Экзамен'}</div><div class="score-value">${g.exam}</div></div>
+          <div class="score-item best"><div class="score-label">${t('average')}</div><div class="score-value">${avgScore}</div></div>
         </div>
         <div class="progress-bar"><div class="progress-fill" style="width:${avgScore}%"></div></div>
       `;
@@ -1479,60 +1820,215 @@ input:focus { outline: none; }
 
     setTimeout(() => {
       const n = $('#notification');
-      n.innerHTML = '🔔 <div><b>Жаңа хабарлама:</b> Емтихан бағасы жарияланды — «Математикалық анализ»: <b>A</b></div>';
+      n.innerHTML = `🔔 <div><b>${currentLang === 'kk' ? 'Жаңа хабарлама' : 'Новое уведомление'}:</b> ${
+        currentLang === 'kk' ? 'Емтихан бағасы жарияланды' : 'Опубликована оценка за экзамен'
+      } — «Математикалық анализ»: <b>A</b></div>`;
       n.classList.remove('hidden');
     }, 2000);
   }
 
   /* ============================================================
+     ЖУРНАЛ (TEACHER)
+  ============================================================ */
+  let activeJournalTab = 'attendance';
+  let attendanceData = {};
+  let gradeEntryData = {};
+
+  function renderJournal() {
+    $$('[data-jtab]').forEach(p => {
+      p.classList.toggle('active', p.dataset.jtab === activeJournalTab);
+    });
+    renderJournalList();
+  }
+
+  function renderJournalList() {
+    const search = ($('#studentSearch').value || '').toLowerCase().trim();
+    const filtered = STUDENTS.filter(s =>
+      !search || s.name.toLowerCase().includes(search) || s.group.toLowerCase().includes(search)
+    );
+
+    const list = $('#journalList');
+    list.innerHTML = '';
+
+    if (filtered.length === 0) {
+      list.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><p>${
+        currentLang === 'kk' ? 'Ешкім табылмады' : 'Никого не найдено'
+      }</p></div>`;
+      return;
+    }
+
+    filtered.forEach((s, i) => {
+      const row = document.createElement('div');
+      row.className = 'student-row';
+      row.style.animationDelay = (i * 0.03) + 's';
+
+      const initials = s.name.split(' ').map(w => w[0]).slice(0,2).join('');
+
+      if (activeJournalTab === 'attendance') {
+        const status = attendanceData[s.id] || '';
+        row.innerHTML = `
+          <div class="student-avatar">${initials}</div>
+          <div class="student-info">
+            <div class="student-name">${s.name}</div>
+            <div class="student-meta">${s.group}</div>
+          </div>
+          <div class="attendance-btns">
+            <button class="att-btn present ${status === 'present' ? 'active' : ''}" data-id="${s.id}" data-status="present" title="${t('present')}">✓</button>
+            <button class="att-btn late ${status === 'late' ? 'active' : ''}" data-id="${s.id}" data-status="late" title="${t('late')}">⏱</button>
+            <button class="att-btn absent ${status === 'absent' ? 'active' : ''}" data-id="${s.id}" data-status="absent" title="${t('absent')}">✕</button>
+          </div>
+        `;
+      } else {
+        const val = gradeEntryData[s.id] || '';
+        row.innerHTML = `
+          <div class="student-avatar">${initials}</div>
+          <div class="student-info">
+            <div class="student-name">${s.name}</div>
+            <div class="student-meta">${s.group}</div>
+          </div>
+          <input type="number" min="0" max="100" class="grade-input" data-id="${s.id}" value="${val}" placeholder="0-100">
+        `;
+      }
+      list.appendChild(row);
+    });
+
+    // Attach events
+    list.querySelectorAll('.att-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const id = parseInt(this.dataset.id);
+        attendanceData[id] = this.dataset.status;
+        renderJournalList();
+      });
+    });
+
+    list.querySelectorAll('.grade-input').forEach(inp => {
+      inp.addEventListener('input', function () {
+        const id = parseInt(this.dataset.id);
+        let v = this.value;
+        if (v !== '') {
+          let n = parseInt(v);
+          if (isNaN(n)) n = 0;
+          if (n < 0) n = 0;
+          if (n > 100) n = 100;
+          if (n !== parseInt(v)) this.value = n;
+        }
+        gradeEntryData[id] = this.value;
+      });
+    });
+  }
+
+  $('#studentSearch').addEventListener('input', renderJournalList);
+
+  document.addEventListener('click', function (e) {
+    const pill = e.target.closest('.tab-pill[data-jtab]');
+    if (pill) {
+      activeJournalTab = pill.dataset.jtab;
+      renderJournal();
+    }
+  });
+
+  $('#saveFab').addEventListener('click', function () {
+    try {
+      safeSet('attendance', JSON.stringify(attendanceData));
+      safeSet('grades_entry', JSON.stringify(gradeEntryData));
+    } catch (e) {}
+    showToast(t('journalSaved'));
+  });
+
+  /* ============================================================
      БАСТЫ БЕТ
   ============================================================ */
   function renderHome() {
-    const days = ['Жексенбі','Дүйсенбі','Сейсенбі','Сәрсенбі','Бейсенбі','Жұма','Сенбі'];
-    const today = new Date().getDay();
     const hour = new Date().getHours();
-    let greet = 'Қайырлы күн!';
-    if (hour < 12) greet = 'Қайырлы таң!';
-    else if (hour < 18) greet = 'Қайырлы күн!';
-    else greet = 'Қайырлы кеш!';
+    let greetKey = 'greetDay';
+    if (hour < 12) greetKey = 'greetMorning';
+    else if (hour >= 18) greetKey = 'greetEvening';
 
     const profile = getProfileData();
-    $('#heroGreeting').textContent = greet + ' 👋';
-    $('#heroName').textContent = (profile.fullName || 'Студент') + ' • ' + (profile.group || '—');
+    $('#heroGreeting').textContent = t(greetKey) + ' 👋';
+    $('#heroName').textContent = (profile.fullName || 'User') +
+      (currentRole === 'student' ? ' • ' + (profile.group || '—') : ' • ' + (profile.department || '—'));
 
-    const todayKey = days[today] || 'Дүйсенбі';
-    const todayLessons = SCHEDULE[todayKey] || [];
-    $('#todayCount').textContent = todayLessons.length + ' сабақ';
+    // Role bar
+    $('#roleBarIcon').textContent = currentRole === 'student' ? '🎓' : '👨‍🏫';
+    $('#roleBarText').textContent = currentRole === 'student' ? t('roleStudent') : t('roleTeacher');
+    $('#roleBarSub').textContent = t('roleActiveMode');
 
+    // Title
+    $('#todayTitle').textContent = currentRole === 'student' ? t('todayTitle') : t('todayTitleTeacher');
+    $('#quickTitle').textContent = t('quickTitle');
+
+    // Today preview
+    const dayMap = ['Дүйсенбі','Сейсенбі','Сәрсенбі','Бейсенбі','Жұма','Сенбі','Жексенбі'];
+    const today = new Date().getDay();
+    const todayKey = dayMap[today];
+    let todayLessons = SCHEDULE[todayKey] || [];
+
+    // If teacher — show lessons they teach
+    if (currentRole === 'teacher') {
+      const teacherName = safeGet('displayName') || 'Карменова М.А.';
+      todayLessons = todayLessons.filter(l => l.teacher === teacherName);
+    }
+
+    $('#todayCount').textContent = todayLessons.length + ' ' + t('lessonsCount');
     const preview = $('#todayPreview');
     preview.innerHTML = '';
     if (todayLessons.length === 0) {
-      preview.innerHTML = `
-        <div class="empty-state" style="padding:30px 20px;">
-          <div class="icon" style="font-size:44px;">🎉</div>
-          <p style="font-size:14px;">Бүгін сабақ жоқ</p>
-        </div>`;
+      preview.innerHTML = `<div class="empty-state" style="padding:30px 20px;"><div class="icon" style="font-size:44px;">🎉</div><p style="font-size:13px;">${t('noLessonsToday')}</p></div>`;
     } else {
       todayLessons.slice(0, 2).forEach((l, i) => preview.appendChild(buildLessonCard(l, i)));
     }
+
+    // Quick grid
+    const qg = $('#quickGrid');
+    qg.innerHTML = '';
+    const quickItems = currentRole === 'student' ? [
+      { icon: '📅', title: t('quickSchedule'), sub: t('quickScheduleSub'), goto: 'schedule' },
+      { icon: '📊', title: t('quickGrades'), sub: t('quickGradesSub'), goto: 'grades' }
+    ] : [
+      { icon: '📋', title: t('quickJournal'), sub: t('quickJournalSub'), goto: 'journal' },
+      { icon: '📅', title: t('quickSchedule'), sub: t('quickScheduleSub'), goto: 'schedule' }
+    ];
+    quickItems.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'quick-card';
+      card.innerHTML = `
+        <div class="q-icon">${item.icon}</div>
+        <div class="q-text">
+          <div class="q-title">${item.title}</div>
+          <div class="q-sub">${item.sub}</div>
+        </div>
+      `;
+      card.addEventListener('click', () => navigateTo(item.goto));
+      qg.appendChild(card);
+    });
   }
 
   /* ============================================================
      ПРОФИЛЬ
   ============================================================ */
-  const DEFAULT_PROFILE = {
+  const DEFAULT_STUDENT_PROFILE = {
     fullName: 'Асқар Нұрлан',
     email: 'askar@university.kz',
     phone: '+7 700 123 4567',
     group: 'IT-21'
   };
+  const DEFAULT_TEACHER_PROFILE = {
+    fullName: 'Карменова М.А.',
+    email: 'karmenova@university.kz',
+    phone: '+7 701 234 5678',
+    department: 'Информатика кафедрасы'
+  };
+
+  function getProfileKey() { return 'profile_' + currentRole; }
 
   function getProfileData() {
+    const def = currentRole === 'teacher' ? DEFAULT_TEACHER_PROFILE : DEFAULT_STUDENT_PROFILE;
     try {
-      const raw = safeGet('profile');
-      if (raw) return Object.assign({}, DEFAULT_PROFILE, JSON.parse(raw));
+      const raw = safeGet(getProfileKey());
+      if (raw) return Object.assign({}, def, JSON.parse(raw));
     } catch (e) {}
-    return Object.assign({}, DEFAULT_PROFILE);
+    return Object.assign({}, def);
   }
 
   function loadProfile() {
@@ -1540,9 +2036,27 @@ input:focus { outline: none; }
     $('#fullName').value = data.fullName || '';
     $('#email').value = data.email || '';
     $('#phone').value = data.phone || '';
-    $('#group').value = data.group || '';
-    $('#heroName2').textContent = data.fullName || 'Студент';
-    $('#heroGroup').textContent = 'Топ: ' + (data.group || '—');
+
+    if (currentRole === 'teacher') {
+      $('#groupRow').style.display = 'none';
+      $('#deptRow').style.display = 'block';
+      $('#department').value = data.department || '';
+      $('#profileAvatar').textContent = '👨‍🏫';
+      $('#roleBadge').textContent = t('roleBadgeTeacher');
+    } else {
+      $('#groupRow').style.display = 'block';
+      $('#deptRow').style.display = 'none';
+      $('#group').value = data.group || '';
+      $('#profileAvatar').textContent = '👤';
+      $('#roleBadge').textContent = t('roleBadgeStudent');
+    }
+
+    $('#heroName2').textContent = data.fullName || 'User';
+    if (currentRole === 'teacher') {
+      $('#heroGroup').textContent = data.department || '—';
+    } else {
+      $('#heroGroup').textContent = (currentLang === 'kk' ? 'Топ: ' : 'Группа: ') + (data.group || '—');
+    }
   }
 
   $('#profileForm').addEventListener('submit', function (e) {
@@ -1550,16 +2064,20 @@ input:focus { outline: none; }
     const data = {
       fullName: $('#fullName').value.trim(),
       email: $('#email').value.trim(),
-      phone: $('#phone').value.trim(),
-      group: $('#group').value.trim()
+      phone: $('#phone').value.trim()
     };
-    safeSet('profile', JSON.stringify(data));
-    $('#heroName2').textContent = data.fullName || 'Студент';
-    $('#heroGroup').textContent = 'Топ: ' + (data.group || '—');
+    if (currentRole === 'teacher') {
+      data.department = $('#department').value.trim();
+    } else {
+      data.group = $('#group').value.trim();
+    }
+    safeSet(getProfileKey(), JSON.stringify(data));
+    safeSet('displayName', data.fullName || 'User');
+    loadProfile();
     renderHome();
     const msg = $('#saveMsg');
-    msg.textContent = '✅ Мәліметтер сәтті сақталды!';
-    showToast('Профиль жаңартылды ✅');
+    msg.textContent = t('saved');
+    showToast(t('profileUpdated'));
     setTimeout(() => { msg.textContent = ''; }, 2500);
   });
 
@@ -1567,15 +2085,46 @@ input:focus { outline: none; }
      INIT
   ============================================================ */
   function renderAll() {
+    applyTranslations();
     renderSchedule();
-    renderGrades();
+    if (currentRole === 'student') {
+      renderGrades();
+    } else {
+      renderJournal();
+    }
     renderHome();
     loadProfile();
+    // Show/hide pages based on role
+    if (currentRole === 'student') {
+      // ok
+    } else {
+      // Ensure teacher doesn't see grades page
+      // Navigation handled by bottom nav
+    }
   }
 
   function init() {
-    if (isLoggedIn()) showApp();
-    else showLogin();
+    currentLang = safeGet('lang') || 'kk';
+    currentRole = safeGet('role') || 'student';
+
+    // Restore role selection on login screen
+    $$('.role-btn').forEach(b => b.classList.toggle('active', b.dataset.role === currentRole));
+
+    applyTranslations();
+
+    if (isLoggedIn()) {
+      // Use saved role
+      const savedRole = safeGet('role');
+      if (savedRole) currentRole = savedRole;
+      // Restore data
+      try {
+        const a = safeGet('attendance'); if (a) attendanceData = JSON.parse(a);
+        const g = safeGet('grades_entry'); if (g) gradeEntryData = JSON.parse(g);
+      } catch (e) {}
+      showApp();
+    } else {
+      showLogin();
+    }
   }
 
   if (document.readyState === 'loading') {
