@@ -16,7 +16,6 @@
 }
 
 :root {
-  /* DEFAULT — студент (көк) */
   --primary: #2563EB;
   --primary-dark: #1D4ED8;
   --primary-light: #60A5FA;
@@ -97,6 +96,14 @@ body.dark .grade-input { background: var(--input-bg); color: var(--dark); border
 body.dark .hint-box { background: var(--primary-soft); border-color: #334155; }
 body.dark .week-lesson-item { background: #0F172A; }
 
+/* ВАЖНО: белый фон логотипа на темной теме */
+body.dark .brand-logo,
+body.dark .logo-img {
+  background: #fff;
+  padding: 3px;
+  border-radius: 8px;
+}
+
 html, body { height: 100%; }
 
 body {
@@ -113,6 +120,20 @@ button, input, select { font-family: inherit; font-size: 16px; }
 button { border: none; background: none; cursor: pointer; color: inherit; }
 a { text-decoration: none; color: inherit; }
 input:focus, select:focus { outline: none; }
+
+/* ============================================================
+   LOGO — жалпы стильдер
+============================================================ */
+.logo-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
 
 /* ============================================================
    LOGIN
@@ -156,7 +177,7 @@ body.role-teacher .shape-2 { background: #FFB3BC; }
   background: rgba(255,255,255,0.98);
   backdrop-filter: blur(20px);
   border-radius: 22px;
-  padding: 28px 26px 24px;
+  padding: 22px 26px 24px;
   width: 100%; max-width: 440px;
   box-shadow: 0 20px 50px rgba(0,0,0,0.25);
   animation: slideUp 0.6s cubic-bezier(0.16,1,0.3,1);
@@ -167,6 +188,60 @@ body.role-teacher .shape-2 { background: #FFB3BC; }
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ============================================================
+   🔥 LOGIN ЛОГОТИП — жоғарғы сол жақ
+============================================================ */
+.login-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.login-brand .brand-logo-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 4px;
+  border: 1px solid var(--border);
+}
+
+.login-brand .brand-text {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+.login-brand .brand-name {
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--primary);
+  letter-spacing: 0.4px;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.login-brand .brand-sub {
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--gray);
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   TOP CONTROLS (lang + dark)
+============================================================ */
 .top-controls {
   display: flex;
   justify-content: space-between;
@@ -202,11 +277,11 @@ body.role-teacher .shape-2 { background: #FFB3BC; }
 }
 
 .logo-circle {
-  width: 64px; height: 64px; margin: 0 auto 12px;
+  width: 60px; height: 60px; margin: 0 auto 12px;
   background: linear-gradient(135deg, var(--primary), var(--accent));
-  border-radius: 18px;
+  border-radius: 16px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 32px;
+  font-size: 30px;
   box-shadow: 0 12px 30px rgba(37,99,235,0.35);
   transition: box-shadow 0.3s;
 }
@@ -215,7 +290,7 @@ body.role-teacher .logo-circle {
 }
 
 .login-card h1 {
-  font-size: 22px; font-weight: 900;
+  font-size: 21px; font-weight: 900;
   color: var(--primary);
   margin-bottom: 3px; letter-spacing: -0.5px;
   text-align: center;
@@ -327,10 +402,13 @@ body.role-teacher .hint-box { border-color: #FECACA; }
 #appView { display: none; min-height: 100vh; min-height: 100dvh; }
 #appView.active { display: block; }
 
+/* ============================================================
+   🔥 TOPBAR ЛОГОТИП + БАТЫРМАЛАР
+============================================================ */
 .topbar {
   position: sticky; top: 0;
   background: var(--white);
-  padding: calc(10px + var(--safe-top)) 14px 10px;
+  padding: calc(10px + var(--safe-top)) 12px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -338,27 +416,63 @@ body.role-teacher .hint-box { border-color: #FECACA; }
   z-index: 100;
   border-bottom: 1px solid var(--border);
 }
-.topbar-left, .topbar-right { display: flex; align-items: center; gap: 4px; min-width: 40px; }
-.topbar-right { justify-content: flex-end; }
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+/* 🔥 ЛОГОТИП В TOPBAR */
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.topbar-logo-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 3px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.topbar-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--dark);
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
 
 .icon-btn {
-  width: 36px; height: 36px;
-  border-radius: 10px;
+  width: 34px; height: 34px;
+  border-radius: 9px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 17px;
+  font-size: 16px;
   color: var(--dark);
   transition: background 0.2s;
 }
 .icon-btn:active { background: var(--gray-bg); }
-
-.topbar-title {
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--dark);
-  letter-spacing: -0.3px;
-  flex: 1;
-  text-align: center;
-}
 
 .page-content {
   padding: 14px 14px calc(96px + var(--safe-bottom));
@@ -409,7 +523,6 @@ body.dark .role-bar { background: linear-gradient(135deg, #1E293B, #0F172A); bor
   letter-spacing: 0.3px;
 }
 
-/* Tabs */
 .tabs-row {
   display: flex;
   gap: 6px;
@@ -442,7 +555,6 @@ body.role-teacher .tab-pill.active {
   box-shadow: 0 4px 12px rgba(200,16,46,0.25);
 }
 
-/* Search box */
 .search-box {
   position: relative;
   margin-bottom: 10px;
@@ -466,7 +578,6 @@ body.role-teacher .tab-pill.active {
   pointer-events: none;
 }
 
-/* Group filter */
 .group-filter {
   display: flex;
   gap: 6px;
@@ -493,9 +604,6 @@ body.role-teacher .tab-pill.active {
   border-color: var(--primary);
 }
 
-/* ============================================================
-   LESSON CARD
-============================================================ */
 .lesson-card {
   background: var(--card-bg);
   border-radius: var(--radius);
@@ -509,7 +617,6 @@ body.role-teacher .tab-pill.active {
   border-left: 4px solid var(--primary);
   position: relative;
 }
-
 .lesson-card.lecture { border-left-color: #3b82f6; }
 .lesson-card.practice { border-left-color: #10b981; }
 .lesson-card.lab { border-left-color: #f59e0b; }
@@ -519,17 +626,14 @@ body.role-teacher .tab-pill.active {
   background: linear-gradient(135deg, rgba(16,185,129,0.06), rgba(16,185,129,0.02));
   box-shadow: 0 4px 16px rgba(16,185,129,0.15);
 }
-
 .lesson-card.upcoming-today {
   border-left-color: #94a3b8;
   opacity: 0.75;
 }
-
 .lesson-card.ended {
   opacity: 0.55;
   filter: grayscale(0.3);
 }
-
 .lesson-card:active { transform: scale(0.99); }
 
 @keyframes slideUp {
@@ -663,7 +767,6 @@ body.role-teacher .tab-pill.active {
   transition: width 0.8s linear;
 }
 
-/* Day strip */
 .day-strip {
   display: flex;
   gap: 6px;
@@ -728,7 +831,6 @@ body.role-teacher .day-chip.active {
 }
 .day-chip.active .today-dot { background: #fff; }
 
-/* Empty */
 .empty-state {
   text-align: center;
   padding: 50px 20px;
@@ -736,7 +838,6 @@ body.role-teacher .day-chip.active {
 .empty-state .icon { font-size: 48px; margin-bottom: 10px; opacity: 0.4; }
 .empty-state p { font-size: 13.5px; font-weight: 600; color: var(--gray); }
 
-/* Exams */
 .exam-card {
   background: var(--card-bg);
   border-radius: var(--radius);
@@ -778,9 +879,6 @@ body.role-teacher .day-chip.active {
   font-weight: 600;
 }
 
-/* ============================================================
-   GRADES
-============================================================ */
 .grades-summary {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -937,9 +1035,6 @@ body.role-teacher .semester-banner {
   transition: width 0.8s cubic-bezier(0.16,1,0.3,1);
 }
 
-/* ============================================================
-   HOME / HERO
-============================================================ */
 .hero-card {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   border-radius: var(--radius);
@@ -1167,7 +1262,6 @@ body.role-teacher .hero-card {
   font-size: 10.5px; color: var(--gray); font-weight: 500;
 }
 
-/* Stats (teacher home) */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1206,9 +1300,6 @@ body.role-teacher .hero-card {
   margin-top: 3px;
 }
 
-/* ============================================================
-   PROFILE
-============================================================ */
 .profile-hero {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   border-radius: var(--radius);
@@ -1375,9 +1466,6 @@ body.role-teacher .form-row input:focus {
 .notify-toggle.on .toggle-switch { background: var(--success); }
 .notify-toggle.on .toggle-switch::after { transform: translateX(18px); }
 
-/* ============================================================
-   JOURNAL (TEACHER)
-============================================================ */
 .student-row {
   background: var(--card-bg);
   border-radius: var(--radius);
@@ -1467,9 +1555,6 @@ body.role-teacher .save-fab {
 }
 .save-fab:active { transform: scale(0.92); }
 
-/* ============================================================
-   WEEKLY VIEW
-============================================================ */
 .week-day-block {
   background: var(--card-bg);
   border-radius: var(--radius);
@@ -1517,9 +1602,6 @@ body.role-teacher .save-fab {
   margin-top: 3px;
 }
 
-/* ============================================================
-   BOTTOM NAV
-============================================================ */
 .bottom-nav {
   position: fixed;
   bottom: 0; left: 0; right: 0;
@@ -1560,9 +1642,6 @@ body.dark .bottom-nav { background: rgba(30,41,59,0.98); }
 .bottom-nav-item.active { color: var(--primary); }
 .bottom-nav-item.active .nav-icon { transform: translateY(-1px) scale(1.08); }
 
-/* ============================================================
-   NOTIFICATION & TOAST
-============================================================ */
 .notification {
   margin-top: 12px;
   padding: 12px 14px;
@@ -1605,8 +1684,17 @@ body.dark .toast { background: #0F172A; }
 .toast.error { background: linear-gradient(135deg, #DC2626, #EF4444); }
 
 /* ============================================================
-   RESPONSIVE
+   RESPONSIVE — мобиль үшін
 ============================================================ */
+@media (max-width: 400px) {
+  .topbar { padding: calc(8px + var(--safe-top)) 10px 8px; }
+  .topbar-logo-box { width: 32px; height: 32px; border-radius: 9px; padding: 2px; }
+  .topbar-title { font-size: 13.5px; }
+  .icon-btn { width: 32px; height: 32px; font-size: 15px; }
+  .topbar-left { gap: 6px; }
+  .topbar-brand { gap: 6px; }
+}
+
 @media (max-width: 360px) {
   .page-content { padding: 12px 12px calc(96px + var(--safe-bottom)); }
   .lesson-card { padding: 11px; gap: 10px; }
@@ -1615,6 +1703,15 @@ body.dark .toast { background: #0F172A; }
   .lesson-time .time-end { font-size: 11px; }
   .lesson-subject { font-size: 13px; }
   .info-row { font-size: 11px; }
+  .login-brand .brand-logo-box { width: 44px; height: 44px; }
+  .login-brand .brand-name { font-size: 11px; }
+  .login-brand .brand-sub { font-size: 8.5px; }
+}
+
+@media (max-width: 340px) {
+  .topbar-logo-box { width: 28px; height: 28px; }
+  .topbar-title { font-size: 12px; }
+  .icon-btn { width: 30px; height: 30px; font-size: 14px; }
 }
 </style>
 </head>
@@ -1630,6 +1727,18 @@ body.dark .toast { background: #0F172A; }
   </div>
 
   <div class="login-card" id="loginCard">
+
+    <!-- 🔥 ЛОГОТИП — жоғарғы сол жақ -->
+    <div class="login-brand">
+      <div class="brand-logo-box">
+        <img src="logo_vkgu_amanzholov.png" alt="AMANZHOLOV UNIVERSITY" class="logo-img">
+      </div>
+      <div class="brand-text">
+        <div class="brand-name">AMANZHOLOV<br>UNIVERSITY</div>
+        <div class="brand-sub">Университет порталы</div>
+      </div>
+    </div>
+
     <div class="top-controls">
       <div class="lang-switch">
         <button class="lang-btn active" data-lang="kk">ҚАЗ</button>
@@ -1676,11 +1785,16 @@ body.dark .toast { background: #0F172A; }
 ============================================================ -->
 <div id="appView">
 
+  <!-- 🔥 TOPBAR — логотип сол жақта -->
   <header class="topbar">
     <div class="topbar-left">
-      <button class="icon-btn" id="backBtn" style="display:none;">←</button>
+      <div class="topbar-brand">
+        <div class="topbar-logo-box">
+          <img src="logo_vkgu_amanzholov.png" alt="AMANZHOLOV" class="logo-img">
+        </div>
+        <div class="topbar-title" id="topbarTitle">—</div>
+      </div>
     </div>
-    <div class="topbar-title" id="topbarTitle">—</div>
     <div class="topbar-right">
       <button class="icon-btn" id="darkToggleTop" title="Dark mode">🌙</button>
       <button class="icon-btn" id="langToggleTop" title="Тіл">🌐</button>
@@ -1690,7 +1804,7 @@ body.dark .toast { background: #0F172A; }
 
   <main class="page-content">
 
-    <!-- ============ HOME ============ -->
+    <!-- HOME -->
     <section class="page" id="page-home">
       <div class="role-bar">
         <div class="role-icon" id="roleBarIcon">🎓</div>
@@ -1705,7 +1819,6 @@ body.dark .toast { background: #0F172A; }
         <p id="heroName">—</p>
       </div>
 
-      <!-- GPA preview (student only) -->
       <div class="gpa-preview" id="gpaPreview" style="display:none;">
         <div class="gp-left">
           <div class="gp-label" id="gpaLabel">GPA</div>
@@ -1715,10 +1828,8 @@ body.dark .toast { background: #0F172A; }
         <div class="gp-icon">🎯</div>
       </div>
 
-      <!-- Teacher stats (teacher only) -->
       <div class="stats-grid hidden" id="teacherStats"></div>
 
-      <!-- LIVE / NEXT banners -->
       <div id="nowBannerContainer"></div>
       <div id="nextBannerContainer"></div>
 
@@ -1732,7 +1843,7 @@ body.dark .toast { background: #0F172A; }
       <div class="quick-grid" id="quickGrid"></div>
     </section>
 
-    <!-- ============ SCHEDULE ============ -->
+    <!-- SCHEDULE -->
     <section class="page active" id="page-schedule">
       <div class="search-box">
         <span class="search-icon">🔍</span>
@@ -1750,7 +1861,7 @@ body.dark .toast { background: #0F172A; }
       <div id="lessonsList"></div>
     </section>
 
-    <!-- ============ GRADES (STUDENT ONLY) ============ -->
+    <!-- GRADES (STUDENT) -->
     <section class="page" id="page-grades">
       <div class="semester-banner">
         <div class="sb-title" id="semTitle">Оқу жылы</div>
@@ -1764,7 +1875,7 @@ body.dark .toast { background: #0F172A; }
       <div id="notification" class="notification hidden"></div>
     </section>
 
-    <!-- ============ JOURNAL (TEACHER ONLY) ============ -->
+    <!-- JOURNAL (TEACHER) -->
     <section class="page" id="page-journal">
       <div class="tabs-row">
         <button class="tab-pill active" data-jtab="attendance">Қатысу</button>
@@ -1782,7 +1893,7 @@ body.dark .toast { background: #0F172A; }
       <button class="save-fab" id="saveFab" title="Сақтау">✓</button>
     </section>
 
-    <!-- ============ PROFILE (BOTH) ============ -->
+    <!-- PROFILE -->
     <section class="page" id="page-profile">
       <div class="profile-hero">
         <div class="profile-avatar-lg" id="profileAvatar">👤</div>
@@ -1805,12 +1916,10 @@ body.dark .toast { background: #0F172A; }
             <label>📱 Телефон</label>
             <input type="tel" id="phone" placeholder="+7 700 000 0000">
           </div>
-          <!-- Student only -->
           <div class="form-row" id="groupRow">
             <label>🎓 Топ</label>
             <input type="text" id="group" placeholder="ИС">
           </div>
-          <!-- Teacher only -->
           <div class="form-row" id="deptRow" style="display:none;">
             <label>🏛 Кафедра</label>
             <input type="text" id="department" placeholder="Информатика">
@@ -1854,7 +1963,7 @@ body.dark .toast { background: #0F172A; }
 
 <script>
 /* ============================================================
-   MAIN APP — STUDENT + TEACHER
+   MAIN APP
 ============================================================ */
 (function () {
   'use strict';
@@ -1875,17 +1984,12 @@ body.dark .toast { background: #0F172A; }
     t._t = setTimeout(() => t.classList.remove('show'), 2400);
   }
 
-  /* ============================================================
-     I18N
-  ============================================================ */
+  /* I18N */
   const I18N = {
     kk: {
-      loginTitle: 'University App',
-      loginSubtitle: 'Университет порталы',
-      roleStudent: 'Студент',
-      roleTeacher: 'Оқытушы',
-      loginBtn: 'Кіру',
-      hint: 'Тестілеу',
+      loginTitle: 'University App', loginSubtitle: 'Университет порталы',
+      roleStudent: 'Студент', roleTeacher: 'Оқытушы',
+      loginBtn: 'Кіру', hint: 'Тестілеу',
       navHome: 'Басты', navSchedule: 'Кесте', navGrades: 'Бағалар', navJournal: 'Журнал', navProfile: 'Профиль',
       pageHome: 'Басты', pageSchedule: 'Кесте', pageGrades: 'Бағалар', pageJournal: 'Журнал', pageProfile: 'Профиль',
       tabClasses: 'Сабақтар', tabExams: 'Емтихандар', tabIGA: 'ҚИА', tabWeek: '📅 Апта',
@@ -1905,39 +2009,29 @@ body.dark .toast { background: #0F172A; }
       searchSchedule: 'Пән немесе оқытушы іздеу...',
       searchStudent: 'Студентті іздеу...',
       present: 'Келді', absent: 'Келмеді', late: 'Кешікті',
-      welcome: 'Қош келдіңіз! 👋',
-      loggedOut: 'Жүйеден шықтыңыз',
+      welcome: 'Қош келдіңіз! 👋', loggedOut: 'Жүйеден шықтыңыз',
       profileUpdated: 'Профиль жаңартылды ✅',
       journalSaved: 'Журнал сәтті сақталды ✅',
       exported: 'CSV файл жүктелді 📥',
-      notifEnabled: 'Хабарламалар қосылды 🔔',
-      notifDisabled: 'Хабарламалар өшірілді 🔕',
-      errEmpty: '⚠️ Барлық өрісті толтырыңыз!',
-      errWrong: '❌ Қате логин немесе құпия сөз!',
+      notifEnabled: 'Хабарламалар қосылды 🔔', notifDisabled: 'Хабарламалар өшірілді 🔕',
+      errEmpty: '⚠️ Барлық өрісті толтырыңыз!', errWrong: '❌ Қате логин немесе құпия сөз!',
       saved: '✅ Мәліметтер сәтті сақталды!',
       statAvgGrade: 'Орташа балл', statAttendance: 'Қатысу',
       statStudents: 'Студенттер', statLessons: 'Апталық сабақ',
-      nowLabel: 'ҚАЗІР',
-      nowInProgress: 'Сабақ жүріп жатыр',
-      nextLabel: 'КЕЛЕСІ САБАҚ',
-      nextInMinutes: 'мин кейін',
+      nowLabel: 'ҚАЗІР', nowInProgress: 'Сабақ жүріп жатыр',
+      nextLabel: 'КЕЛЕСІ САБАҚ', nextInMinutes: 'мин кейін',
       noMoreToday: 'Бүгін сабақ бітті',
       days: { 'Дүйсенбі':'Дс','Сейсенбі':'Сс','Сәрсенбі':'Ср','Бейсенбі':'Бс','Жұма':'Жм','Сенбі':'Сб' },
       daysFull: { 'Дүйсенбі':'Дүйсенбі','Сейсенбі':'Сейсенбі','Сәрсенбі':'Сәрсенбі','Бейсенбі':'Бейсенбі','Жұма':'Жұма','Сенбі':'Сенбі' },
       typeLecture: 'Дәріс', typePractice: 'Практика', typeLab: 'Зертханалық',
       gpaLabel: 'Жалпы GPA',
       gpaSubTemplate: '{credits} кредит • {count} пән',
-      semesterLabel: 'Оқу жылы',
-      semesterValue: '2025/2026',
-      semesterSub: 'Күзгі семестр • 15 апта'
+      semesterLabel: 'Оқу жылы', semesterValue: '2025/2026', semesterSub: 'Күзгі семестр • 15 апта'
     },
     ru: {
-      loginTitle: 'University App',
-      loginSubtitle: 'Университетский портал',
-      roleStudent: 'Студент',
-      roleTeacher: 'Преподаватель',
-      loginBtn: 'Войти',
-      hint: 'Тестирование',
+      loginTitle: 'University App', loginSubtitle: 'Университетский портал',
+      roleStudent: 'Студент', roleTeacher: 'Преподаватель',
+      loginBtn: 'Войти', hint: 'Тестирование',
       navHome: 'Главная', navSchedule: 'Расписание', navGrades: 'Оценки', navJournal: 'Журнал', navProfile: 'Профиль',
       pageHome: 'Главная', pageSchedule: 'Расписание', pageGrades: 'Оценки', pageJournal: 'Журнал', pageProfile: 'Профиль',
       tabClasses: 'Занятия', tabExams: 'Экзамены', tabIGA: 'ИГА', tabWeek: '📅 Неделя',
@@ -1957,31 +2051,24 @@ body.dark .toast { background: #0F172A; }
       searchSchedule: 'Поиск по предмету или преподавателю...',
       searchStudent: 'Поиск студента...',
       present: 'Присутствовал', absent: 'Отсутствовал', late: 'Опоздал',
-      welcome: 'Добро пожаловать! 👋',
-      loggedOut: 'Вы вышли из системы',
+      welcome: 'Добро пожаловать! 👋', loggedOut: 'Вы вышли из системы',
       profileUpdated: 'Профиль обновлён ✅',
       journalSaved: 'Журнал успешно сохранён ✅',
       exported: 'CSV файл загружен 📥',
-      notifEnabled: 'Уведомления включены 🔔',
-      notifDisabled: 'Уведомления отключены 🔕',
-      errEmpty: '⚠️ Заполните все поля!',
-      errWrong: '❌ Неверный логин или пароль!',
+      notifEnabled: 'Уведомления включены 🔔', notifDisabled: 'Уведомления отключены 🔕',
+      errEmpty: '⚠️ Заполните все поля!', errWrong: '❌ Неверный логин или пароль!',
       saved: '✅ Данные успешно сохранены!',
       statAvgGrade: 'Средний балл', statAttendance: 'Посещаемость',
       statStudents: 'Студентов', statLessons: 'Пар в неделю',
-      nowLabel: 'СЕЙЧАС',
-      nowInProgress: 'Идёт занятие',
-      nextLabel: 'СЛЕДУЮЩЕЕ',
-      nextInMinutes: 'мин',
+      nowLabel: 'СЕЙЧАС', nowInProgress: 'Идёт занятие',
+      nextLabel: 'СЛЕДУЮЩЕЕ', nextInMinutes: 'мин',
       noMoreToday: 'На сегодня всё',
       days: { 'Дүйсенбі':'Пн','Сейсенбі':'Вт','Сәрсенбі':'Ср','Бейсенбі':'Чт','Жұма':'Пт','Сенбі':'Сб' },
       daysFull: { 'Дүйсенбі':'Понедельник','Сейсенбі':'Вторник','Сәрсенбі':'Среда','Бейсенбі':'Четверг','Жұма':'Пятница','Сенбі':'Суббота' },
       typeLecture: 'Лекция', typePractice: 'Практика', typeLab: 'Лабораторная',
       gpaLabel: 'Общий GPA',
       gpaSubTemplate: '{credits} кредитов • {count} предметов',
-      semesterLabel: 'Учебный год',
-      semesterValue: '2025/2026',
-      semesterSub: 'Осенний семестр • 15 недель'
+      semesterLabel: 'Учебный год', semesterValue: '2025/2026', semesterSub: 'Осенний семестр • 15 недель'
     }
   };
 
@@ -2015,131 +2102,66 @@ body.dark .toast { background: #0F172A; }
   $('#themeLight').addEventListener('click', () => { isDark = false; safeSet('dark', false); applyDarkMode(); });
   $('#themeDark').addEventListener('click', () => { isDark = true; safeSet('dark', true); applyDarkMode(); });
 
-  /* ============================================================
-     STUDENT SCHEDULE
-  ============================================================ */
+  /* SCHEDULE DATA */
   const STUDENT_NAME = 'Асқар Нұрлан';
   const STUDENT_GROUP = 'ИС';
 
   const STUDENT_SCHEDULE = {
     'Дүйсенбі': [
-      { start: '08:55', end: '09:45', subject: 'Жасанды интеллект және машиналық оқыту',
-        type: 'lecture', lang: 'ru', building: '№4 корпус', room: '213',
-        teacher: 'Имашова И.Қ.', group: STUDENT_GROUP },
-      { start: '09:50', end: '10:40', subject: 'Деректер қорын басқару жүйелері',
-        type: 'lecture', lang: 'ru', building: '№7 корпус', room: '213',
-        teacher: 'Имашова И.Қ.', group: STUDENT_GROUP },
-      { start: '10:45', end: '11:35', subject: 'Веб-бағдарламалау',
-        type: 'practice', lang: 'ru', building: '№7 корпус', room: '312',
-        teacher: 'Нұрланұлы А.', group: STUDENT_GROUP },
-      { start: '12:50', end: '13:40', subject: 'Компьютерлік жабдықты жөндеу негіздері',
-        type: 'lecture', lang: 'ru', building: '№4 корпус', room: '405',
-        teacher: 'Имашова И.Қ.', group: STUDENT_GROUP }
+      { start: '08:55', end: '09:45', subject: 'Жасанды интеллект және машиналық оқыту', type: 'lecture', lang: 'ru', building: '№4 корпус', room: '213', teacher: 'Имашова И.Қ.', group: STUDENT_GROUP },
+      { start: '09:50', end: '10:40', subject: 'Деректер қорын басқару жүйелері', type: 'lecture', lang: 'ru', building: '№7 корпус', room: '213', teacher: 'Имашова И.Қ.', group: STUDENT_GROUP },
+      { start: '10:45', end: '11:35', subject: 'Веб-бағдарламалау', type: 'practice', lang: 'ru', building: '№7 корпус', room: '312', teacher: 'Нұрланұлы А.', group: STUDENT_GROUP },
+      { start: '12:50', end: '13:40', subject: 'Компьютерлік жабдықты жөндеу негіздері', type: 'lecture', lang: 'ru', building: '№4 корпус', room: '405', teacher: 'Имашова И.Қ.', group: STUDENT_GROUP }
     ],
     'Сейсенбі': [
-      { start: '08:55', end: '09:45', subject: 'Алгоритмдер және деректер құрылымы',
-        type: 'lecture', lang: 'kk', building: '№7 корпус', room: '301',
-        teacher: 'Тұрсынов Е.М.', group: STUDENT_GROUP },
-      { start: '09:50', end: '10:40', subject: 'Деректер қоры',
-        type: 'lab', lang: 'ru', building: 'IT-орталық', room: '418',
-        teacher: 'Имашова И.Қ.', group: STUDENT_GROUP },
-      { start: '10:45', end: '11:35', subject: 'Киберқауіпсіздік',
-        type: 'lecture', lang: 'kz', building: '№4 корпус', room: '213',
-        teacher: 'Имашова И.Қ.', group: STUDENT_GROUP }
+      { start: '08:55', end: '09:45', subject: 'Алгоритмдер және деректер құрылымы', type: 'lecture', lang: 'kk', building: '№7 корпус', room: '301', teacher: 'Тұрсынов Е.М.', group: STUDENT_GROUP },
+      { start: '09:50', end: '10:40', subject: 'Деректер қоры', type: 'lab', lang: 'ru', building: 'IT-орталық', room: '418', teacher: 'Имашова И.Қ.', group: STUDENT_GROUP },
+      { start: '10:45', end: '11:35', subject: 'Киберқауіпсіздік', type: 'lecture', lang: 'kz', building: '№4 корпус', room: '213', teacher: 'Имашова И.Қ.', group: STUDENT_GROUP }
     ],
     'Сәрсенбі': [
-      { start: '08:55', end: '09:45', subject: 'Физика',
-        type: 'lecture', lang: 'ru', building: '№2 корпус', room: '110',
-        teacher: 'Серікбаева Г.Т.', group: STUDENT_GROUP },
-      { start: '09:50', end: '10:40', subject: 'Веб-технологиялар',
-        type: 'lab', lang: 'ru', building: 'IT-орталық', room: '407',
-        teacher: 'Жұмабаев А.С.', group: STUDENT_GROUP },
-      { start: '10:45', end: '11:35', subject: 'Қазақстан тарихы',
-        type: 'lecture', lang: 'kk', building: '№1 корпус', room: '202',
-        teacher: 'Оспанова Л.Т.', group: STUDENT_GROUP },
-      { start: '12:50', end: '13:40', subject: 'Компьютерлік жабдықты жөндеу негіздері',
-        type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а',
-        teacher: 'Имашова И.Қ.', group: STUDENT_GROUP }
+      { start: '08:55', end: '09:45', subject: 'Физика', type: 'lecture', lang: 'ru', building: '№2 корпус', room: '110', teacher: 'Серікбаева Г.Т.', group: STUDENT_GROUP },
+      { start: '09:50', end: '10:40', subject: 'Веб-технологиялар', type: 'lab', lang: 'ru', building: 'IT-орталық', room: '407', teacher: 'Жұмабаев А.С.', group: STUDENT_GROUP },
+      { start: '10:45', end: '11:35', subject: 'Қазақстан тарихы', type: 'lecture', lang: 'kk', building: '№1 корпус', room: '202', teacher: 'Оспанова Л.Т.', group: STUDENT_GROUP },
+      { start: '12:50', end: '13:40', subject: 'Компьютерлік жабдықты жөндеу негіздері', type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а', teacher: 'Имашова И.Қ.', group: STUDENT_GROUP }
     ],
     'Бейсенбі': [
-      { start: '08:55', end: '09:45', subject: 'Алгоритмдер және деректер құрылымы',
-        type: 'practice', lang: 'kk', building: 'IT-орталық', room: '312',
-        teacher: 'Тұрсынов Е.М.', group: STUDENT_GROUP },
-      { start: '09:50', end: '10:40', subject: 'Деректер қорын басқару жүйелері',
-        type: 'lab', lang: 'ru', building: 'IT-орталық', room: '305',
-        teacher: 'Имашова И.Қ.', group: STUDENT_GROUP },
-      { start: '10:45', end: '11:35', subject: 'Бағдарламалау негіздері',
-        type: 'practice', lang: 'ru', building: 'IT-орталық', room: '412',
-        teacher: 'Нұрланұлы А.', group: STUDENT_GROUP }
+      { start: '08:55', end: '09:45', subject: 'Алгоритмдер және деректер құрылымы', type: 'practice', lang: 'kk', building: 'IT-орталық', room: '312', teacher: 'Тұрсынов Е.М.', group: STUDENT_GROUP },
+      { start: '09:50', end: '10:40', subject: 'Деректер қорын басқару жүйелері', type: 'lab', lang: 'ru', building: 'IT-орталық', room: '305', teacher: 'Имашова И.Қ.', group: STUDENT_GROUP },
+      { start: '10:45', end: '11:35', subject: 'Бағдарламалау негіздері', type: 'practice', lang: 'ru', building: 'IT-орталық', room: '412', teacher: 'Нұрланұлы А.', group: STUDENT_GROUP }
     ],
     'Жұма': [
-      { start: '08:55', end: '09:45', subject: 'Веб-технологиялар',
-        type: 'lecture', lang: 'ru', building: 'IT-орталық', room: '301',
-        teacher: 'Жұмабаев А.С.', group: STUDENT_GROUP },
-      { start: '09:50', end: '10:40', subject: 'Компьютерлік жабдықты жөндеу негіздері',
-        type: 'lab', lang: 'ru', building: 'IT-орталық', room: '318',
-        teacher: 'Имашова И.Қ.', group: STUDENT_GROUP },
-      { start: '16:00', end: '16:45', subject: 'Жасанды интеллект және машиналық оқыту',
-        type: 'lecture', lang: 'kk', building: '№4 корпус', room: '213',
-        teacher: 'Имашова И.Қ.', group: STUDENT_GROUP },
-      { start: '16:50', end: '17:35', subject: 'Жасанды интеллект және машиналық оқыту',
-        type: 'practice', lang: 'kk', building: '№4 корпус', room: '212а',
-        teacher: 'Имашова И.Қ.', group: STUDENT_GROUP }
+      { start: '08:55', end: '09:45', subject: 'Веб-технологиялар', type: 'lecture', lang: 'ru', building: 'IT-орталық', room: '301', teacher: 'Жұмабаев А.С.', group: STUDENT_GROUP },
+      { start: '09:50', end: '10:40', subject: 'Компьютерлік жабдықты жөндеу негіздері', type: 'lab', lang: 'ru', building: 'IT-орталық', room: '318', teacher: 'Имашова И.Қ.', group: STUDENT_GROUP },
+      { start: '16:00', end: '16:45', subject: 'Жасанды интеллект және машиналық оқыту', type: 'lecture', lang: 'kk', building: '№4 корпус', room: '213', teacher: 'Имашова И.Қ.', group: STUDENT_GROUP },
+      { start: '16:50', end: '17:35', subject: 'Жасанды интеллект және машиналық оқыту', type: 'practice', lang: 'kk', building: '№4 корпус', room: '212а', teacher: 'Имашова И.Қ.', group: STUDENT_GROUP }
     ],
     'Сенбі': []
   };
 
-  /* ============================================================
-     TEACHER SCHEDULE
-  ============================================================ */
   const TEACHER_NAME_SHORT = 'Имашова И.Қ.';
   const TEACHER_NAME_FULL = 'Имашова Инабат Қайырбекқызы';
 
   const TEACHER_SCHEDULE = {
     'Дүйсенбі': [
-      { start: '15:10', end: '15:55', subject: 'Жасанды интеллект және машиналық оқыту',
-        type: 'lecture', lang: 'ru', building: '№4 корпус', room: '213',
-        groups: ['Информационные системы'], weeks: '7-15' },
-      { start: '16:00', end: '16:45', subject: 'Жасанды интеллект және машиналық оқыту',
-        type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а (комп. класс)',
-        groups: ['Информационные системы'], weeks: '7-15' },
-      { start: '16:50', end: '17:35', subject: 'Жасанды интеллект және машиналық оқыту',
-        type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а (комп. класс)',
-        groups: ['Компьютерная мехатроника'], weeks: '7-15' }
+      { start: '15:10', end: '15:55', subject: 'Жасанды интеллект және машиналық оқыту', type: 'lecture', lang: 'ru', building: '№4 корпус', room: '213', groups: ['Информационные системы'], weeks: '7-15' },
+      { start: '16:00', end: '16:45', subject: 'Жасанды интеллект және машиналық оқыту', type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а (комп. класс)', groups: ['Информационные системы'], weeks: '7-15' },
+      { start: '16:50', end: '17:35', subject: 'Жасанды интеллект және машиналық оқыту', type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а (комп. класс)', groups: ['Компьютерная мехатроника'], weeks: '7-15' }
     ],
     'Сейсенбі': [
-      { start: '14:05', end: '14:50', subject: 'Киберқауіпсіздік',
-        type: 'lecture', lang: 'kz', building: '№4 корпус', room: '213',
-        groups: ['Информационные системы'], weeks: '7-15' },
-      { start: '15:10', end: '15:55', subject: 'Кибербезопасность',
-        type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а (комп. класс)',
-        groups: ['Математика-Информатика'], weeks: '7-15' }
+      { start: '14:05', end: '14:50', subject: 'Киберқауіпсіздік', type: 'lecture', lang: 'kz', building: '№4 корпус', room: '213', groups: ['Информационные системы'], weeks: '7-15' },
+      { start: '15:10', end: '15:55', subject: 'Кибербезопасность', type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а (комп. класс)', groups: ['Математика-Информатика'], weeks: '7-15' }
     ],
     'Сәрсенбі': [
-      { start: '15:10', end: '15:55', subject: 'Компьютерлік жабдықты жөндеу негіздері',
-        type: 'lecture', lang: 'ru', building: '№4 корпус', room: '213',
-        groups: ['Компьютерная мехатроника'], weeks: '7-15' },
-      { start: '16:00', end: '16:45', subject: 'Компьютерлік жабдықты жөндеу негіздері',
-        type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а (комп. класс)',
-        groups: ['Компьютерная мехатроника'], weeks: '7-15' },
-      { start: '16:50', end: '17:35', subject: 'Компьютерлік жабдықты жөндеу негіздері',
-        type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а (комп. класс)',
-        groups: ['Информатика'], weeks: '7-15' }
+      { start: '15:10', end: '15:55', subject: 'Компьютерлік жабдықты жөндеу негіздері', type: 'lecture', lang: 'ru', building: '№4 корпус', room: '213', groups: ['Компьютерная мехатроника'], weeks: '7-15' },
+      { start: '16:00', end: '16:45', subject: 'Компьютерлік жабдықты жөндеу негіздері', type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а (комп. класс)', groups: ['Компьютерная мехатроника'], weeks: '7-15' },
+      { start: '16:50', end: '17:35', subject: 'Компьютерлік жабдықты жөндеу негіздері', type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а (комп. класс)', groups: ['Информатика'], weeks: '7-15' }
     ],
     'Бейсенбі': [],
     'Жұма': [
-      { start: '16:00', end: '16:45', subject: 'Жасанды интеллект және машиналық оқыту',
-        type: 'lecture', lang: 'kz', building: '№4 корпус', room: '213',
-        groups: ['Информатика'], weeks: '7-15' },
-      { start: '16:50', end: '17:35', subject: 'Жасанды интеллект және машиналық оқыту',
-        type: 'practice', lang: 'kz', building: '№4 корпус', room: '212а (комп. класс)',
-        groups: ['Информатика'], weeks: '7-15' },
-      { start: '17:40', end: '18:25', subject: 'Базалық пәндер бойынша арнайы курс',
-        type: 'practice', lang: 'kz', building: '№4 корпус', room: '212а (комп. класс)',
-        groups: ['Математика-Информатика'], weeks: '7-15' },
-      { start: '18:30', end: '19:15', subject: 'Базалық пәндер бойынша арнайы курс',
-        type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а (комп. класс)',
-        groups: ['Информационные системы'], weeks: '7-15' }
+      { start: '16:00', end: '16:45', subject: 'Жасанды интеллект және машиналық оқыту', type: 'lecture', lang: 'kz', building: '№4 корпус', room: '213', groups: ['Информатика'], weeks: '7-15' },
+      { start: '16:50', end: '17:35', subject: 'Жасанды интеллект және машиналық оқыту', type: 'practice', lang: 'kz', building: '№4 корпус', room: '212а (комп. класс)', groups: ['Информатика'], weeks: '7-15' },
+      { start: '17:40', end: '18:25', subject: 'Базалық пәндер бойынша арнайы курс', type: 'practice', lang: 'kz', building: '№4 корпус', room: '212а (комп. класс)', groups: ['Математика-Информатика'], weeks: '7-15' },
+      { start: '18:30', end: '19:15', subject: 'Базалық пәндер бойынша арнайы курс', type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а (комп. класс)', groups: ['Информационные системы'], weeks: '7-15' }
     ],
     'Сенбі': []
   };
@@ -2148,18 +2170,11 @@ body.dark .toast { background: #0F172A; }
   const DAYS_MAP = ['Дүйсенбі','Сейсенбі','Сәрсенбі','Бейсенбі','Жұма','Сенбі','Жексенбі'];
 
   const EXAMS = [
-    { date: '15.01.2026', start: '09:00', subject: 'Деректер қорын басқару жүйелері',
-      building: '№7 корпус', room: '213', teacher: 'Имашова И.Қ.' },
-    { date: '17.01.2026', start: '11:00', subject: 'Жасанды интеллект және машиналық оқыту',
-      building: '№4 корпус', room: '213', teacher: 'Имашова И.Қ.' },
-    { date: '20.01.2026', start: '09:00', subject: 'Компьютерлік жабдықты жөндеу негіздері',
-      building: '№4 корпус', room: '213', teacher: 'Имашова И.Қ.' }
+    { date: '15.01.2026', start: '09:00', subject: 'Деректер қорын басқару жүйелері', building: '№7 корпус', room: '213', teacher: 'Имашова И.Қ.' },
+    { date: '17.01.2026', start: '11:00', subject: 'Жасанды интеллект және машиналық оқыту', building: '№4 корпус', room: '213', teacher: 'Имашова И.Қ.' },
+    { date: '20.01.2026', start: '09:00', subject: 'Компьютерлік жабдықты жөндеу негіздері', building: '№4 корпус', room: '213', teacher: 'Имашова И.Қ.' }
   ];
-
-  const IGA = [
-    { date: '25.01.2026', start: '10:00', subject: 'Кешенді мемлекеттік емтихан',
-      building: 'Актовый зал', room: '—', teacher: 'Комиссия' }
-  ];
+  const IGA = [{ date: '25.01.2026', start: '10:00', subject: 'Кешенді мемлекеттік емтихан', building: 'Актовый зал', room: '—', teacher: 'Комиссия' }];
 
   const GRADES = [
     { subject: 'Жасанды интеллект және машиналық оқыту', teacher: 'Имашова И.Қ.', r1: 90, r2: 93, exam: 91, total: 'A', credits: 5 },
@@ -2175,9 +2190,6 @@ body.dark .toast { background: #0F172A; }
     { subject: 'Қазақстан тарихы', teacher: 'Оспанова Л.Т.', r1: 74, r2: 79, exam: 81, total: 'B', credits: 3 }
   ];
 
-  /* ============================================================
-     STUDENTS (TEACHER JOURNAL)
-  ============================================================ */
   const STUDENTS = [
     { id: 1, name: 'Асқар Нұрлан', group: 'ИС' },
     { id: 2, name: 'Айгүл Сейітқали', group: 'ИС' },
@@ -2209,9 +2221,6 @@ body.dark .toast { background: #0F172A; }
     { key: 'ИНФ', label: 'Информатика', labelRu: 'Информатика' }
   ];
 
-  /* ============================================================
-     USERS
-  ============================================================ */
   const USERS = {
     student: { pass: '1234', role: 'student', name: STUDENT_NAME },
     teacher: { pass: '1234', role: 'teacher', name: TEACHER_NAME_FULL }
@@ -2227,7 +2236,7 @@ body.dark .toast { background: #0F172A; }
   function showApp() {
     $('#loginView').style.display = 'none';
     $('#appView').classList.add('active');
-    applyDarkMode(); // обновить классы роли
+    applyDarkMode();
     renderBottomNav();
     renderAll();
   }
@@ -2307,16 +2316,12 @@ body.dark .toast { background: #0F172A; }
 
   $('#headerLogout').addEventListener('click', logout);
 
-  /* ============================================================
-     NAVIGATION — зависит от роли
-  ============================================================ */
   const NAV_STUDENT = [
     { key: 'home', icon: '🏠', label: 'navHome' },
     { key: 'schedule', icon: '📅', label: 'navSchedule' },
     { key: 'grades', icon: '📊', label: 'navGrades' },
     { key: 'profile', icon: '👤', label: 'navProfile' }
   ];
-
   const NAV_TEACHER = [
     { key: 'home', icon: '🏠', label: 'navHome' },
     { key: 'schedule', icon: '📅', label: 'navSchedule' },
@@ -2340,20 +2345,15 @@ body.dark .toast { background: #0F172A; }
 
   function updateTopbarTitle() {
     const map = {
-      home: t('pageHome'),
-      schedule: t('pageSchedule'),
-      grades: t('pageGrades'),
-      journal: t('pageJournal'),
-      profile: t('pageProfile')
+      home: t('pageHome'), schedule: t('pageSchedule'),
+      grades: t('pageGrades'), journal: t('pageJournal'), profile: t('pageProfile')
     };
     $('#topbarTitle').textContent = map[currentPage] || '';
   }
 
   function navigateTo(target) {
-    // Проверка доступа: студент не должен попасть на journal, учитель — на grades
     if (target === 'journal' && currentRole !== 'teacher') return;
     if (target === 'grades' && currentRole !== 'student') return;
-
     currentPage = target;
     $$('.bottom-nav-item').forEach(b => b.classList.toggle('active', b.dataset.nav === target));
     $$('.page').forEach(p => p.classList.remove('active'));
@@ -2366,9 +2366,6 @@ body.dark .toast { background: #0F172A; }
     if (target === 'home') renderHome();
   }
 
-  /* ============================================================
-     TIME UTILITIES
-  ============================================================ */
   function timeToMinutes(str) {
     const [h, m] = str.split(':').map(Number);
     return h * 60 + m;
@@ -2410,9 +2407,6 @@ body.dark .toast { background: #0F172A; }
     return { current, next, minNextDiff };
   }
 
-  /* ============================================================
-     SCHEDULE RENDER
-  ============================================================ */
   let activeDay = getTodayKey();
   let activeTab = 'classes';
   let scheduleSearch = '';
@@ -2512,18 +2506,15 @@ body.dark .toast { background: #0F172A; }
   function buildLessonCard(l, i, isToday) {
     const card = document.createElement('div');
     const status = isToday ? getLessonStatus(l) : 'upcoming';
-
     let classes = 'lesson-card';
     if (l.type === 'lecture') classes += ' lecture';
     else if (l.type === 'practice') classes += ' practice';
     else if (l.type === 'lab') classes += ' lab';
-
     if (isToday) {
       if (status === 'live') classes += ' live';
       else if (status === 'ended') classes += ' ended';
       else classes += ' upcoming-today';
     }
-
     card.className = classes;
     card.style.animationDelay = (i * 0.05) + 's';
 
@@ -2548,7 +2539,6 @@ body.dark .toast { background: #0F172A; }
       progressHtml = `<div class="lesson-progress"><div class="fill" style="width:${pct}%"></div></div>`;
     }
 
-    // Teacher: показать группы; Student: показать преподавателя
     const secondLine = currentRole === 'teacher'
       ? `<div class="info-row"><span class="info-icon">👥</span><span class="info-text">${l.groups ? l.groups.join(', ') : ''}</span></div>`
       : `<div class="info-row"><span class="info-icon">👨‍🏫</span><span class="info-text strong">${l.teacher}</span></div>`;
@@ -2605,12 +2595,8 @@ body.dark .toast { background: #0F172A; }
     renderSchedule();
   });
 
-  /* ============================================================
-     GRADES (STUDENT)
-  ============================================================ */
   function renderGrades() {
     if (currentRole !== 'student') return;
-
     const gradePoint = { 'A': 4.0, 'A-': 3.67, 'B+': 3.33, 'B': 3.0, 'B-': 2.67, 'C+': 2.33 };
     let totalPoints = 0, totalCredits = 0;
     GRADES.forEach(g => {
@@ -2670,9 +2656,7 @@ body.dark .toast { background: #0F172A; }
     if (currentRole !== 'student') return;
     const header = ['Пән', 'Оқытушы', '1-РК', '2-РК', 'Емтихан', 'Қорытынды', 'Кредит'];
     const rows = GRADES.map(g => [g.subject, g.teacher, g.r1, g.r2, g.exam, g.total, g.credits]);
-    const csv = [header, ...rows]
-      .map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(','))
-      .join('\n');
+    const csv = [header, ...rows].map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
     const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -2685,9 +2669,6 @@ body.dark .toast { background: #0F172A; }
     showToast(t('exported'));
   });
 
-  /* ============================================================
-     JOURNAL (TEACHER)
-  ============================================================ */
   let activeJournalTab = 'attendance';
   let activeGroupFilter = 'all';
   let attendanceData = {};
@@ -2809,9 +2790,6 @@ body.dark .toast { background: #0F172A; }
     showToast(t('journalSaved'));
   });
 
-  /* ============================================================
-     HOME
-  ============================================================ */
   function renderNowAndNextBanners() {
     const nowContainer = $('#nowBannerContainer');
     const nextContainer = $('#nextBannerContainer');
@@ -2869,7 +2847,6 @@ body.dark .toast { background: #0F172A; }
     const wrap = $('#gpaPreview');
     if (currentRole !== 'student') { wrap.style.display = 'none'; return; }
     wrap.style.display = 'flex';
-
     const gradePoint = { 'A': 4.0, 'A-': 3.67, 'B+': 3.33, 'B': 3.0, 'B-': 2.67, 'C+': 2.33 };
     let totalPoints = 0, totalCredits = 0;
     GRADES.forEach(g => {
@@ -2877,27 +2854,19 @@ body.dark .toast { background: #0F172A; }
       totalCredits += g.credits;
     });
     const gpa = (totalPoints / totalCredits).toFixed(2);
-
     $('#gpaLabel').textContent = t('gpaLabel');
     $('#gpaValue').textContent = gpa;
-    $('#gpaSub').textContent = t('gpaSubTemplate')
-      .replace('{credits}', totalCredits)
-      .replace('{count}', GRADES.length);
+    $('#gpaSub').textContent = t('gpaSubTemplate').replace('{credits}', totalCredits).replace('{count}', GRADES.length);
   }
 
   function renderTeacherStats() {
     const statsGrid = $('#teacherStats');
-    if (currentRole !== 'teacher') {
-      statsGrid.classList.add('hidden');
-      return;
-    }
+    if (currentRole !== 'teacher') { statsGrid.classList.add('hidden'); return; }
     statsGrid.classList.remove('hidden');
-
     let lessonCount = 0;
     Object.values(TEACHER_SCHEDULE).forEach(day => { lessonCount += day.length; });
     const studentsCount = STUDENTS.length;
     const groupsCount = GROUPS.length - 1;
-
     statsGrid.innerHTML = `
       <div class="stat-card success">
         <div class="stat-label">${t('statAvgGrade')}</div>
@@ -2946,7 +2915,6 @@ body.dark .toast { background: #0F172A; }
 
     const todayKey = getTodayKey();
     const todayLessons = getScheduleData()[todayKey] || [];
-
     $('#todayCount').textContent = todayLessons.length + ' ' + t('lessonsCount');
     const preview = $('#todayPreview');
     preview.innerHTML = '';
@@ -2980,26 +2948,14 @@ body.dark .toast { background: #0F172A; }
     });
   }
 
-  /* ============================================================
-     PROFILE — разные данные для разных ролей
-  ============================================================ */
   const DEFAULT_STUDENT_PROFILE = {
-    fullName: STUDENT_NAME,
-    email: 'askar@university.kz',
-    phone: '+7 700 123 4567',
-    group: STUDENT_GROUP
+    fullName: STUDENT_NAME, email: 'askar@university.kz', phone: '+7 700 123 4567', group: STUDENT_GROUP
   };
   const DEFAULT_TEACHER_PROFILE = {
-    fullName: TEACHER_NAME_FULL,
-    email: 'imashova@university.kz',
-    phone: '+7 701 234 5678',
-    department: 'Информатика кафедрасы'
+    fullName: TEACHER_NAME_FULL, email: 'imashova@university.kz', phone: '+7 701 234 5678', department: 'Информатика кафедрасы'
   };
 
-  function getProfileKey() {
-    // Разные ключи для разных ролей!
-    return 'profile_' + currentRole;
-  }
+  function getProfileKey() { return 'profile_' + currentRole; }
 
   function getProfileData() {
     const def = currentRole === 'teacher' ? DEFAULT_TEACHER_PROFILE : DEFAULT_STUDENT_PROFILE;
@@ -3011,15 +2967,12 @@ body.dark .toast { background: #0F172A; }
   }
 
   function loadProfile() {
-    // 👇 Это ключевой момент — данные берутся по текущей роли
     const data = getProfileData();
-
     $('#fullName').value = data.fullName || '';
     $('#email').value = data.email || '';
     $('#phone').value = data.phone || '';
 
     if (currentRole === 'teacher') {
-      // TEACHER: показываем кафедру, скрываем группу
       $('#groupRow').style.display = 'none';
       $('#deptRow').style.display = 'block';
       $('#department').value = data.department || '';
@@ -3027,7 +2980,6 @@ body.dark .toast { background: #0F172A; }
       $('#roleBadge').textContent = t('roleBadgeTeacher');
       $('#heroGroup').textContent = data.department || '—';
     } else {
-      // STUDENT: показываем группу, скрываем кафедру
       $('#groupRow').style.display = 'block';
       $('#deptRow').style.display = 'none';
       $('#group').value = data.group || '';
@@ -3035,7 +2987,6 @@ body.dark .toast { background: #0F172A; }
       $('#roleBadge').textContent = t('roleBadgeStudent');
       $('#heroGroup').textContent = (currentLang === 'kk' ? 'Топ: ' : 'Группа: ') + (data.group || '—');
     }
-
     $('#heroName2').textContent = data.fullName || 'User';
   }
 
@@ -3046,11 +2997,8 @@ body.dark .toast { background: #0F172A; }
       email: $('#email').value.trim(),
       phone: $('#phone').value.trim()
     };
-    if (currentRole === 'teacher') {
-      data.department = $('#department').value.trim();
-    } else {
-      data.group = $('#group').value.trim();
-    }
+    if (currentRole === 'teacher') data.department = $('#department').value.trim();
+    else data.group = $('#group').value.trim();
     safeSet(getProfileKey(), JSON.stringify(data));
     safeSet('displayName', data.fullName || 'User');
     loadProfile();
@@ -3069,66 +3017,42 @@ body.dark .toast { background: #0F172A; }
         if (perm === 'granted') {
           try { new Notification('University App', { body: 'Хабарламалар қосылды! 🔔' }); } catch(e) {}
           showToast(t('notifEnabled'));
-        } else {
-          showToast(t('notifEnabled'));
-        }
+        } else showToast(t('notifEnabled'));
       });
-    } else {
-      showToast(isOn ? t('notifEnabled') : t('notifDisabled'));
-    }
+    } else showToast(isOn ? t('notifEnabled') : t('notifDisabled'));
   });
 
-  /* ============================================================
-     APPLY TRANSLATIONS
-  ============================================================ */
   function applyTranslations() {
     document.documentElement.lang = currentLang;
-
     $('#loginTitle').textContent = t('loginTitle');
     $('#loginSubtitle').textContent = t('loginSubtitle');
     $('#loginBtn').textContent = t('loginBtn');
-    $('#username').placeholder = currentLang === 'kk' ? 'Логин' : 'Логин';
+    $('#username').placeholder = 'Логин';
     $('#password').placeholder = currentLang === 'kk' ? 'Құпия сөз' : 'Пароль';
-
     $('#roleStudent').querySelector('span').textContent = t('roleStudent');
     $('#roleTeacher').querySelector('span').textContent = t('roleTeacher');
-
     $('#hintBox').innerHTML = `💡 ${t('hint')}: <b id="hintCred">${currentRole === 'student' ? 'student / 1234' : 'teacher / 1234'}</b>`;
-
     $$('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === currentLang));
     $$('.lang-option').forEach(b => b.classList.toggle('active', b.dataset.lang === currentLang));
-
     const ss = $('#scheduleSearch');
     if (ss) ss.placeholder = t('searchSchedule');
     const stuS = $('#studentSearch');
     if (stuS) stuS.placeholder = t('searchStudent');
-
     const eb = $('#exportBtn');
     if (eb) eb.textContent = currentLang === 'kk' ? '📥 Excel/CSV экспорттау' : '📥 Экспорт в Excel/CSV';
-
     renderBottomNav();
     updateTopbarTitle();
     applyDarkMode();
   }
 
-  /* ============================================================
-     INIT
-  ============================================================ */
   function renderAll() {
     applyTranslations();
-
-    // Обновляем цвета в зависимости от роли
     document.body.classList.toggle('role-teacher', currentRole === 'teacher');
-
     renderSchedule();
-    if (currentRole === 'student') {
-      renderGrades();
-    } else {
-      renderJournal();
-    }
+    if (currentRole === 'student') renderGrades();
+    else renderJournal();
     renderHome();
     loadProfile();
-
     const notify = safeGet('notifications') === 'true';
     $('#notifyToggle').classList.toggle('on', notify);
   }
@@ -3137,12 +3061,8 @@ body.dark .toast { background: #0F172A; }
     currentLang = safeGet('lang') || 'kk';
     currentRole = safeGet('role') || 'student';
     isDark = safeGet('dark') === 'true';
-
-    // Устанавливаем класс роли на body
     document.body.classList.toggle('role-teacher', currentRole === 'teacher');
-
     $$('.role-btn').forEach(b => b.classList.toggle('active', b.dataset.role === currentRole));
-
     applyTranslations();
     applyDarkMode();
 
@@ -3168,9 +3088,7 @@ body.dark .toast { background: #0F172A; }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+  } else init();
 
 })();
 </script>
