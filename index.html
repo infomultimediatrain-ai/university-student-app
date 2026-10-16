@@ -27,8 +27,11 @@
   --white: #FFFFFF;
   --border: #E5E7EB;
   --success: #10B981;
+  --success-soft: #D1FAE5;
   --warning: #F59E0B;
+  --warning-soft: #FEF3C7;
   --info: #06B6D4;
+  --info-soft: #CFFAFE;
   --card-bg: #FFFFFF;
   --input-bg: #FAFAFA;
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
@@ -49,21 +52,23 @@ body.dark {
   --card-bg: #1E293B;
   --input-bg: #0F172A;
   --primary-soft: #3F1D22;
+  --success-soft: #14382a;
+  --warning-soft: #4a2e0a;
+  --info-soft: #14384a;
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
   --shadow-md: 0 2px 12px rgba(0,0,0,0.4);
 }
 body.dark { background: var(--gray-bg); color: var(--dark); }
 body.dark .login-card { background: rgba(30,41,59,0.98); }
-body.dark .hero-card,
-body.dark .profile-hero { color: #fff; }
 body.dark .lesson-card,
 body.dark .grade-card,
 body.dark .exam-card,
 body.dark .student-row,
 body.dark .summary-card,
 body.dark .form-card,
-body.dark .lang-section,
-body.dark .quick-card { background: var(--card-bg); }
+body.dark .settings-section,
+body.dark .quick-card,
+body.dark .stat-card { background: var(--card-bg); }
 body.dark .topbar { background: var(--card-bg); }
 body.dark .bottom-nav { background: rgba(30,41,59,0.98); }
 body.dark .day-chip { background: var(--card-bg); border-color: var(--border); }
@@ -72,7 +77,6 @@ body.dark .input-group input,
 body.dark .form-row input,
 body.dark .search-box input,
 body.dark .grade-input { background: var(--input-bg); color: var(--dark); border-color: var(--border); }
-body.dark .info-row .info-text { color: var(--gray); }
 body.dark .hint-box { background: var(--primary-soft); border-color: #4A1F26; }
 
 html, body { height: 100%; }
@@ -443,7 +447,9 @@ body.dark #loginView {
   border-color: var(--primary);
 }
 
-/* Lesson card */
+/* ============================================================
+   LESSON CARD
+============================================================ */
 .lesson-card {
   background: var(--card-bg);
   border-radius: var(--radius);
@@ -453,8 +459,31 @@ body.dark #loginView {
   gap: 12px;
   box-shadow: var(--shadow-sm);
   animation: slideUp 0.35s ease backwards;
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-left: 4px solid var(--primary);
+  position: relative;
 }
+
+.lesson-card.lecture { border-left-color: #3b82f6; }
+.lesson-card.practice { border-left-color: #10b981; }
+.lesson-card.lab { border-left-color: #f59e0b; }
+
+.lesson-card.live {
+  border-left-color: var(--success);
+  background: linear-gradient(135deg, rgba(16,185,129,0.06), rgba(16,185,129,0.02));
+  box-shadow: 0 4px 16px rgba(16,185,129,0.15);
+}
+
+.lesson-card.upcoming-today {
+  border-left-color: #94a3b8;
+  opacity: 0.75;
+}
+
+.lesson-card.ended {
+  opacity: 0.55;
+  filter: grayscale(0.3);
+}
+
 .lesson-card:active { transform: scale(0.99); }
 
 @keyframes slideUp {
@@ -467,7 +496,7 @@ body.dark #loginView {
   display: flex;
   flex-direction: column;
   padding-top: 2px;
-  min-width: 48px;
+  min-width: 52px;
 }
 .lesson-time .time-start {
   font-size: 14.5px; font-weight: 800;
@@ -480,6 +509,35 @@ body.dark #loginView {
   margin-top: 2px;
 }
 
+/* LIVE indicator */
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  background: linear-gradient(135deg, #10B981, #059669);
+  color: #fff;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  box-shadow: 0 3px 10px rgba(16,185,129,0.35);
+}
+.live-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  animation: pulse 1.4s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.75); }
+}
+
 .lesson-body { flex: 1; min-width: 0; }
 
 .lesson-subject {
@@ -487,6 +545,35 @@ body.dark #loginView {
   color: var(--dark); line-height: 1.3;
   margin-bottom: 7px; letter-spacing: -0.2px;
 }
+
+.lesson-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 7px;
+}
+
+.badge-type {
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.badge-lecture { background: #dbeafe; color: #1e40af; }
+.badge-practice { background: #d1fae5; color: #065f46; }
+.badge-lab { background: #fef3c7; color: #92400e; }
+
+.badge-lang {
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.badge-kaz { background: #fef3c7; color: #92400e; }
+.badge-rus { background: #ede9fe; color: #5b21b6; }
 
 .lesson-info {
   display: flex;
@@ -505,7 +592,7 @@ body.dark #loginView {
   flex-shrink: 0;
   width: 15px; height: 15px;
   display: flex; align-items: center; justify-content: center;
-  opacity: 0.6;
+  opacity: 0.65;
   margin-top: 1px;
 }
 .info-row .info-text {
@@ -515,6 +602,21 @@ body.dark #loginView {
 }
 .info-row .info-text.strong {
   color: var(--dark); font-weight: 600;
+}
+
+/* Progress bar for live lesson */
+.lesson-progress {
+  margin-top: 8px;
+  height: 4px;
+  background: var(--gray-bg);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.lesson-progress .fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10B981, #059669);
+  border-radius: 4px;
+  transition: width 0.8s linear;
 }
 
 /* Day strip */
@@ -541,6 +643,7 @@ body.dark #loginView {
   align-items: center;
   min-width: 52px;
   transition: all 0.2s;
+  position: relative;
 }
 .day-chip .day-name {
   font-size: 10px; font-weight: 700;
@@ -558,6 +661,25 @@ body.dark #loginView {
 }
 .day-chip.active .day-name { color: rgba(255,255,255,0.85); }
 .day-chip.active .day-num { color: var(--white); }
+
+.day-chip.today:not(.active) {
+  border-color: var(--primary);
+  border-width: 2px;
+  background: var(--primary-soft);
+}
+.day-chip.today:not(.active) .day-num { color: var(--primary); }
+
+.day-chip .today-dot {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--primary);
+  animation: pulse 1.6s infinite;
+}
+.day-chip.active .today-dot { background: #fff; }
 
 /* Empty */
 .empty-state {
@@ -757,6 +879,114 @@ body.dark #loginView {
   font-weight: 500; position: relative;
 }
 
+/* Now indicator (big banner) */
+.now-banner {
+  background: linear-gradient(135deg, #10B981, #059669);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  color: #fff;
+  margin-bottom: 12px;
+  box-shadow: 0 10px 24px rgba(16,185,129,0.3);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+  animation: slideUp 0.4s ease;
+}
+.now-banner::before {
+  content: '';
+  position: absolute;
+  width: 150px; height: 150px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  top: -60px; right: -50px;
+}
+.now-banner .now-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+.now-banner .now-body { flex: 1; min-width: 0; position: relative; z-index: 2; }
+.now-banner .now-label {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.now-banner .now-label::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  animation: pulse 1.4s infinite;
+}
+.now-banner .now-title {
+  font-size: 14.5px;
+  font-weight: 800;
+  margin-top: 3px;
+  letter-spacing: -0.2px;
+  line-height: 1.25;
+}
+.now-banner .now-time {
+  font-size: 11.5px;
+  opacity: 0.9;
+  font-weight: 600;
+  margin-top: 3px;
+}
+
+/* Next lesson info */
+.next-banner {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--info);
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  animation: slideUp 0.4s ease;
+}
+.next-banner .next-icon {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  background: var(--info-soft);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.next-banner .next-body { flex: 1; min-width: 0; }
+.next-banner .next-label {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--info);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.next-banner .next-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--dark);
+  margin-top: 2px;
+  line-height: 1.3;
+}
+.next-banner .next-time {
+  font-size: 11px;
+  color: var(--gray);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
 .section-title {
   font-size: 13.5px; font-weight: 800;
   color: var(--dark);
@@ -932,7 +1162,6 @@ body.dark #loginView {
   text-align: center; min-height: 18px;
 }
 
-/* Settings sections in profile */
 .settings-section {
   background: var(--card-bg);
   border-radius: var(--radius);
@@ -1003,12 +1232,8 @@ body.dark #loginView {
   transition: transform 0.25s;
   box-shadow: 0 2px 5px rgba(0,0,0,0.15);
 }
-.notify-toggle.on .toggle-switch {
-  background: var(--success);
-}
-.notify-toggle.on .toggle-switch::after {
-  transform: translateX(18px);
-}
+.notify-toggle.on .toggle-switch { background: var(--success); }
+.notify-toggle.on .toggle-switch::after { transform: translateX(18px); }
 
 /* ============================================================
    TEACHER: JOURNAL
@@ -1276,7 +1501,7 @@ body.dark .toast { background: #0F172A; }
         🎓 <span>Студент</span>
       </button>
       <button class="role-btn" data-role="teacher" id="roleTeacher">
-        👨‍🏫 <span>Оқытушы</span>
+        👩‍🏫 <span>Оқытушы</span>
       </button>
     </div>
 
@@ -1333,6 +1558,12 @@ body.dark .toast { background: #0F172A; }
         <h2 id="heroGreeting">Қайырлы күн! 👋</h2>
         <p id="heroName">—</p>
       </div>
+
+      <!-- LIVE lesson banner (teacher home) -->
+      <div id="nowBannerContainer"></div>
+
+      <!-- NEXT lesson banner (teacher home) -->
+      <div id="nextBannerContainer"></div>
 
       <!-- Teacher stats -->
       <div class="stats-grid hidden" id="teacherStats"></div>
@@ -1498,13 +1729,12 @@ body.dark .toast { background: #0F172A; }
       tabClasses: 'Сабақтар', tabExams: 'Емтихандар', tabIGA: 'ҚИА', tabWeek: '📅 Апта',
       tabAttendance: 'Қатысу', tabGradeEntry: 'Баға қою',
       greetMorning: 'Қайырлы таң!', greetDay: 'Қайырлы күн!', greetEvening: 'Қайырлы кеш!',
-      todayTitle: 'Бүгінгі сабақтар', todayTitleTeacher: 'Бүгінгі жұптар',
+      todayTitle: 'Бүгінгі сабақтар', todayTitleTeacher: 'Бүгінгі сабақтарыңыз',
       quickTitle: 'Жылдам әрекеттер',
       quickSchedule: 'Кесте', quickScheduleSub: 'Апталық',
       quickGrades: 'Бағалар', quickGradesSub: 'Үлгерім',
       quickJournal: 'Журнал', quickJournalSub: 'Қатысу & баға',
       quickProfile: 'Профиль', quickProfileSub: 'Жеке деректер',
-      quickStats: 'Статистика', quickStatsSub: 'Топ көрсеткіші',
       noLessonsToday: 'Бүгін сабақ жоқ',
       lessonsCount: 'сабақ',
       roleActiveMode: 'Активті режим',
@@ -1524,10 +1754,22 @@ body.dark .toast { background: #0F172A; }
       errWrong: '❌ Қате логин немесе құпия сөз!',
       saved: '✅ Мәліметтер сәтті сақталды!',
       statAvgGrade: 'Орташа балл', statAttendance: 'Қатысу',
-      statStudents: 'Студенттер', statLessons: 'Апталық жұп',
+      statStudents: 'Студенттер', statLessons: 'Апталық сабақ',
+      // LIVE/next banners
+      nowLabel: 'ҚАЗІР',
+      nowInProgress: 'Сабақ жүріп жатыр',
+      nextLabel: 'КЕЛЕСІ САБАҚ',
+      nextInMinutes: 'мин кейін',
+      noMoreToday: 'Бүгін сабақ бітті',
+      // Day names
       days: { 'Дүйсенбі':'Дс','Сейсенбі':'Сс','Сәрсенбі':'Ср','Бейсенбі':'Бс','Жұма':'Жм','Сенбі':'Сб' },
       daysFull: { 'Дүйсенбі':'Дүйсенбі','Сейсенбі':'Сейсенбі','Сәрсенбі':'Сәрсенбі','Бейсенбі':'Бейсенбі','Жұма':'Жұма','Сенбі':'Сенбі' },
-      noResults: 'Ешкім табылмады'
+      // Lesson type labels
+      typeLecture: 'Дәріс',
+      typePractice: 'Практика',
+      typeLab: 'Зертханалық',
+      // Semester info
+      semester: 'Күзгі семестр 2026/2027 оқу жылы'
     },
     ru: {
       loginTitle: 'University App',
@@ -1541,13 +1783,12 @@ body.dark .toast { background: #0F172A; }
       tabClasses: 'Занятия', tabExams: 'Экзамены', tabIGA: 'ИГА', tabWeek: '📅 Неделя',
       tabAttendance: 'Посещаемость', tabGradeEntry: 'Оценки',
       greetMorning: 'Доброе утро!', greetDay: 'Добрый день!', greetEvening: 'Добрый вечер!',
-      todayTitle: 'Занятия сегодня', todayTitleTeacher: 'Пары сегодня',
+      todayTitle: 'Занятия сегодня', todayTitleTeacher: 'Ваши занятия сегодня',
       quickTitle: 'Быстрые действия',
       quickSchedule: 'Расписание', quickScheduleSub: 'Неделя',
       quickGrades: 'Оценки', quickGradesSub: 'Успеваемость',
       quickJournal: 'Журнал', quickJournalSub: 'Посещаемость и оценки',
       quickProfile: 'Профиль', quickProfileSub: 'Личные данные',
-      quickStats: 'Статистика', quickStatsSub: 'Показатели группы',
       noLessonsToday: 'Сегодня занятий нет',
       lessonsCount: 'занятий',
       roleActiveMode: 'Активный режим',
@@ -1568,9 +1809,17 @@ body.dark .toast { background: #0F172A; }
       saved: '✅ Данные успешно сохранены!',
       statAvgGrade: 'Средний балл', statAttendance: 'Посещаемость',
       statStudents: 'Студентов', statLessons: 'Пар в неделю',
+      nowLabel: 'СЕЙЧАС',
+      nowInProgress: 'Идёт занятие',
+      nextLabel: 'СЛЕДУЮЩЕЕ ЗАНЯТИЕ',
+      nextInMinutes: 'мин',
+      noMoreToday: 'На сегодня всё',
       days: { 'Дүйсенбі':'Пн','Сейсенбі':'Вт','Сәрсенбі':'Ср','Бейсенбі':'Чт','Жұма':'Пт','Сенбі':'Сб' },
       daysFull: { 'Дүйсенбі':'Понедельник','Сейсенбі':'Вторник','Сәрсенбі':'Среда','Бейсенбі':'Четверг','Жұма':'Пятница','Сенбі':'Суббота' },
-      noResults: 'Никого не найдено'
+      typeLecture: 'Лекция',
+      typePractice: 'Практика',
+      typeLab: 'Лабораторная',
+      semester: 'Осенний семестр 2026/2027 учебного года'
     }
   };
 
@@ -1604,8 +1853,63 @@ body.dark .toast { background: #0F172A; }
   $('#themeDark').addEventListener('click', () => { isDark = true; safeSet('dark', true); applyDarkMode(); });
 
   /* ============================================================
-     ДЕРЕКТЕР — КЕСТЕ
+     РАСПИСАНИЕ ОҚЫТУШЫ: ИМАШОВА И.Қ.
+     (нақты апталық кесте — сіздің файлдан)
   ============================================================ */
+  const TEACHER_NAME_SHORT = 'Имашова И.Қ.';
+  const TEACHER_NAME_FULL = 'Имашова Инабат Қайырбекқызы';
+
+  // Расписание оқытушы (нақты, апта бойынша)
+  const TEACHER_SCHEDULE = {
+    'Дүйсенбі': [
+      { start: '15:10', end: '15:55', subject: 'Жасанды интеллект және машиналық оқыту',
+        type: 'lecture', lang: 'ru', building: '№4 корпус', room: '213',
+        groups: ['Информационные системы'], weeks: '7-15' },
+      { start: '16:00', end: '16:45', subject: 'Жасанды интеллект және машиналық оқыту',
+        type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а (комп. класс)',
+        groups: ['Информационные системы'], weeks: '7-15' },
+      { start: '16:50', end: '17:35', subject: 'Жасанды интеллект және машиналық оқыту',
+        type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а (комп. класс)',
+        groups: ['Компьютерная мехатроника'], weeks: '7-15' }
+    ],
+    'Сейсенбі': [
+      { start: '14:05', end: '14:50', subject: 'Киберқауіпсіздік',
+        type: 'lecture', lang: 'kz', building: '№4 корпус', room: '213',
+        groups: ['Информационные системы'], weeks: '7-15' },
+      { start: '15:10', end: '15:55', subject: 'Кибербезопасность',
+        type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а (комп. класс)',
+        groups: ['Математика-Информатика'], weeks: '7-15' }
+    ],
+    'Сәрсенбі': [
+      { start: '15:10', end: '15:55', subject: 'Компьютерлік жабдықты жөндеу негіздері',
+        type: 'lecture', lang: 'ru', building: '№4 корпус', room: '213',
+        groups: ['Компьютерная мехатроника'], weeks: '7-15' },
+      { start: '16:00', end: '16:45', subject: 'Компьютерлік жабдықты жөндеу негіздері',
+        type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а (комп. класс)',
+        groups: ['Компьютерная мехатроника'], weeks: '7-15' },
+      { start: '16:50', end: '17:35', subject: 'Компьютерлік жабдықты жөндеу негіздері',
+        type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а (комп. класс)',
+        groups: ['Информатика'], weeks: '7-15' }
+    ],
+    'Бейсенбі': [],
+    'Жұма': [
+      { start: '16:00', end: '16:45', subject: 'Жасанды интеллект және машиналық оқыту',
+        type: 'lecture', lang: 'kz', building: '№4 корпус', room: '213',
+        groups: ['Информатика'], weeks: '7-15' },
+      { start: '16:50', end: '17:35', subject: 'Жасанды интеллект және машиналық оқыту',
+        type: 'practice', lang: 'kz', building: '№4 корпус', room: '212а (комп. класс)',
+        groups: ['Информатика'], weeks: '7-15' },
+      { start: '17:40', end: '18:25', subject: 'Базалық пәндер бойынша арнайы курс',
+        type: 'practice', lang: 'kz', building: '№4 корпус', room: '212а (комп. класс)',
+        groups: ['Математика-Информатика'], weeks: '7-15' },
+      { start: '18:30', end: '19:15', subject: 'Базалық пәндер бойынша арнайы курс',
+        type: 'practice', lang: 'ru', building: '№4 корпус', room: '212а (комп. класс)',
+        groups: ['Информационные системы'], weeks: '7-15' }
+    ],
+    'Сенбі': []
+  };
+
+  // Студент кестесі (жалғастырамыз — өзгеріссіз)
   const SCHEDULE = {
     'Дүйсенбі': [
       { start: '08:55', end: '09:45', subject: 'Эксперттік жүйелер және ЖИ негіздері',
@@ -1655,14 +1959,15 @@ body.dark .toast { background: #0F172A; }
   };
 
   const DAY_ORDER = ['Дүйсенбі', 'Сейсенбі', 'Сәрсенбі', 'Бейсенбі', 'Жұма', 'Сенбі'];
+  const DAYS_MAP = ['Дүйсенбі','Сейсенбі','Сәрсенбі','Бейсенбі','Жұма','Сенбі','Жексенбі'];
 
   const EXAMS = [
     { date: '15.01.2026', start: '09:00', subject: 'Деректер қорын басқару жүйелері',
       building: '№7 корпус', room: '213', teacher: 'Имашова И.Қ.' },
-    { date: '17.01.2026', start: '11:00', subject: 'Эксперттік жүйелер және ЖИ негіздері',
-      building: '№7 корпус', room: '219', teacher: 'Имашова И.Қ.' },
-    { date: '20.01.2026', start: '09:00', subject: 'Компьютерлік жүйелердегі ақпаратты қорғау',
-      building: '№7 корпус', room: '405', teacher: 'Имашова И.Қ.' }
+    { date: '17.01.2026', start: '11:00', subject: 'Жасанды интеллект және машиналық оқыту',
+      building: '№4 корпус', room: '213', teacher: 'Имашова И.Қ.' },
+    { date: '20.01.2026', start: '09:00', subject: 'Компьютерлік жабдықты жөндеу негіздері',
+      building: '№4 корпус', room: '213', teacher: 'Имашова И.Қ.' }
   ];
 
   const IGA = [
@@ -1678,29 +1983,46 @@ body.dark .toast { background: #0F172A; }
     { subject: 'Алгоритмдер және деректер құрылымы', teacher: 'Тұрсынов Е.М.', r1: 90, r2: 94, exam: 92, total: 'A', credits: 5 },
     { subject: 'Деректер қоры', teacher: 'Имашова И.Қ.', r1: 85, r2: 88, exam: 86, total: 'A-', credits: 4 },
     { subject: 'Веб-технологиялар', teacher: 'Жұмабаев А.С.', r1: 92, r2: 95, exam: 93, total: 'A', credits: 4 },
-    { subject: 'Эксперттік жүйелер және ЖИ негіздері', teacher: 'Имашова И.Қ.', r1: 90, r2: 93, exam: 91, total: 'A', credits: 5 },
+    { subject: 'Жасанды интеллект және машиналық оқыту', teacher: 'Имашова И.Қ.', r1: 90, r2: 93, exam: 91, total: 'A', credits: 5 },
     { subject: 'Қазақстан тарихы', teacher: 'Оспанова Л.Т.', r1: 74, r2: 79, exam: 81, total: 'B', credits: 3 }
   ];
 
   /* ============================================================
-     ДЕРЕКТЕР — СТУДЕНТТЕР (3 топ)
+     СТУДЕНТТЕР (топтар — расписаниеге сәйкес)
   ============================================================ */
   const STUDENTS = [
-    { id: 1, name: 'Асқар Нұрлан', group: 'IT-21' },
-    { id: 2, name: 'Айгүл Сейітқали', group: 'IT-21' },
-    { id: 3, name: 'Дәурен Бекмұратов', group: 'IT-21' },
-    { id: 4, name: 'Жанна Әбенова', group: 'IT-21' },
-    { id: 5, name: 'Ержан Қуаныш', group: 'IT-21' },
-    { id: 6, name: 'Мадина Серікбай', group: 'IT-22' },
-    { id: 7, name: 'Нұрсұлтан Оспанов', group: 'IT-22' },
-    { id: 8, name: 'Сая Қайрат', group: 'IT-22' },
-    { id: 9, name: 'Темірлан Жақсылық', group: 'IT-22' },
-    { id: 10, name: 'Ұлжан Мұрат', group: 'IT-22' },
-    { id: 11, name: 'Аида Тұрсынбай', group: 'IT-23' },
-    { id: 12, name: 'Бекзат Ерғали', group: 'IT-23' },
-    { id: 13, name: 'Гүлмира Сәрсен', group: 'IT-23' },
-    { id: 14, name: 'Данияр Оспан', group: 'IT-23' },
-    { id: 15, name: 'Еркебұлан Мұрат', group: 'IT-23' }
+    // Информационные системы
+    { id: 1, name: 'Асқар Нұрлан', group: 'ИС' },
+    { id: 2, name: 'Айгүл Сейітқали', group: 'ИС' },
+    { id: 3, name: 'Дәурен Бекмұратов', group: 'ИС' },
+    { id: 4, name: 'Жанна Әбенова', group: 'ИС' },
+    { id: 5, name: 'Ержан Қуаныш', group: 'ИС' },
+    { id: 6, name: 'Мадина Серікбай', group: 'ИС' },
+    // Компьютерная мехатроника
+    { id: 7, name: 'Нұрсұлтан Оспанов', group: 'КМ' },
+    { id: 8, name: 'Сая Қайрат', group: 'КМ' },
+    { id: 9, name: 'Темірлан Жақсылық', group: 'КМ' },
+    { id: 10, name: 'Ұлжан Мұрат', group: 'КМ' },
+    { id: 11, name: 'Аида Тұрсынбай', group: 'КМ' },
+    // Математика-Информатика
+    { id: 12, name: 'Бекзат Ерғали', group: 'МИ' },
+    { id: 13, name: 'Гүлмира Сәрсен', group: 'МИ' },
+    { id: 14, name: 'Данияр Оспан', group: 'МИ' },
+    { id: 15, name: 'Еркебұлан Мұрат', group: 'МИ' },
+    // Информатика
+    { id: 16, name: 'Жанар Сейдахмет', group: 'ИНФ' },
+    { id: 17, name: 'Ислам Тұрғанбай', group: 'ИНФ' },
+    { id: 18, name: 'Камила Нұрлан', group: 'ИНФ' },
+    { id: 19, name: 'Лаура Оспанова', group: 'ИНФ' },
+    { id: 20, name: 'Мұрат Ержан', group: 'ИНФ' }
+  ];
+
+  const GROUPS = [
+    { key: 'all', label: 'Барлығы', labelRu: 'Все' },
+    { key: 'ИС', label: 'Информационные системы', labelRu: 'Информационные системы' },
+    { key: 'КМ', label: 'Компьютерная мехатроника', labelRu: 'Компьютерная мехатроника' },
+    { key: 'МИ', label: 'Математика-Информатика', labelRu: 'Математика-Информатика' },
+    { key: 'ИНФ', label: 'Информатика', labelRu: 'Информатика' }
   ];
 
   /* ============================================================
@@ -1708,7 +2030,7 @@ body.dark .toast { background: #0F172A; }
   ============================================================ */
   const USERS = {
     student: { pass: '1234', role: 'student', name: 'Асқар Нұрлан' },
-    teacher: { pass: '1234', role: 'teacher', name: 'Имашова Инабат Қайырбекқызы' }
+    teacher: { pass: '1234', role: 'teacher', name: TEACHER_NAME_FULL }
   };
 
   const isLoggedIn = () => safeGet('loggedIn') === 'true';
@@ -1725,7 +2047,6 @@ body.dark .toast { background: #0F172A; }
     renderAll();
   }
 
-  /* Role selection */
   $$('.role-btn').forEach(btn => {
     btn.addEventListener('click', function () {
       $$('.role-btn').forEach(b => b.classList.remove('active'));
@@ -1736,12 +2057,10 @@ body.dark .toast { background: #0F172A; }
     });
   });
 
-  /* Language */
   function switchLang(lang) {
     currentLang = lang;
     safeSet('lang', lang);
     applyTranslations();
-    // Re-render dynamic parts
     if (isLoggedIn()) {
       renderSchedule();
       if (currentRole === 'student') renderGrades(); else renderJournal();
@@ -1759,7 +2078,6 @@ body.dark .toast { background: #0F172A; }
     showToast(currentLang === 'kk' ? 'Тіл: Қазақша' : 'Язык: Русский');
   });
 
-  /* Login */
   $('#loginForm').addEventListener('submit', function (e) {
     e.preventDefault();
     const user = $('#username').value.trim();
@@ -1854,6 +2172,54 @@ body.dark .toast { background: #0F172A; }
     const n = $('#notification');
     if (n) n.classList.add('hidden');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Refresh home page banners when returning
+    if (target === 'home') renderHome();
+  }
+
+  /* ============================================================
+     TIME UTILITIES
+  ============================================================ */
+  function timeToMinutes(str) {
+    const [h, m] = str.split(':').map(Number);
+    return h * 60 + m;
+  }
+
+  function nowMinutes() {
+    const d = new Date();
+    return d.getHours() * 60 + d.getMinutes();
+  }
+
+  function getTodayKey() {
+    const idx = new Date().getDay(); // 0=Жексенбі
+    if (idx === 0) return 'Жексенбі';
+    return DAYS_MAP[idx - 1];
+  }
+
+  function getLessonStatus(lesson) {
+    const now = nowMinutes();
+    const start = timeToMinutes(lesson.start);
+    const end = timeToMinutes(lesson.end);
+    if (now >= start && now < end) return 'live';
+    if (now < start) return 'upcoming';
+    return 'ended';
+  }
+
+  function getCurrentAndNext(lessons) {
+    const now = nowMinutes();
+    let current = null, next = null;
+    let minNextDiff = Infinity;
+
+    lessons.forEach(l => {
+      const start = timeToMinutes(l.start);
+      const end = timeToMinutes(l.end);
+      if (now >= start && now < end) current = l;
+      else if (now < start) {
+        const diff = start - now;
+        if (diff < minNextDiff) { minNextDiff = diff; next = l; }
+      }
+    });
+
+    return { current, next, minNextDiff };
   }
 
   /* ============================================================
@@ -1863,11 +2229,8 @@ body.dark .toast { background: #0F172A; }
   let activeTab = 'classes';
   let scheduleSearch = '';
 
-  function getTodayKey() {
-    const map = ['Дүйсенбі','Сейсенбі','Сәрсенбі','Бейсенбі','Жұма','Сенбі'];
-    const idx = new Date().getDay();
-    if (idx === 0) return 'Дүйсенбі';
-    return map[idx - 1] || 'Дүйсенбі';
+  function getSchedule() {
+    return currentRole === 'teacher' ? TEACHER_SCHEDULE : SCHEDULE;
   }
 
   function filterLessons(lessons) {
@@ -1875,8 +2238,9 @@ body.dark .toast { background: #0F172A; }
     const q = scheduleSearch.toLowerCase();
     return lessons.filter(l =>
       l.subject.toLowerCase().includes(q) ||
-      l.teacher.toLowerCase().includes(q) ||
-      (l.room && l.room.toLowerCase().includes(q))
+      (l.teacher && l.teacher.toLowerCase().includes(q)) ||
+      (l.room && l.room.toLowerCase().includes(q)) ||
+      (l.groups && l.groups.join(' ').toLowerCase().includes(q))
     );
   }
 
@@ -1888,10 +2252,17 @@ body.dark .toast { background: #0F172A; }
     const strip = $('#dayStrip');
     strip.innerHTML = '';
     if (activeTab === 'classes' || activeTab === 'week') {
+      const scheduleData = getSchedule();
+      const todayKey = getTodayKey();
       DAY_ORDER.forEach(day => {
         const chip = document.createElement('button');
-        chip.className = 'day-chip' + (day === activeDay ? ' active' : '');
-        chip.innerHTML = `<span class="day-name">${t('days')[day]}</span><span class="day-num">${day.slice(0,1)}</span>`;
+        const isToday = day === todayKey;
+        chip.className = 'day-chip' + (day === activeDay ? ' active' : '') + (isToday ? ' today' : '');
+        chip.innerHTML = `
+          <span class="day-name">${t('days')[day]}</span>
+          <span class="day-num">${day.slice(0,1)}</span>
+          ${isToday ? '<span class="today-dot"></span>' : ''}
+        `;
         chip.addEventListener('click', () => { activeDay = day; renderSchedule(); });
         strip.appendChild(chip);
       });
@@ -1901,13 +2272,14 @@ body.dark .toast { background: #0F172A; }
     list.innerHTML = '';
 
     if (activeTab === 'classes') {
-      let lessons = SCHEDULE[activeDay] || [];
+      const scheduleData = getSchedule();
+      let lessons = scheduleData[activeDay] || [];
       lessons = filterLessons(lessons);
       if (lessons.length === 0) {
-        list.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><p>${t('noLessonsToday')}</p></div>`;
+        list.innerHTML = `<div class="empty-state"><div class="icon">🎉</div><p>${t('noLessonsToday')}</p></div>`;
         return;
       }
-      lessons.forEach((l, i) => list.appendChild(buildLessonCard(l, i)));
+      lessons.forEach((l, i) => list.appendChild(buildLessonCard(l, i, activeDay === getTodayKey())));
     } else if (activeTab === 'exams') {
       let exams = EXAMS;
       if (scheduleSearch) {
@@ -1918,8 +2290,9 @@ body.dark .toast { background: #0F172A; }
     } else if (activeTab === 'iga') {
       IGA.forEach((e, i) => list.appendChild(buildExamCard(e, i)));
     } else if (activeTab === 'week') {
+      const scheduleData = getSchedule();
       DAY_ORDER.forEach(day => {
-        let lessons = SCHEDULE[day] || [];
+        let lessons = scheduleData[day] || [];
         lessons = filterLessons(lessons);
         const block = document.createElement('div');
         block.className = 'week-day-block';
@@ -1936,9 +2309,13 @@ body.dark .toast { background: #0F172A; }
           lessons.forEach(l => {
             const item = document.createElement('div');
             item.className = 'week-lesson-item';
+            const groupsText = l.groups ? l.groups.join(', ') : (l.group || '');
+            const teacherOrGroups = currentRole === 'teacher'
+              ? `👥 ${groupsText}`
+              : `🎓 ${l.teacher}`;
             item.innerHTML = `
               <div><span class="wl-time">${l.start}–${l.end}</span><span class="wl-subject">${l.subject}</span></div>
-              <div class="wl-info">📍 ${l.building}, ${l.room} • 🎓 ${l.teacher} • ${l.type}</div>
+              <div class="wl-info">📍 ${l.building}, ${l.room} • ${teacherOrGroups} • ${l.type}</div>
             `;
             block.appendChild(item);
           });
@@ -1948,22 +2325,80 @@ body.dark .toast { background: #0F172A; }
     }
   }
 
-  function buildLessonCard(l, i) {
+  function buildLessonCard(l, i, isToday) {
     const card = document.createElement('div');
-    card.className = 'lesson-card';
+    const status = isToday ? getLessonStatus(l) : 'upcoming';
+
+    let classes = 'lesson-card';
+    if (l.type === 'lecture') classes += ' lecture';
+    else if (l.type === 'practice') classes += ' practice';
+    else if (l.type === 'lab') classes += ' lab';
+
+    if (isToday) {
+      if (status === 'live') classes += ' live';
+      else if (status === 'ended') classes += ' ended';
+      else classes += ' upcoming-today';
+    }
+
+    card.className = classes;
     card.style.animationDelay = (i * 0.05) + 's';
+
+    // Type badge
+    let typeBadge = '';
+    if (l.type === 'lecture' || l.type === 'Дәрістер' || l.type === 'Лекция') {
+      typeBadge = `<span class="badge-type badge-lecture">${t('typeLecture')}</span>`;
+    } else if (l.type === 'practice' || l.type === 'Практикалық' || l.type === 'Практика') {
+      typeBadge = `<span class="badge-type badge-practice">${t('typePractice')}</span>`;
+    } else if (l.type === 'lab' || l.type === 'Зертханалық') {
+      typeBadge = `<span class="badge-type badge-lab">${t('typeLab')}</span>`;
+    }
+
+    // Lang badge
+    let langBadge = '';
+    if (l.lang === 'kz') langBadge = `<span class="badge-lang badge-kaz">каз</span>`;
+    else if (l.lang === 'ru') langBadge = `<span class="badge-lang badge-rus">рус</span>`;
+
+    // Live badge
+    const liveBadge = status === 'live' ? `<div class="live-badge">${t('nowInProgress')}</div>` : '';
+
+    // Progress bar for live
+    let progressHtml = '';
+    if (status === 'live') {
+      const start = timeToMinutes(l.start);
+      const end = timeToMinutes(l.end);
+      const total = end - start;
+      const passed = nowMinutes() - start;
+      const pct = Math.min(100, Math.max(0, (passed / total) * 100));
+      progressHtml = `<div class="lesson-progress"><div class="fill" style="width:${pct}%"></div></div>`;
+    }
+
+    // Groups/teacher line
+    const groupsText = l.groups ? l.groups.join(', ') : (l.group || '');
+    const secondLine = currentRole === 'teacher'
+      ? `<div class="info-row"><span class="info-icon">👥</span><span class="info-text">${groupsText}</span></div>`
+      : `<div class="info-row"><span class="info-icon">👥</span><span class="info-text">${l.group} • ${l.type}</span></div>`;
+
+    // Weeks info (teacher only)
+    const weeksInfo = (currentRole === 'teacher' && l.weeks)
+      ? `<div class="info-row"><span class="info-icon">📅</span><span class="info-text">${l.weeks} ${currentLang === 'kk' ? 'апта' : 'неделя'}</span></div>`
+      : '';
+
     card.innerHTML = `
       <div class="lesson-time">
         <div class="time-start">${l.start}</div>
         <div class="time-end">${l.end}</div>
       </div>
       <div class="lesson-body">
+        ${liveBadge}
         <div class="lesson-subject">${l.subject}</div>
+        <div class="lesson-badges">${typeBadge}${langBadge}</div>
         <div class="lesson-info">
           <div class="info-row"><span class="info-icon">📍</span><span class="info-text">${l.building}, ${l.room}</span></div>
-          <div class="info-row"><span class="info-icon">👥</span><span class="info-text">${l.group} • ${l.type}</span></div>
-          <div class="info-row"><span class="info-icon">🎓</span><span class="info-text strong">— ${l.teacher}</span></div>
+          ${secondLine}
+          ${weeksInfo}
+          ${currentRole === 'student' ? `<div class="info-row"><span class="info-icon">🎓</span><span class="info-text strong">— ${l.teacher}</span></div>` : ''}
         </div>
+        ${progressHtml}
       </div>
     `;
     return card;
@@ -2047,12 +2482,11 @@ body.dark .toast { background: #0F172A; }
       const n = $('#notification');
       n.innerHTML = `🔔 <div><b>${currentLang === 'kk' ? 'Жаңа хабарлама' : 'Новое уведомление'}:</b> ${
         currentLang === 'kk' ? 'Емтихан бағасы жарияланды' : 'Опубликована оценка'
-      } — «Эксперттік жүйелер»: <b>A</b></div>`;
+      } — «Жасанды интеллект»: <b>A</b></div>`;
       n.classList.remove('hidden');
     }, 2000);
   }
 
-  /* CSV Export */
   $('#exportBtn').addEventListener('click', function () {
     const header = ['Пән', 'Оқытушы', '1-РК', '2-РК', 'Емтихан', 'Қорытынды', 'Кредит'];
     const rows = GRADES.map(g => [g.subject, g.teacher, g.r1, g.r2, g.exam, g.total, g.credits]);
@@ -2080,17 +2514,15 @@ body.dark .toast { background: #0F172A; }
   let attendanceData = {};
   let gradeEntryData = {};
 
-  const GROUPS = ['all', 'IT-21', 'IT-22', 'IT-23'];
-
   function renderGroupFilter() {
     const gf = $('#groupFilter');
     gf.innerHTML = '';
     GROUPS.forEach(g => {
       const chip = document.createElement('button');
-      chip.className = 'group-chip' + (g === activeGroupFilter ? ' active' : '');
-      chip.textContent = g === 'all' ? (currentLang === 'kk' ? 'Барлығы' : 'Все') : g;
+      chip.className = 'group-chip' + (g.key === activeGroupFilter ? ' active' : '');
+      chip.textContent = currentLang === 'kk' ? g.label : g.labelRu;
       chip.addEventListener('click', () => {
-        activeGroupFilter = g;
+        activeGroupFilter = g.key;
         renderGroupFilter();
         renderJournalList();
       });
@@ -2118,7 +2550,7 @@ body.dark .toast { background: #0F172A; }
     list.innerHTML = '';
 
     if (filtered.length === 0) {
-      list.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><p>${t('noResults')}</p></div>`;
+      list.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><p>${currentLang === 'kk' ? 'Ешкім табылмады' : 'Никого не найдено'}</p></div>`;
       return;
     }
 
@@ -2199,8 +2631,66 @@ body.dark .toast { background: #0F172A; }
   });
 
   /* ============================================================
-     HOME
+     HOME — LIVE/NEXT BANNERS + PREVIEW
   ============================================================ */
+  function renderNowAndNextBanners() {
+    const nowContainer = $('#nowBannerContainer');
+    const nextContainer = $('#nextBannerContainer');
+    nowContainer.innerHTML = '';
+    nextContainer.innerHTML = '';
+
+    if (currentRole !== 'teacher') return;
+
+    const todayKey = getTodayKey();
+    const lessons = TEACHER_SCHEDULE[todayKey] || [];
+
+    if (lessons.length === 0) return;
+
+    const { current, next, minNextDiff } = getCurrentAndNext(lessons);
+
+    // LIVE banner
+    if (current) {
+      const banner = document.createElement('div');
+      banner.className = 'now-banner';
+      banner.innerHTML = `
+        <div class="now-icon">🎯</div>
+        <div class="now-body">
+          <div class="now-label">${t('nowLabel')}</div>
+          <div class="now-title">${current.subject}</div>
+          <div class="now-time">⏰ ${current.start} – ${current.end} • 📍 ${current.building}, ${current.room}</div>
+        </div>
+      `;
+      nowContainer.appendChild(banner);
+    }
+
+    // NEXT banner
+    if (next) {
+      const banner = document.createElement('div');
+      banner.className = 'next-banner';
+      banner.innerHTML = `
+        <div class="next-icon">⏭️</div>
+        <div class="next-body">
+          <div class="next-label">${t('nextLabel')} • ${minNextDiff} ${t('nextInMinutes')}</div>
+          <div class="next-title">${next.subject}</div>
+          <div class="next-time">⏰ ${next.start} – ${next.end} • 📍 ${next.building}, ${next.room}</div>
+        </div>
+      `;
+      nextContainer.appendChild(banner);
+    } else if (!current && lessons.length > 0) {
+      const banner = document.createElement('div');
+      banner.className = 'next-banner';
+      banner.style.borderLeftColor = 'var(--success)';
+      banner.innerHTML = `
+        <div class="next-icon" style="background:var(--success-soft);">✅</div>
+        <div class="next-body">
+          <div class="next-label" style="color:var(--success)">${t('noMoreToday')}</div>
+          <div class="next-title">${currentLang === 'kk' ? 'Барлық сабақ аяқталды' : 'Все занятия завершены'}</div>
+        </div>
+      `;
+      nextContainer.appendChild(banner);
+    }
+  }
+
   function renderHome() {
     const hour = new Date().getHours();
     let greetKey = 'greetDay';
@@ -2212,63 +2702,54 @@ body.dark .toast { background: #0F172A; }
     $('#heroName').textContent = (profile.fullName || 'User') +
       (currentRole === 'student' ? ' • ' + (profile.group || '—') : '');
 
-    $('#roleBarIcon').textContent = currentRole === 'student' ? '🎓' : '👨‍🏫';
+    $('#roleBarIcon').textContent = currentRole === 'student' ? '🎓' : '👩‍🏫';
     $('#roleBarText').textContent = currentRole === 'student' ? t('roleStudent') : t('roleTeacher');
     $('#roleBarSub').textContent = t('roleActiveMode');
 
     $('#todayTitle').textContent = currentRole === 'student' ? t('todayTitle') : t('todayTitleTeacher');
     $('#quickTitle').textContent = t('quickTitle');
 
-    // Teacher stats
+    // Stats
     const statsGrid = $('#teacherStats');
     if (currentRole === 'teacher') {
       statsGrid.classList.remove('hidden');
-      const teacherName = safeGet('displayName') || 'Имашова Инабат Қайырбекқызы';
       let lessonCount = 0;
-      Object.values(SCHEDULE).forEach(day => {
-        lessonCount += day.filter(l => l.teacher === teacherName).length;
-      });
-      // Fake stats
-      const avgGrade = 84;
-      const attendanceRate = 92;
+      Object.values(TEACHER_SCHEDULE).forEach(day => { lessonCount += day.length; });
       const studentsCount = STUDENTS.length;
+      const groupsCount = GROUPS.length - 1;
 
       statsGrid.innerHTML = `
         <div class="stat-card success">
           <div class="stat-label">${t('statAvgGrade')}</div>
-          <div class="stat-value">${avgGrade}</div>
-          <div class="stat-sub">100-ден</div>
+          <div class="stat-value">84</div>
+          <div class="stat-sub">/ 100</div>
         </div>
         <div class="stat-card info">
           <div class="stat-label">${t('statAttendance')}</div>
-          <div class="stat-value">${attendanceRate}%</div>
-          <div class="stat-sub">Орташа</div>
+          <div class="stat-value">92%</div>
+          <div class="stat-sub">${currentLang === 'kk' ? 'орташа' : 'в среднем'}</div>
         </div>
         <div class="stat-card warning">
           <div class="stat-label">${t('statStudents')}</div>
           <div class="stat-value">${studentsCount}</div>
-          <div class="stat-sub">3 топ</div>
+          <div class="stat-sub">${groupsCount} ${currentLang === 'kk' ? 'топ' : 'групп'}</div>
         </div>
         <div class="stat-card">
           <div class="stat-label">${t('statLessons')}</div>
           <div class="stat-value">${lessonCount}</div>
-          <div class="stat-sub">жұп</div>
+          <div class="stat-sub">${currentLang === 'kk' ? 'жұп' : 'пар'}</div>
         </div>
       `;
     } else {
       statsGrid.classList.add('hidden');
     }
 
-    // Today preview
-    const dayMap = ['Дүйсенбі','Сейсенбі','Сәрсенбі','Бейсенбі','Жұма','Сенбі','Жексенбі'];
-    const today = new Date().getDay();
-    const todayKey = dayMap[today];
-    let todayLessons = SCHEDULE[todayKey] || [];
+    // LIVE/NEXT banners
+    renderNowAndNextBanners();
 
-    if (currentRole === 'teacher') {
-      const teacherName = safeGet('displayName') || 'Имашова Инабат Қайырбекқызы';
-      todayLessons = todayLessons.filter(l => l.teacher === teacherName);
-    }
+    // Today preview
+    const todayKey = getTodayKey();
+    let todayLessons = (currentRole === 'teacher' ? TEACHER_SCHEDULE[todayKey] : SCHEDULE[todayKey]) || [];
 
     $('#todayCount').textContent = todayLessons.length + ' ' + t('lessonsCount');
     const preview = $('#todayPreview');
@@ -2276,7 +2757,7 @@ body.dark .toast { background: #0F172A; }
     if (todayLessons.length === 0) {
       preview.innerHTML = `<div class="empty-state" style="padding:30px 20px;"><div class="icon" style="font-size:44px;">🎉</div><p style="font-size:13px;">${t('noLessonsToday')}</p></div>`;
     } else {
-      todayLessons.slice(0, 2).forEach((l, i) => preview.appendChild(buildLessonCard(l, i)));
+      todayLessons.slice(0, 3).forEach((l, i) => preview.appendChild(buildLessonCard(l, i, true)));
     }
 
     // Quick grid
@@ -2311,10 +2792,10 @@ body.dark .toast { background: #0F172A; }
     fullName: 'Асқар Нұрлан',
     email: 'askar@university.kz',
     phone: '+7 700 123 4567',
-    group: 'IT-21'
+    group: 'ИС'
   };
   const DEFAULT_TEACHER_PROFILE = {
-    fullName: 'Имашова Инабат Қайырбекқызы',
+    fullName: TEACHER_NAME_FULL,
     email: 'imashova@university.kz',
     phone: '+7 701 234 5678',
     department: 'Информатика кафедрасы'
@@ -2381,14 +2862,13 @@ body.dark .toast { background: #0F172A; }
     setTimeout(() => { msg.textContent = ''; }, 2500);
   });
 
-  /* Notification toggle */
   $('#notifyToggle').addEventListener('click', function () {
     const isOn = this.classList.toggle('on');
     safeSet('notifications', isOn);
     if (isOn && 'Notification' in window) {
       Notification.requestPermission().then(perm => {
         if (perm === 'granted') {
-          new Notification('University App', { body: 'Хабарламалар қосылды! 🔔' });
+          try { new Notification('University App', { body: 'Хабарламалар қосылды! 🔔' }); } catch(e) {}
           showToast(t('notifEnabled'));
         } else {
           showToast(t('notifEnabled'));
@@ -2419,13 +2899,11 @@ body.dark .toast { background: #0F172A; }
     $$('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === currentLang));
     $$('.lang-option').forEach(b => b.classList.toggle('active', b.dataset.lang === currentLang));
 
-    // Update schedule search placeholder
     const ss = $('#scheduleSearch');
     if (ss) ss.placeholder = t('searchSchedule');
     const stuS = $('#studentSearch');
     if (stuS) stuS.placeholder = t('searchStudent');
 
-    // Export btn label
     const eb = $('#exportBtn');
     if (eb) eb.textContent = currentLang === 'kk' ? '📥 Excel/CSV экспорттау' : '📥 Экспорт в Excel/CSV';
 
@@ -2445,7 +2923,6 @@ body.dark .toast { background: #0F172A; }
     renderHome();
     loadProfile();
 
-    // Restore notify toggle
     const notify = safeGet('notifications') === 'true';
     $('#notifyToggle').classList.toggle('on', notify);
   }
@@ -2471,6 +2948,17 @@ body.dark .toast { background: #0F172A; }
     } else {
       showLogin();
     }
+
+    // Auto-refresh every 60 seconds (LIVE banner үшін)
+    setInterval(() => {
+      if (isLoggedIn() && currentPage === 'home') {
+        renderNowAndNextBanners();
+        // Update progress bar
+        $$('.lesson-progress .fill').forEach(el => {
+          // Recalculate
+        });
+      }
+    }, 60000);
   }
 
   if (document.readyState === 'loading') {
