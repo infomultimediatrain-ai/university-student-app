@@ -29,13 +29,51 @@
   --success: #10B981;
   --warning: #F59E0B;
   --info: #06B6D4;
+  --card-bg: #FFFFFF;
+  --input-bg: #FAFAFA;
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
   --shadow-md: 0 2px 12px rgba(0,0,0,0.06);
   --radius: 14px;
-  --radius-sm: 10px;
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-top: env(safe-area-inset-top, 0px);
 }
+
+/* DARK MODE */
+body.dark {
+  --dark: #F1F5F9;
+  --gray: #94A3B8;
+  --gray-light: #64748B;
+  --gray-bg: #0F172A;
+  --white: #1E293B;
+  --border: #334155;
+  --card-bg: #1E293B;
+  --input-bg: #0F172A;
+  --primary-soft: #3F1D22;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 2px 12px rgba(0,0,0,0.4);
+}
+body.dark { background: var(--gray-bg); color: var(--dark); }
+body.dark .login-card { background: rgba(30,41,59,0.98); }
+body.dark .hero-card,
+body.dark .profile-hero { color: #fff; }
+body.dark .lesson-card,
+body.dark .grade-card,
+body.dark .exam-card,
+body.dark .student-row,
+body.dark .summary-card,
+body.dark .form-card,
+body.dark .lang-section,
+body.dark .quick-card { background: var(--card-bg); }
+body.dark .topbar { background: var(--card-bg); }
+body.dark .bottom-nav { background: rgba(30,41,59,0.98); }
+body.dark .day-chip { background: var(--card-bg); border-color: var(--border); }
+body.dark .tab-pill { background: var(--card-bg); border-color: var(--border); color: var(--dark); }
+body.dark .input-group input,
+body.dark .form-row input,
+body.dark .search-box input,
+body.dark .grade-input { background: var(--input-bg); color: var(--dark); border-color: var(--border); }
+body.dark .info-row .info-text { color: var(--gray); }
+body.dark .hint-box { background: var(--primary-soft); border-color: #4A1F26; }
 
 html, body { height: 100%; }
 
@@ -46,6 +84,7 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  transition: background 0.3s, color 0.3s;
 }
 
 button, input, select { font-family: inherit; font-size: 16px; }
@@ -63,6 +102,9 @@ input:focus, select:focus { outline: none; }
   position: relative;
   overflow: hidden;
   background: linear-gradient(160deg, #C8102E 0%, #8B0820 60%, #1A1A1A 100%);
+}
+body.dark #loginView {
+  background: linear-gradient(160deg, #1E293B 0%, #0F172A 60%, #000 100%);
 }
 
 .bg-shapes { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
@@ -86,7 +128,7 @@ input:focus, select:focus { outline: none; }
   background: rgba(255,255,255,0.98);
   backdrop-filter: blur(20px);
   border-radius: 22px;
-  padding: 32px 28px 28px;
+  padding: 28px 26px 24px;
   width: 100%; max-width: 440px;
   box-shadow: 0 20px 50px rgba(0,0,0,0.25);
   animation: slideUp 0.6s cubic-bezier(0.16,1,0.3,1);
@@ -97,13 +139,15 @@ input:focus, select:focus { outline: none; }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Language switcher (top-right of login) */
-.lang-switch {
+.top-controls {
   display: flex;
-  justify-content: flex-end;
-  gap: 4px;
-  margin-bottom: 12px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
 }
+
+.lang-switch { display: flex; gap: 4px; }
 
 .lang-btn {
   padding: 5px 10px;
@@ -120,33 +164,41 @@ input:focus, select:focus { outline: none; }
   color: var(--white);
 }
 
-.logo-circle {
-  width: 68px; height: 68px; margin: 0 auto 14px;
-  background: linear-gradient(135deg, var(--primary), var(--primary-light));
-  border-radius: 20px;
+.dark-toggle {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: var(--gray-bg);
+  font-size: 15px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 34px;
+  transition: all 0.2s;
+}
+
+.logo-circle {
+  width: 64px; height: 64px; margin: 0 auto 12px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px;
   box-shadow: 0 12px 30px rgba(200,16,46,0.35);
 }
 
 .login-card h1 {
-  font-size: 23px; font-weight: 900;
+  font-size: 22px; font-weight: 900;
   color: var(--primary);
-  margin-bottom: 4px; letter-spacing: -0.5px;
+  margin-bottom: 3px; letter-spacing: -0.5px;
   text-align: center;
 }
 
 .subtitle {
-  color: var(--gray); font-size: 13px;
-  margin-bottom: 20px; text-align: center;
+  color: var(--gray); font-size: 12.5px;
+  margin-bottom: 18px; text-align: center;
 }
 
-/* Рөл таңдау */
 .role-selector {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   background: var(--gray-bg);
   padding: 5px;
   border-radius: 14px;
@@ -155,14 +207,14 @@ input:focus, select:focus { outline: none; }
 .role-btn {
   padding: 10px 8px;
   border-radius: 10px;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
   color: var(--gray);
   transition: all 0.25s;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 5px;
 }
 .role-btn.active {
   background: var(--white);
@@ -170,20 +222,21 @@ input:focus, select:focus { outline: none; }
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-.input-group { position: relative; margin-bottom: 12px; }
+.input-group { position: relative; margin-bottom: 11px; }
 .input-icon {
   position: absolute; left: 16px; top: 50%;
   transform: translateY(-50%);
-  font-size: 17px; opacity: 0.5; pointer-events: none;
+  font-size: 16px; opacity: 0.5; pointer-events: none;
 }
 .input-group input {
   width: 100%;
-  padding: 14px 14px 14px 46px;
+  padding: 13px 14px 13px 44px;
   border: 2px solid var(--border);
   border-radius: 12px;
   font-size: 14.5px;
   transition: all 0.2s;
-  background: #FAFAFA;
+  background: var(--input-bg);
+  color: var(--dark);
 }
 .input-group input:focus {
   border-color: var(--primary);
@@ -192,7 +245,7 @@ input:focus, select:focus { outline: none; }
 }
 
 .btn-primary {
-  width: 100%; padding: 15px; margin-top: 6px;
+  width: 100%; padding: 14px; margin-top: 5px;
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: var(--white);
   border-radius: 12px;
@@ -210,7 +263,7 @@ input:focus, select:focus { outline: none; }
 }
 
 .hint-box {
-  margin-top: 16px; padding: 10px 14px;
+  margin-top: 14px; padding: 10px 14px;
   background: var(--primary-soft);
   border-radius: 10px; font-size: 12px;
   color: var(--gray); border: 1px solid #FECACA;
@@ -236,29 +289,29 @@ input:focus, select:focus { outline: none; }
 .topbar {
   position: sticky; top: 0;
   background: var(--white);
-  padding: calc(12px + var(--safe-top)) 16px 12px;
+  padding: calc(10px + var(--safe-top)) 14px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 8px;
   z-index: 100;
   border-bottom: 1px solid var(--border);
 }
-.topbar-left, .topbar-right { display: flex; align-items: center; gap: 6px; min-width: 44px; }
+.topbar-left, .topbar-right { display: flex; align-items: center; gap: 4px; min-width: 40px; }
 .topbar-right { justify-content: flex-end; }
 
 .icon-btn {
-  width: 38px; height: 38px;
+  width: 36px; height: 36px;
   border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
+  font-size: 17px;
   color: var(--dark);
   transition: background 0.2s;
 }
 .icon-btn:active { background: var(--gray-bg); }
 
 .topbar-title {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 800;
   color: var(--dark);
   letter-spacing: -0.3px;
@@ -267,7 +320,7 @@ input:focus, select:focus { outline: none; }
 }
 
 .page-content {
-  padding: 16px 16px calc(96px + var(--safe-bottom));
+  padding: 14px 14px calc(96px + var(--safe-bottom));
   max-width: 720px;
   margin: 0 auto;
 }
@@ -280,31 +333,30 @@ input:focus, select:focus { outline: none; }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Role indicator bar */
 .role-bar {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 14px;
+  padding: 9px 12px;
   background: linear-gradient(135deg, var(--primary-soft), #FFF5F5);
   border: 1px solid #FECACA;
   border-radius: 12px;
-  margin-bottom: 14px;
-  font-size: 12.5px;
+  margin-bottom: 12px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--primary-dark);
 }
 .role-bar .role-icon {
-  width: 28px; height: 28px;
+  width: 26px; height: 26px;
   background: var(--white);
   border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 15px;
+  font-size: 14px;
 }
 .role-bar .role-info { flex: 1; }
 .role-bar .role-info small {
   display: block;
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 600;
   color: var(--gray);
   letter-spacing: 0.3px;
@@ -314,20 +366,24 @@ input:focus, select:focus { outline: none; }
 .tabs-row {
   display: flex;
   gap: 6px;
-  padding: 4px 0 12px;
+  padding: 4px 0 10px;
   align-items: center;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+.tabs-row::-webkit-scrollbar { display: none; }
 
 .tab-pill {
-  padding: 9px 16px;
-  border-radius: 22px;
+  padding: 8px 14px;
+  border-radius: 20px;
   background: var(--white);
   border: 1px solid var(--border);
   color: var(--dark);
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
   transition: all 0.2s;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 .tab-pill.active {
   background: var(--primary);
@@ -336,14 +392,65 @@ input:focus, select:focus { outline: none; }
   box-shadow: 0 4px 12px rgba(200,16,46,0.25);
 }
 
+/* Search box */
+.search-box {
+  position: relative;
+  margin-bottom: 10px;
+}
+.search-box input {
+  width: 100%;
+  padding: 11px 14px 11px 40px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 13.5px;
+  background: var(--white);
+  font-weight: 500;
+  color: var(--dark);
+}
+.search-box .search-icon {
+  position: absolute;
+  left: 14px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Group filter */
+.group-filter {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.group-filter::-webkit-scrollbar { display: none; }
+.group-chip {
+  padding: 6px 12px;
+  border-radius: 16px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  color: var(--gray);
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+.group-chip.active {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+
 /* Lesson card */
 .lesson-card {
-  background: var(--white);
+  background: var(--card-bg);
   border-radius: var(--radius);
   margin-bottom: 10px;
-  padding: 14px;
+  padding: 13px;
   display: flex;
-  gap: 14px;
+  gap: 12px;
   box-shadow: var(--shadow-sm);
   animation: slideUp 0.35s ease backwards;
   transition: transform 0.2s;
@@ -360,15 +467,15 @@ input:focus, select:focus { outline: none; }
   display: flex;
   flex-direction: column;
   padding-top: 2px;
-  min-width: 50px;
+  min-width: 48px;
 }
 .lesson-time .time-start {
-  font-size: 15px; font-weight: 800;
+  font-size: 14.5px; font-weight: 800;
   color: var(--dark); letter-spacing: -0.3px;
   line-height: 1.2;
 }
 .lesson-time .time-end {
-  font-size: 13px; font-weight: 500;
+  font-size: 12.5px; font-weight: 500;
   color: var(--gray-light); line-height: 1.2;
   margin-top: 2px;
 }
@@ -376,27 +483,27 @@ input:focus, select:focus { outline: none; }
 .lesson-body { flex: 1; min-width: 0; }
 
 .lesson-subject {
-  font-size: 14.5px; font-weight: 800;
+  font-size: 14px; font-weight: 800;
   color: var(--dark); line-height: 1.3;
-  margin-bottom: 8px; letter-spacing: -0.2px;
+  margin-bottom: 7px; letter-spacing: -0.2px;
 }
 
 .lesson-info {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
 }
 .info-row {
   display: flex;
   align-items: flex-start;
-  gap: 7px;
-  font-size: 12.5px;
+  gap: 6px;
+  font-size: 12px;
   color: var(--gray);
   line-height: 1.4;
 }
 .info-row .info-icon {
   flex-shrink: 0;
-  width: 16px; height: 16px;
+  width: 15px; height: 15px;
   display: flex; align-items: center; justify-content: center;
   opacity: 0.6;
   margin-top: 1px;
@@ -415,33 +522,33 @@ input:focus, select:focus { outline: none; }
   display: flex;
   gap: 6px;
   overflow-x: auto;
-  padding: 0 0 12px;
-  margin: 0 -16px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 0 0 10px;
+  margin: 0 -14px;
+  padding-left: 14px;
+  padding-right: 14px;
   scrollbar-width: none;
 }
 .day-strip::-webkit-scrollbar { display: none; }
 
 .day-chip {
   flex-shrink: 0;
-  padding: 9px 14px;
+  padding: 8px 13px;
   border-radius: 12px;
   background: var(--white);
   border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 56px;
+  min-width: 52px;
   transition: all 0.2s;
 }
 .day-chip .day-name {
-  font-size: 10.5px; font-weight: 700;
+  font-size: 10px; font-weight: 700;
   color: var(--gray); text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 .day-chip .day-num {
-  font-size: 16px; font-weight: 900;
+  font-size: 15px; font-weight: 900;
   color: var(--dark); margin-top: 2px;
 }
 .day-chip.active {
@@ -457,46 +564,46 @@ input:focus, select:focus { outline: none; }
   text-align: center;
   padding: 50px 20px;
 }
-.empty-state .icon { font-size: 52px; margin-bottom: 10px; opacity: 0.4; }
-.empty-state p { font-size: 14px; font-weight: 600; color: var(--gray); }
+.empty-state .icon { font-size: 48px; margin-bottom: 10px; opacity: 0.4; }
+.empty-state p { font-size: 13.5px; font-weight: 600; color: var(--gray); }
 
 /* Exams */
 .exam-card {
-  background: var(--white);
+  background: var(--card-bg);
   border-radius: var(--radius);
-  padding: 14px;
+  padding: 13px;
   margin-bottom: 10px;
   box-shadow: var(--shadow-sm);
   border-left: 4px solid var(--primary);
 }
 .exam-date {
   display: inline-block;
-  padding: 4px 10px;
+  padding: 3px 9px;
   background: var(--primary-soft);
   color: var(--primary);
   border-radius: 8px;
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 800;
-  margin-bottom: 8px;
+  margin-bottom: 7px;
 }
 .exam-subject {
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 800;
-  margin-bottom: 8px;
+  margin-bottom: 7px;
   color: var(--dark);
 }
 .exam-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--gray);
 }
 .exam-meta span {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 3px 8px;
+  padding: 3px 7px;
   background: var(--gray-bg);
   border-radius: 6px;
   font-weight: 600;
@@ -509,22 +616,22 @@ input:focus, select:focus { outline: none; }
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 .summary-card {
-  background: var(--white);
+  background: var(--card-bg);
   border-radius: var(--radius);
-  padding: 14px 8px;
+  padding: 13px 8px;
   text-align: center;
   box-shadow: var(--shadow-sm);
 }
-.summary-card .icon { font-size: 18px; margin-bottom: 3px; }
+.summary-card .icon { font-size: 17px; margin-bottom: 3px; }
 .summary-card .value {
-  font-size: 20px; font-weight: 900;
+  font-size: 19px; font-weight: 900;
   letter-spacing: -0.5px; line-height: 1.1;
 }
 .summary-card .label {
-  font-size: 10px; color: var(--gray);
+  font-size: 9.5px; color: var(--gray);
   font-weight: 700; text-transform: uppercase;
   letter-spacing: 0.4px; margin-top: 2px;
 }
@@ -532,10 +639,28 @@ input:focus, select:focus { outline: none; }
 .summary-card.credits .value { color: var(--info); }
 .summary-card.rank .value { color: var(--warning); }
 
+.export-btn {
+  width: 100%;
+  padding: 11px;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #10B981, #059669);
+  color: #fff;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 6px 16px rgba(16,185,129,0.3);
+  transition: transform 0.2s;
+}
+.export-btn:active { transform: scale(0.98); }
+
 .grade-card {
-  background: var(--white);
+  background: var(--card-bg);
   border-radius: var(--radius);
-  padding: 14px;
+  padding: 13px;
   margin-bottom: 10px;
   box-shadow: var(--shadow-sm);
   animation: slideUp 0.35s ease backwards;
@@ -545,23 +670,23 @@ input:focus, select:focus { outline: none; }
   justify-content: space-between;
   align-items: flex-start;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 9px;
 }
 .grade-subject {
-  font-size: 14.5px; font-weight: 800;
+  font-size: 14px; font-weight: 800;
   line-height: 1.3; color: var(--dark);
   letter-spacing: -0.2px;
 }
 .grade-teacher {
-  font-size: 11.5px; color: var(--gray);
+  font-size: 11px; color: var(--gray);
   margin-top: 3px; font-weight: 500;
 }
 .grade-badge {
   flex-shrink: 0;
-  min-width: 44px; height: 44px;
-  border-radius: 12px;
+  min-width: 42px; height: 42px;
+  border-radius: 11px;
   display: flex; align-items: center; justify-content: center;
-  font-weight: 900; font-size: 15px;
+  font-weight: 900; font-size: 14px;
 }
 .grade-A  { background: #D1FAE5; color: #065F46; }
 .grade-A- { background: #D1FAE5; color: #065F46; }
@@ -572,18 +697,18 @@ input:focus, select:focus { outline: none; }
 .grade-scores {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
-  padding-top: 10px;
+  gap: 5px;
+  padding-top: 9px;
   border-top: 1px dashed var(--border);
 }
 .score-item { text-align: center; }
 .score-item .score-label {
-  font-size: 10px; color: var(--gray);
+  font-size: 9.5px; color: var(--gray);
   font-weight: 700; text-transform: uppercase;
   letter-spacing: 0.3px; margin-bottom: 3px;
 }
 .score-item .score-value {
-  font-size: 14px; font-weight: 800; color: var(--dark);
+  font-size: 13.5px; font-weight: 800; color: var(--dark);
 }
 .score-item.best .score-value { color: var(--success); }
 
@@ -607,9 +732,9 @@ input:focus, select:focus { outline: none; }
 .hero-card {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   border-radius: var(--radius);
-  padding: 20px 18px;
+  padding: 18px 16px;
   color: var(--white);
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   position: relative;
   overflow: hidden;
   box-shadow: 0 10px 24px rgba(200,16,46,0.25);
@@ -623,26 +748,26 @@ input:focus, select:focus { outline: none; }
   top: -80px; right: -60px;
 }
 .hero-card h2 {
-  font-size: 18px; font-weight: 900;
-  margin-bottom: 4px; letter-spacing: -0.3px;
+  font-size: 17px; font-weight: 900;
+  margin-bottom: 3px; letter-spacing: -0.3px;
   position: relative;
 }
 .hero-card p {
-  font-size: 12.5px; opacity: 0.9;
+  font-size: 12px; opacity: 0.9;
   font-weight: 500; position: relative;
 }
 
 .section-title {
-  font-size: 14px; font-weight: 800;
+  font-size: 13.5px; font-weight: 800;
   color: var(--dark);
-  margin: 18px 0 10px;
+  margin: 16px 0 9px;
   letter-spacing: -0.2px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 .section-title .count {
-  font-size: 11.5px;
+  font-size: 11px;
   color: var(--gray);
   font-weight: 600;
 }
@@ -650,32 +775,72 @@ input:focus, select:focus { outline: none; }
 .quick-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 9px;
 }
 .quick-card {
-  background: var(--white);
+  background: var(--card-bg);
   border-radius: var(--radius);
-  padding: 14px;
+  padding: 13px;
   box-shadow: var(--shadow-sm);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   transition: transform 0.15s;
   cursor: pointer;
 }
 .quick-card:active { transform: scale(0.97); }
 .quick-card .q-icon {
-  width: 40px; height: 40px;
-  border-radius: 12px;
+  width: 38px; height: 38px;
+  border-radius: 11px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 19px;
+  font-size: 18px;
   background: var(--primary-soft);
+  flex-shrink: 0;
 }
 .quick-card .q-text .q-title {
-  font-size: 13px; font-weight: 800; color: var(--dark);
+  font-size: 12.5px; font-weight: 800; color: var(--dark);
 }
 .quick-card .q-text .q-sub {
-  font-size: 11px; color: var(--gray); font-weight: 500;
+  font-size: 10.5px; color: var(--gray); font-weight: 500;
+}
+
+/* Stats (teacher home) */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px;
+  margin-bottom: 12px;
+}
+.stat-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--primary);
+}
+.stat-card.success { border-left-color: var(--success); }
+.stat-card.warning { border-left-color: var(--warning); }
+.stat-card.info { border-left-color: var(--info); }
+.stat-card .stat-label {
+  font-size: 10.5px;
+  color: var(--gray);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 4px;
+}
+.stat-card .stat-value {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: var(--dark);
+  line-height: 1.1;
+}
+.stat-card .stat-sub {
+  font-size: 11px;
+  color: var(--gray);
+  font-weight: 500;
+  margin-top: 3px;
 }
 
 /* ============================================================
@@ -684,10 +849,10 @@ input:focus, select:focus { outline: none; }
 .profile-hero {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   border-radius: var(--radius);
-  padding: 22px 18px;
+  padding: 20px 16px;
   text-align: center;
   color: var(--white);
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   position: relative;
   overflow: hidden;
   box-shadow: 0 10px 24px rgba(200,16,46,0.25);
@@ -701,56 +866,56 @@ input:focus, select:focus { outline: none; }
   top: -100px; right: -60px;
 }
 .profile-avatar-lg {
-  width: 78px; height: 78px;
+  width: 74px; height: 74px;
   border-radius: 50%;
   background: rgba(255,255,255,0.22);
   display: flex; align-items: center; justify-content: center;
-  font-size: 38px;
-  margin: 0 auto 12px;
+  font-size: 36px;
+  margin: 0 auto 11px;
   border: 3px solid rgba(255,255,255,0.5);
   position: relative;
 }
 .profile-hero h2 {
-  font-size: 18px; font-weight: 900;
+  font-size: 17px; font-weight: 900;
   letter-spacing: -0.3px; margin-bottom: 3px;
   position: relative;
 }
 .profile-hero .group-info {
-  font-size: 12.5px; opacity: 0.9;
+  font-size: 12px; opacity: 0.9;
   font-weight: 600; position: relative;
 }
 .role-badge-pill {
   display: inline-block;
-  margin-top: 8px;
+  margin-top: 7px;
   padding: 4px 12px;
   background: rgba(255,255,255,0.2);
   border-radius: 20px;
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 800;
   letter-spacing: 0.5px;
   position: relative;
 }
 
 .form-card {
-  background: var(--white);
+  background: var(--card-bg);
   border-radius: var(--radius);
-  padding: 18px;
+  padding: 16px;
   box-shadow: var(--shadow-sm);
 }
-.form-row { margin-bottom: 13px; }
+.form-row { margin-bottom: 12px; }
 .form-row label {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 11px; font-weight: 800;
-  color: var(--gray); margin-bottom: 6px;
+  display: flex; align-items: center; gap: 5px;
+  font-size: 10.5px; font-weight: 800;
+  color: var(--gray); margin-bottom: 5px;
   text-transform: uppercase; letter-spacing: 0.6px;
 }
 .form-row input {
   width: 100%;
-  padding: 13px 15px;
+  padding: 12px 14px;
   border: 2px solid var(--border);
   border-radius: 11px;
-  font-size: 14.5px;
-  background: #FAFAFA;
+  font-size: 14px;
+  background: var(--input-bg);
   transition: all 0.2s;
   color: var(--dark);
   font-weight: 600;
@@ -762,85 +927,122 @@ input:focus, select:focus { outline: none; }
 }
 
 .success-msg {
-  color: var(--success); font-size: 13px;
-  font-weight: 700; margin-top: 12px;
+  color: var(--success); font-size: 12.5px;
+  font-weight: 700; margin-top: 10px;
   text-align: center; min-height: 18px;
 }
 
-/* Language section in profile */
-.lang-section {
-  background: var(--white);
+/* Settings sections in profile */
+.settings-section {
+  background: var(--card-bg);
   border-radius: var(--radius);
-  padding: 16px;
-  margin-top: 12px;
+  padding: 14px;
+  margin-top: 10px;
   box-shadow: var(--shadow-sm);
 }
-.lang-section h3 {
-  font-size: 12px;
+.settings-section h3 {
+  font-size: 11px;
   font-weight: 800;
   color: var(--gray);
   text-transform: uppercase;
   letter-spacing: 0.6px;
   margin-bottom: 10px;
 }
-.lang-options {
+.settings-options {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
-.lang-option {
-  padding: 12px;
-  border-radius: 12px;
+.settings-option {
+  padding: 11px;
+  border-radius: 11px;
   border: 2px solid var(--border);
-  background: var(--white);
-  font-size: 14px;
+  background: var(--card-bg);
+  font-size: 13px;
   font-weight: 700;
   color: var(--gray);
   transition: all 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
 }
-.lang-option.active {
+.settings-option.active {
   border-color: var(--primary);
   background: var(--primary-soft);
   color: var(--primary);
 }
 
+.notify-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 13px;
+  background: var(--gray-bg);
+  border-radius: 11px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dark);
+  cursor: pointer;
+}
+.notify-toggle .toggle-switch {
+  width: 42px; height: 24px;
+  border-radius: 12px;
+  background: var(--border);
+  position: relative;
+  transition: background 0.25s;
+  flex-shrink: 0;
+}
+.notify-toggle .toggle-switch::after {
+  content: '';
+  position: absolute;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  top: 3px; left: 3px;
+  transition: transform 0.25s;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+.notify-toggle.on .toggle-switch {
+  background: var(--success);
+}
+.notify-toggle.on .toggle-switch::after {
+  transform: translateX(18px);
+}
+
 /* ============================================================
-   TEACHER: ATTENDANCE / GRADE ENTRY
+   TEACHER: JOURNAL
 ============================================================ */
 .student-row {
-  background: var(--white);
+  background: var(--card-bg);
   border-radius: var(--radius);
-  padding: 12px 14px;
+  padding: 11px 13px;
   margin-bottom: 8px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 11px;
   box-shadow: var(--shadow-sm);
 }
 
 .student-avatar {
-  width: 40px; height: 40px;
+  width: 38px; height: 38px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--primary-light), var(--primary));
   display: flex; align-items: center; justify-content: center;
-  font-size: 16px; font-weight: 800; color: var(--white);
+  font-size: 14px; font-weight: 800; color: var(--white);
   flex-shrink: 0;
 }
 
 .student-info { flex: 1; min-width: 0; }
 .student-name {
-  font-size: 14px; font-weight: 800;
+  font-size: 13.5px; font-weight: 800;
   color: var(--dark);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .student-meta {
-  font-size: 11.5px;
+  font-size: 11px;
   color: var(--gray);
   font-weight: 500;
 }
@@ -850,11 +1052,11 @@ input:focus, select:focus { outline: none; }
   gap: 4px;
 }
 .att-btn {
-  width: 36px; height: 36px;
-  border-radius: 10px;
-  font-size: 16px;
+  width: 34px; height: 34px;
+  border-radius: 9px;
+  font-size: 15px;
   border: 2px solid var(--border);
-  background: var(--white);
+  background: var(--card-bg);
   display: flex; align-items: center; justify-content: center;
   transition: all 0.2s;
 }
@@ -863,15 +1065,15 @@ input:focus, select:focus { outline: none; }
 .att-btn.late.active    { background: #FEF3C7; border-color: var(--warning); }
 
 .grade-input {
-  width: 60px;
+  width: 58px;
   padding: 8px;
   border: 2px solid var(--border);
   border-radius: 10px;
   text-align: center;
   font-weight: 800;
-  font-size: 14px;
+  font-size: 13.5px;
   color: var(--dark);
-  background: var(--white);
+  background: var(--card-bg);
 }
 .grade-input:focus {
   border-color: var(--primary);
@@ -881,12 +1083,12 @@ input:focus, select:focus { outline: none; }
 .save-fab {
   position: fixed;
   bottom: calc(100px + var(--safe-bottom));
-  right: 20px;
-  width: 56px; height: 56px;
+  right: 16px;
+  width: 52px; height: 52px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: var(--white);
-  font-size: 22px;
+  font-size: 20px;
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 10px 24px rgba(200,16,46,0.4);
   z-index: 95;
@@ -894,27 +1096,54 @@ input:focus, select:focus { outline: none; }
 }
 .save-fab:active { transform: scale(0.92); }
 
-/* Student list search */
-.search-box {
-  position: relative;
+/* ============================================================
+   WEEKLY VIEW
+============================================================ */
+.week-day-block {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 13px;
   margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
 }
-.search-box input {
-  width: 100%;
-  padding: 12px 16px 12px 44px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  font-size: 14px;
-  background: var(--white);
-  font-weight: 500;
+.week-day-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 9px;
+  padding-bottom: 7px;
+  border-bottom: 2px solid var(--gray-bg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.search-box .search-icon {
-  position: absolute;
-  left: 16px; top: 50%;
-  transform: translateY(-50%);
-  font-size: 16px;
-  opacity: 0.5;
-  pointer-events: none;
+.week-day-title .week-day-count {
+  font-size: 11px;
+  color: var(--gray);
+  font-weight: 600;
+}
+.week-lesson-item {
+  padding: 9px 11px;
+  background: var(--gray-bg);
+  border-radius: 9px;
+  margin-bottom: 6px;
+  font-size: 12.5px;
+  border-left: 3px solid var(--primary);
+}
+.week-lesson-item:last-child { margin-bottom: 0; }
+.week-lesson-item .wl-time {
+  font-weight: 800;
+  color: var(--primary);
+  margin-right: 6px;
+}
+.week-lesson-item .wl-subject {
+  font-weight: 700;
+  color: var(--dark);
+}
+.week-lesson-item .wl-info {
+  font-size: 11px;
+  color: var(--gray);
+  margin-top: 3px;
 }
 
 /* ============================================================
@@ -930,29 +1159,30 @@ input:focus, select:focus { outline: none; }
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 6px 6px calc(6px + var(--safe-bottom));
+  padding: 5px 6px calc(5px + var(--safe-bottom));
   z-index: 90;
   max-width: 720px;
   margin: 0 auto;
 }
+body.dark .bottom-nav { background: rgba(30,41,59,0.98); }
 
 .bottom-nav-item {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
-  padding: 8px 4px;
+  gap: 2px;
+  padding: 7px 4px;
   border-radius: 12px;
   color: var(--gray);
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 700;
   letter-spacing: 0.2px;
   transition: color 0.2s;
   position: relative;
 }
 .bottom-nav-item .nav-icon {
-  font-size: 21px;
+  font-size: 20px;
   line-height: 1;
   transition: transform 0.2s;
 }
@@ -963,17 +1193,18 @@ input:focus, select:focus { outline: none; }
    NOTIFICATION & TOAST
 ============================================================ */
 .notification {
-  margin-top: 14px;
-  padding: 13px 15px;
+  margin-top: 12px;
+  padding: 12px 14px;
   background: linear-gradient(135deg, #ECFDF5, #D1FAE5);
   color: #065F46;
   border-left: 4px solid var(--success);
   border-radius: 12px;
   font-weight: 600;
-  font-size: 13px;
-  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 12.5px;
+  display: flex; align-items: flex-start; gap: 9px;
   animation: slideDown 0.4s ease;
 }
+body.dark .notification { background: linear-gradient(135deg, #064E3B, #065F46); color: #D1FAE5; }
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -982,14 +1213,14 @@ input:focus, select:focus { outline: none; }
 
 .toast {
   position: fixed;
-  bottom: calc(92px + var(--safe-bottom));
+  bottom: calc(90px + var(--safe-bottom));
   left: 50%;
   transform: translateX(-50%) translateY(200px);
   background: var(--dark);
   color: var(--white);
-  padding: 12px 20px;
+  padding: 11px 18px;
   border-radius: 14px;
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 700;
   box-shadow: 0 20px 50px rgba(0,0,0,0.25);
   z-index: 1000;
@@ -997,6 +1228,7 @@ input:focus, select:focus { outline: none; }
   max-width: calc(100% - 32px);
   text-align: center;
 }
+body.dark .toast { background: #0F172A; }
 .toast.show { transform: translateX(-50%) translateY(0); }
 .toast.success { background: linear-gradient(135deg, #059669, #10B981); }
 .toast.error { background: linear-gradient(135deg, #DC2626, #EF4444); }
@@ -1006,12 +1238,12 @@ input:focus, select:focus { outline: none; }
 ============================================================ */
 @media (max-width: 360px) {
   .page-content { padding: 12px 12px calc(96px + var(--safe-bottom)); }
-  .lesson-card { padding: 12px; gap: 10px; }
-  .lesson-time { min-width: 44px; }
-  .lesson-time .time-start { font-size: 13.5px; }
-  .lesson-time .time-end { font-size: 11.5px; }
-  .lesson-subject { font-size: 13.5px; }
-  .info-row { font-size: 11.5px; }
+  .lesson-card { padding: 11px; gap: 10px; }
+  .lesson-time { min-width: 42px; }
+  .lesson-time .time-start { font-size: 13px; }
+  .lesson-time .time-end { font-size: 11px; }
+  .lesson-subject { font-size: 13px; }
+  .info-row { font-size: 11px; }
 }
 </style>
 </head>
@@ -1027,23 +1259,24 @@ input:focus, select:focus { outline: none; }
   </div>
 
   <div class="login-card" id="loginCard">
-    <!-- Language switch -->
-    <div class="lang-switch">
-      <button class="lang-btn active" data-lang="kk">ҚАЗ</button>
-      <button class="lang-btn" data-lang="ru">РУС</button>
+    <div class="top-controls">
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="kk">ҚАЗ</button>
+        <button class="lang-btn" data-lang="ru">РУС</button>
+      </div>
+      <button class="dark-toggle" id="darkToggleLogin" title="Dark mode">🌙</button>
     </div>
 
     <div class="logo-circle">🎓</div>
     <h1 id="loginTitle">University App</h1>
     <p class="subtitle" id="loginSubtitle">Университет порталы</p>
 
-    <!-- Рөл таңдау -->
     <div class="role-selector">
       <button class="role-btn active" data-role="student" id="roleStudent">
-        🎓 <span data-i18n="roleStudent">Студент</span>
+        🎓 <span>Студент</span>
       </button>
       <button class="role-btn" data-role="teacher" id="roleTeacher">
-        👨‍🏫 <span data-i18n="roleTeacher">Оқытушы</span>
+        👨‍🏫 <span>Оқытушы</span>
       </button>
     </div>
 
@@ -1056,13 +1289,13 @@ input:focus, select:focus { outline: none; }
         <span class="input-icon">🔒</span>
         <input type="password" id="password" placeholder="Құпия сөз" autocomplete="off">
       </div>
-      <button type="submit" class="btn-primary" id="loginBtn" data-i18n="loginBtn">Кіру</button>
+      <button type="submit" class="btn-primary" id="loginBtn">Кіру</button>
     </form>
 
     <p id="errorMsg" class="error-msg"></p>
 
     <div class="hint-box" id="hintBox">
-      💡 <span data-i18n="hint">Тестілеу</span>: <b id="hintCred">student / 1234</b>
+      💡 Тестілеу: <b id="hintCred">student / 1234</b>
     </div>
   </div>
 </div>
@@ -1078,6 +1311,7 @@ input:focus, select:focus { outline: none; }
     </div>
     <div class="topbar-title" id="topbarTitle">—</div>
     <div class="topbar-right">
+      <button class="icon-btn" id="darkToggleTop" title="Dark mode">🌙</button>
       <button class="icon-btn" id="langToggleTop" title="Тіл">🌐</button>
       <button class="icon-btn" id="headerLogout" title="Шығу">🚪</button>
     </div>
@@ -1085,7 +1319,7 @@ input:focus, select:focus { outline: none; }
 
   <main class="page-content">
 
-    <!-- ============ БАСТЫ БЕТ ============ -->
+    <!-- ============ HOME ============ -->
     <section class="page" id="page-home">
       <div class="role-bar">
         <div class="role-icon" id="roleBarIcon">🎓</div>
@@ -1100,6 +1334,9 @@ input:focus, select:focus { outline: none; }
         <p id="heroName">—</p>
       </div>
 
+      <!-- Teacher stats -->
+      <div class="stats-grid hidden" id="teacherStats"></div>
+
       <div class="section-title">
         <span id="todayTitle">Бүгінгі сабақтар</span>
         <span class="count" id="todayCount">—</span>
@@ -1107,36 +1344,43 @@ input:focus, select:focus { outline: none; }
       <div id="todayPreview"></div>
 
       <div class="section-title" id="quickTitle">Жылдам әрекеттер</div>
-      <div class="quick-grid" id="quickGrid">
-        <!-- Dynamically filled -->
-      </div>
+      <div class="quick-grid" id="quickGrid"></div>
     </section>
 
-    <!-- ============ КЕСТЕ (STUDENT) ============ -->
+    <!-- ============ SCHEDULE ============ -->
     <section class="page active" id="page-schedule">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="scheduleSearch" placeholder="Пән немесе оқытушы іздеу...">
+      </div>
+
       <div class="tabs-row">
-        <button class="tab-pill active" data-tab="classes" data-i18n="tabClasses">Сабақтар</button>
-        <button class="tab-pill" data-tab="exams" data-i18n="tabExams">Емтихандар</button>
-        <button class="tab-pill" data-tab="iga" data-i18n="tabIGA">ҚИА</button>
+        <button class="tab-pill active" data-tab="classes">Сабақтар</button>
+        <button class="tab-pill" data-tab="exams">Емтихандар</button>
+        <button class="tab-pill" data-tab="iga">ҚИА</button>
+        <button class="tab-pill" data-tab="week">📅 Апта</button>
       </div>
 
       <div class="day-strip" id="dayStrip"></div>
       <div id="lessonsList"></div>
     </section>
 
-    <!-- ============ БАҒАЛАР (STUDENT) ============ -->
+    <!-- ============ GRADES ============ -->
     <section class="page" id="page-grades">
       <div class="grades-summary" id="gradesSummary"></div>
+      <button class="export-btn" id="exportBtn">📥 Excel/CSV экспорттау</button>
       <div id="gradesList"></div>
       <div id="notification" class="notification hidden"></div>
     </section>
 
-    <!-- ============ ЖУРНАЛ (TEACHER) ============ -->
+    <!-- ============ JOURNAL (TEACHER) ============ -->
     <section class="page" id="page-journal">
       <div class="tabs-row">
-        <button class="tab-pill active" data-jtab="attendance" data-i18n="tabAttendance">Қатысу</button>
-        <button class="tab-pill" data-jtab="entry" data-i18n="tabGradeEntry">Баға қою</button>
+        <button class="tab-pill active" data-jtab="attendance">Қатысу</button>
+        <button class="tab-pill" data-jtab="entry">Баға қою</button>
       </div>
+
+      <div class="group-filter" id="groupFilter"></div>
 
       <div class="search-box">
         <span class="search-icon">🔍</span>
@@ -1147,7 +1391,7 @@ input:focus, select:focus { outline: none; }
       <button class="save-fab" id="saveFab" title="Сақтау">✓</button>
     </section>
 
-    <!-- ============ ПРОФИЛЬ ============ -->
+    <!-- ============ PROFILE ============ -->
     <section class="page" id="page-profile">
       <div class="profile-hero">
         <div class="profile-avatar-lg" id="profileAvatar">👤</div>
@@ -1159,52 +1403,65 @@ input:focus, select:focus { outline: none; }
       <div class="form-card">
         <form id="profileForm" novalidate>
           <div class="form-row">
-            <label data-i18n="lblFullName">👤 Аты-жөні</label>
+            <label>👤 Аты-жөні</label>
             <input type="text" id="fullName" placeholder="Аты-жөніңіз">
           </div>
           <div class="form-row">
-            <label data-i18n="lblEmail">📧 Email</label>
+            <label>📧 Email</label>
             <input type="email" id="email" placeholder="email@university.kz">
           </div>
           <div class="form-row">
-            <label data-i18n="lblPhone">📱 Телефон</label>
+            <label>📱 Телефон</label>
             <input type="tel" id="phone" placeholder="+7 700 000 0000">
           </div>
           <div class="form-row" id="groupRow">
-            <label data-i18n="lblGroup">🎓 Топ</label>
+            <label>🎓 Топ</label>
             <input type="text" id="group" placeholder="IT-21">
           </div>
           <div class="form-row" id="deptRow" style="display:none;">
-            <label data-i18n="lblDept">🏛 Кафедра</label>
+            <label>🏛 Кафедра</label>
             <input type="text" id="department" placeholder="Информатика">
           </div>
-          <button type="submit" class="btn-primary" data-i18n="saveBtn">Сақтау</button>
+          <button type="submit" class="btn-primary">Сақтау</button>
         </form>
         <p id="saveMsg" class="success-msg"></p>
       </div>
 
-      <div class="lang-section">
-        <h3 data-i18n="languageTitle">Интерфейс тілі</h3>
-        <div class="lang-options">
-          <button class="lang-option active" data-lang="kk">🇰🇿 Қазақша</button>
-          <button class="lang-option" data-lang="ru">🇷🇺 Русский</button>
+      <div class="settings-section">
+        <h3>🎨 Қараңғы режим</h3>
+        <div class="settings-options">
+          <button class="settings-option" id="themeLight">☀️ Жарық</button>
+          <button class="settings-option" id="themeDark">🌙 Қараңғы</button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3>🌐 Интерфейс тілі</h3>
+        <div class="settings-options">
+          <button class="lang-option settings-option" data-lang="kk">🇰🇿 Қазақша</button>
+          <button class="lang-option settings-option" data-lang="ru">🇷🇺 Русский</button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3>🔔 Хабарламалар</h3>
+        <div class="notify-toggle" id="notifyToggle">
+          <span>Push-хабарламалар</span>
+          <div class="toggle-switch"></div>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- BOTTOM NAV -->
-  <nav class="bottom-nav" id="bottomNav">
-    <!-- Dynamically filled based on role -->
-  </nav>
+  <nav class="bottom-nav" id="bottomNav"></nav>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
 /* ============================================================
-   УТИЛИТЫ
+   MAIN APP
 ============================================================ */
 (function () {
   'use strict';
@@ -1226,7 +1483,7 @@ input:focus, select:focus { outline: none; }
   }
 
   /* ============================================================
-     ТІЛДЕР (i18n)
+     I18N
   ============================================================ */
   const I18N = {
     kk: {
@@ -1236,77 +1493,41 @@ input:focus, select:focus { outline: none; }
       roleTeacher: 'Оқытушы',
       loginBtn: 'Кіру',
       hint: 'Тестілеу',
-      // Navigation
-      navHome: 'Басты',
-      navSchedule: 'Кесте',
-      navGrades: 'Бағалар',
-      navJournal: 'Журнал',
-      navProfile: 'Профиль',
-      // Page titles
-      pageHome: 'Басты',
-      pageSchedule: 'Кесте',
-      pageGrades: 'Бағалар',
-      pageJournal: 'Журнал',
-      pageProfile: 'Профиль',
-      // Tabs
-      tabClasses: 'Сабақтар',
-      tabExams: 'Емтихандар',
-      tabIGA: 'ҚИА',
-      tabAttendance: 'Қатысу',
-      tabGradeEntry: 'Баға қою',
-      // Home
-      greetMorning: 'Қайырлы таң!',
-      greetDay: 'Қайырлы күн!',
-      greetEvening: 'Қайырлы кеш!',
-      todayTitle: 'Бүгінгі сабақтар',
-      todayTitleTeacher: 'Бүгінгі жұптар',
+      navHome: 'Басты', navSchedule: 'Кесте', navGrades: 'Бағалар', navJournal: 'Журнал', navProfile: 'Профиль',
+      pageHome: 'Басты', pageSchedule: 'Кесте', pageGrades: 'Бағалар', pageJournal: 'Журнал', pageProfile: 'Профиль',
+      tabClasses: 'Сабақтар', tabExams: 'Емтихандар', tabIGA: 'ҚИА', tabWeek: '📅 Апта',
+      tabAttendance: 'Қатысу', tabGradeEntry: 'Баға қою',
+      greetMorning: 'Қайырлы таң!', greetDay: 'Қайырлы күн!', greetEvening: 'Қайырлы кеш!',
+      todayTitle: 'Бүгінгі сабақтар', todayTitleTeacher: 'Бүгінгі жұптар',
       quickTitle: 'Жылдам әрекеттер',
-      quickSchedule: 'Кесте',
-      quickScheduleSub: 'Апталық',
-      quickGrades: 'Бағалар',
-      quickGradesSub: 'Үлгерім',
-      quickJournal: 'Журнал',
-      quickJournalSub: 'Қатысу & баға',
-      quickProfile: 'Профиль',
-      quickProfileSub: 'Жеке деректер',
+      quickSchedule: 'Кесте', quickScheduleSub: 'Апталық',
+      quickGrades: 'Бағалар', quickGradesSub: 'Үлгерім',
+      quickJournal: 'Журнал', quickJournalSub: 'Қатысу & баға',
+      quickProfile: 'Профиль', quickProfileSub: 'Жеке деректер',
+      quickStats: 'Статистика', quickStatsSub: 'Топ көрсеткіші',
       noLessonsToday: 'Бүгін сабақ жоқ',
       lessonsCount: 'сабақ',
-      // Role
       roleActiveMode: 'Активті режим',
-      roleBadgeStudent: 'СТУДЕНТ',
-      roleBadgeTeacher: 'ОҚЫТУШЫ',
-      // Grades
-      gpa: 'GPA',
-      credits: 'Кредит',
-      average: 'Орташа',
-      // Profile
-      lblFullName: '👤 Аты-жөні',
-      lblEmail: '📧 Email',
-      lblPhone: '📱 Телефон',
-      lblGroup: '🎓 Топ',
-      lblDept: '🏛 Кафедра',
-      saveBtn: 'Сақтау',
-      saved: '✅ Мәліметтер сәті сақталды!',
-      languageTitle: 'Интерфейс тілі',
-      // Journal
+      roleBadgeStudent: 'СТУДЕНТ', roleBadgeTeacher: 'ОҚЫТУШЫ',
+      gpa: 'GPA', credits: 'Кредит', average: 'Орташа',
+      searchSchedule: 'Пән немесе оқытушы іздеу...',
       searchStudent: 'Студентті іздеу...',
-      present: 'Келді',
-      absent: 'Келмеді',
-      late: 'Кешікті',
-      // Toasts
+      present: 'Келді', absent: 'Келмеді', late: 'Кешікті',
       welcome: 'Қош келдіңіз! 👋',
       loggedOut: 'Жүйеден шықтыңыз',
       profileUpdated: 'Профиль жаңартылды ✅',
       journalSaved: 'Журнал сәтті сақталды ✅',
-      // Login errors
+      exported: 'CSV файл жүктелді 📥',
+      notifEnabled: 'Хабарламалар қосылды 🔔',
+      notifDisabled: 'Хабарламалар өшірілді 🔕',
       errEmpty: '⚠️ Барлық өрісті толтырыңыз!',
       errWrong: '❌ Қате логин немесе құпия сөз!',
-      // Days
-      days: {
-        'Дүйсенбі': 'Дс', 'Сейсенбі': 'Сс', 'Сәрсенбі': 'Ср',
-        'Бейсенбі': 'Бс', 'Жұма': 'Жм', 'Сенбі': 'Сб'
-      },
-      daysFull: ['Дүйсенбі','Сейсенбі','Сәрсенбі','Бейсенбі','Жұма','Сенбі','Жексенбі']
+      saved: '✅ Мәліметтер сәтті сақталды!',
+      statAvgGrade: 'Орташа балл', statAttendance: 'Қатысу',
+      statStudents: 'Студенттер', statLessons: 'Апталық жұп',
+      days: { 'Дүйсенбі':'Дс','Сейсенбі':'Сс','Сәрсенбі':'Ср','Бейсенбі':'Бс','Жұма':'Жм','Сенбі':'Сб' },
+      daysFull: { 'Дүйсенбі':'Дүйсенбі','Сейсенбі':'Сейсенбі','Сәрсенбі':'Сәрсенбі','Бейсенбі':'Бейсенбі','Жұма':'Жұма','Сенбі':'Сенбі' },
+      noResults: 'Ешкім табылмады'
     },
     ru: {
       loginTitle: 'University App',
@@ -1315,113 +1536,72 @@ input:focus, select:focus { outline: none; }
       roleTeacher: 'Преподаватель',
       loginBtn: 'Войти',
       hint: 'Тестирование',
-      navHome: 'Главная',
-      navSchedule: 'Расписание',
-      navGrades: 'Оценки',
-      navJournal: 'Журнал',
-      navProfile: 'Профиль',
-      pageHome: 'Главная',
-      pageSchedule: 'Расписание',
-      pageGrades: 'Оценки',
-      pageJournal: 'Журнал',
-      pageProfile: 'Профиль',
-      tabClasses: 'Занятия',
-      tabExams: 'Экзамены',
-      tabIGA: 'ИГА',
-      tabAttendance: 'Посещаемость',
-      tabGradeEntry: 'Выставление оценок',
-      greetMorning: 'Доброе утро!',
-      greetDay: 'Добрый день!',
-      greetEvening: 'Добрый вечер!',
-      todayTitle: 'Занятия сегодня',
-      todayTitleTeacher: 'Пары сегодня',
+      navHome: 'Главная', navSchedule: 'Расписание', navGrades: 'Оценки', navJournal: 'Журнал', navProfile: 'Профиль',
+      pageHome: 'Главная', pageSchedule: 'Расписание', pageGrades: 'Оценки', pageJournal: 'Журнал', pageProfile: 'Профиль',
+      tabClasses: 'Занятия', tabExams: 'Экзамены', tabIGA: 'ИГА', tabWeek: '📅 Неделя',
+      tabAttendance: 'Посещаемость', tabGradeEntry: 'Оценки',
+      greetMorning: 'Доброе утро!', greetDay: 'Добрый день!', greetEvening: 'Добрый вечер!',
+      todayTitle: 'Занятия сегодня', todayTitleTeacher: 'Пары сегодня',
       quickTitle: 'Быстрые действия',
-      quickSchedule: 'Расписание',
-      quickScheduleSub: 'Неделя',
-      quickGrades: 'Оценки',
-      quickGradesSub: 'Успеваемость',
-      quickJournal: 'Журнал',
-      quickJournalSub: 'Посещаемость и оценки',
-      quickProfile: 'Профиль',
-      quickProfileSub: 'Личные данные',
+      quickSchedule: 'Расписание', quickScheduleSub: 'Неделя',
+      quickGrades: 'Оценки', quickGradesSub: 'Успеваемость',
+      quickJournal: 'Журнал', quickJournalSub: 'Посещаемость и оценки',
+      quickProfile: 'Профиль', quickProfileSub: 'Личные данные',
+      quickStats: 'Статистика', quickStatsSub: 'Показатели группы',
       noLessonsToday: 'Сегодня занятий нет',
       lessonsCount: 'занятий',
       roleActiveMode: 'Активный режим',
-      roleBadgeStudent: 'СТУДЕНТ',
-      roleBadgeTeacher: 'ПРЕПОДАВАТЕЛЬ',
-      gpa: 'GPA',
-      credits: 'Кредиты',
-      average: 'Средний',
-      lblFullName: '👤 ФИО',
-      lblEmail: '📧 Email',
-      lblPhone: '📱 Телефон',
-      lblGroup: '🎓 Группа',
-      lblDept: '🏛 Кафедра',
-      saveBtn: 'Сохранить',
-      saved: '✅ Данные успешно сохранены!',
-      languageTitle: 'Язык интерфейса',
+      roleBadgeStudent: 'СТУДЕНТ', roleBadgeTeacher: 'ПРЕПОДАВАТЕЛЬ',
+      gpa: 'GPA', credits: 'Кредиты', average: 'Средний',
+      searchSchedule: 'Поиск по предмету или преподавателю...',
       searchStudent: 'Поиск студента...',
-      present: 'Присутствовал',
-      absent: 'Отсутствовал',
-      late: 'Опоздал',
+      present: 'Присутствовал', absent: 'Отсутствовал', late: 'Опоздал',
       welcome: 'Добро пожаловать! 👋',
       loggedOut: 'Вы вышли из системы',
       profileUpdated: 'Профиль обновлён ✅',
       journalSaved: 'Журнал успешно сохранён ✅',
+      exported: 'CSV файл загружен 📥',
+      notifEnabled: 'Уведомления включены 🔔',
+      notifDisabled: 'Уведомления отключены 🔕',
       errEmpty: '⚠️ Заполните все поля!',
       errWrong: '❌ Неверный логин или пароль!',
-      days: {
-        'Дүйсенбі': 'Пн', 'Сейсенбі': 'Вт', 'Сәрсенбі': 'Ср',
-        'Бейсенбі': 'Чт', 'Жұма': 'Пт', 'Сенбі': 'Сб'
-      },
-      daysFull: ['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота','Воскресенье']
+      saved: '✅ Данные успешно сохранены!',
+      statAvgGrade: 'Средний балл', statAttendance: 'Посещаемость',
+      statStudents: 'Студентов', statLessons: 'Пар в неделю',
+      days: { 'Дүйсенбі':'Пн','Сейсенбі':'Вт','Сәрсенбі':'Ср','Бейсенбі':'Чт','Жұма':'Пт','Сенбі':'Сб' },
+      daysFull: { 'Дүйсенбі':'Понедельник','Сейсенбі':'Вторник','Сәрсенбі':'Среда','Бейсенбі':'Четверг','Жұма':'Пятница','Сенбі':'Суббота' },
+      noResults: 'Никого не найдено'
     }
   };
 
   let currentLang = safeGet('lang') || 'kk';
   let currentRole = safeGet('role') || 'student';
+  let currentPage = 'home';
+  let isDark = safeGet('dark') === 'true';
 
-  function t(key) {
-    return (I18N[currentLang] && I18N[currentLang][key]) || key;
-  }
+  const t = (key) => (I18N[currentLang] && I18N[currentLang][key]) || key;
 
-  function applyTranslations() {
-    document.documentElement.lang = currentLang;
-
-    // Login page
-    $('#loginTitle').textContent = t('loginTitle');
-    $('#loginSubtitle').textContent = t('loginSubtitle');
-    $('#loginBtn').textContent = t('loginBtn');
-    $('#username').placeholder = currentLang === 'kk' ? 'Логин' : 'Логин';
-    $('#password').placeholder = currentLang === 'kk' ? 'Құпия сөз' : 'Пароль';
-
-    // Role buttons
-    $('#roleStudent').querySelector('span').textContent = t('roleStudent');
-    $('#roleTeacher').querySelector('span').textContent = t('roleTeacher');
-
-    // Hint
-    $('#hintBox').innerHTML = `💡 ${t('hint')}: <b id="hintCred">${currentRole === 'student' ? 'student / 1234' : 'teacher / 1234'}</b>`;
-
-    // Lang buttons
-    $$('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === currentLang));
-    $$('.lang-option').forEach(b => b.classList.toggle('active', b.dataset.lang === currentLang));
-
-    // Tabs i18n
-    $$('[data-i18n]').forEach(el => {
-      const key = el.dataset.i18n;
-      el.textContent = t(key);
+  function applyDarkMode() {
+    document.body.classList.toggle('dark', isDark);
+    const icons = [ $('#darkToggleLogin'), $('#darkToggleTop') ];
+    icons.forEach(el => { if (el) el.textContent = isDark ? '☀️' : '🌙'; });
+    $$('#themeLight, #themeDark').forEach(b => {
+      b.classList.toggle('active',
+        (b.id === 'themeLight' && !isDark) ||
+        (b.id === 'themeDark' && isDark));
     });
-
-    // Bottom nav (re-render)
-    renderBottomNav();
-
-    // Page title
-    updateTopbarTitle();
-
-    // Placeholders
-    const search = $('#studentSearch');
-    if (search) search.placeholder = t('searchStudent');
   }
+
+  function toggleDark() {
+    isDark = !isDark;
+    safeSet('dark', isDark);
+    applyDarkMode();
+  }
+
+  $('#darkToggleLogin').addEventListener('click', toggleDark);
+  $('#darkToggleTop').addEventListener('click', toggleDark);
+  $('#themeLight').addEventListener('click', () => { isDark = false; safeSet('dark', false); applyDarkMode(); });
+  $('#themeDark').addEventListener('click', () => { isDark = true; safeSet('dark', true); applyDarkMode(); });
 
   /* ============================================================
      ДЕРЕКТЕР — КЕСТЕ
@@ -1429,47 +1609,47 @@ input:focus, select:focus { outline: none; }
   const SCHEDULE = {
     'Дүйсенбі': [
       { start: '08:55', end: '09:45', subject: 'Эксперттік жүйелер және ЖИ негіздері',
-        building: '№7 корпус', room: '219', group: 'ЭЖ және ЖИ, "Д"', type: 'Дәрістер', teacher: 'Карменова М.А.' },
+        building: '№7 корпус', room: '219', group: 'IT-21', type: 'Дәрістер', teacher: 'Имашова И.Қ.' },
       { start: '09:50', end: '10:40', subject: 'Деректер қорын басқару жүйелері',
-        building: '№7 корпус', room: '213', group: 'ДҚБЖ, "Д"', type: 'Дәрістер', teacher: 'Жантасова Ж.З.' },
+        building: '№7 корпус', room: '213', group: 'IT-21', type: 'Дәрістер', teacher: 'Имашова И.Қ.' },
       { start: '10:45', end: '11:35', subject: 'Веб-бағдарламалау',
-        building: '№7 корпус', room: '312', group: 'Веб-бағдарламалау, "П"', type: 'Практикалық', teacher: 'Нұрланұлы А.' },
+        building: '№7 корпус', room: '312', group: 'IT-22', type: 'Практикалық', teacher: 'Нұрланұлы А.' },
       { start: '12:50', end: '13:40', subject: 'Компьютерлік жүйелердегі ақпаратты қорғау',
-        building: '№7 корпус', room: '405', group: 'Ақпаратты қорғау, "Д"', type: 'Дәрістер', teacher: 'Қайдарова М.А.' }
+        building: '№7 корпус', room: '405', group: 'IT-22', type: 'Дәрістер', teacher: 'Имашова И.Қ.' }
     ],
     'Сейсенбі': [
       { start: '08:55', end: '09:45', subject: 'Алгоритмдер және деректер құрылымы',
-        building: '№7 корпус', room: '301', group: 'Алгоритмдер, "Д"', type: 'Дәрістер', teacher: 'Тұрсынов Е.М.' },
+        building: '№7 корпус', room: '301', group: 'IT-21', type: 'Дәрістер', teacher: 'Тұрсынов Е.М.' },
       { start: '09:50', end: '10:40', subject: 'Деректер қоры',
-        building: 'IT-орталық', room: '418', group: 'ДҚ, "З"', type: 'Зертханалық', teacher: 'Әбдіраш Д.Қ.' },
+        building: 'IT-орталық', room: '418', group: 'IT-21', type: 'Зертханалық', teacher: 'Имашова И.Қ.' },
       { start: '10:45', end: '11:35', subject: 'Математикалық анализ',
-        building: '№1 корпус', room: '301', group: 'МА, "П"', type: 'Практикалық', teacher: 'Ахметов Н.Б.' }
+        building: '№1 корпус', room: '301', group: 'IT-23', type: 'Практикалық', teacher: 'Ахметов Н.Б.' }
     ],
     'Сәрсенбі': [
       { start: '08:55', end: '09:45', subject: 'Физика',
-        building: '№2 корпус', room: '110', group: 'Физика, "Д"', type: 'Дәрістер', teacher: 'Серікбаева Г.Т.' },
+        building: '№2 корпус', room: '110', group: 'IT-21', type: 'Дәрістер', teacher: 'Серікбаева Г.Т.' },
       { start: '09:50', end: '10:40', subject: 'Веб-технологиялар',
-        building: 'IT-орталық', room: '407', group: 'ВТ, "З"', type: 'Зертханалық', teacher: 'Жұмабаев А.С.' },
+        building: 'IT-орталық', room: '407', group: 'IT-22', type: 'Зертханалық', teacher: 'Жұмабаев А.С.' },
       { start: '10:45', end: '11:35', subject: 'Қазақстан тарихы',
-        building: '№1 корпус', room: '202', group: 'Тарих, "Д"', type: 'Дәрістер', teacher: 'Оспанова Л.Т.' },
-      { start: '12:50', end: '13:40', subject: 'Ағылшын тілі',
-        building: '№3 корпус', room: '108', group: 'Ағылшын, "П"', type: 'Практикалық', teacher: 'Johnson M.' }
+        building: '№1 корпус', room: '202', group: 'IT-21', type: 'Дәрістер', teacher: 'Оспанова Л.Т.' },
+      { start: '12:50', end: '13:40', subject: 'Эксперттік жүйелер және ЖИ негіздері',
+        building: 'IT-орталық', room: '308', group: 'IT-21', type: 'Зертханалық', teacher: 'Имашова И.Қ.' }
     ],
     'Бейсенбі': [
       { start: '08:55', end: '09:45', subject: 'Алгоритмдер және деректер құрылымы',
-        building: 'IT-орталық', room: '312', group: 'Алгоритмдер, "П"', type: 'Практикалық', teacher: 'Тұрсынов Е.М.' },
-      { start: '09:50', end: '10:40', subject: 'Деректер қоры',
-        building: 'IT-орталық', room: '305', group: 'ДҚ, "Д"', type: 'Дәрістер', teacher: 'Әбдіраш Д.Қ.' },
+        building: 'IT-орталық', room: '312', group: 'IT-22', type: 'Практикалық', teacher: 'Тұрсынов Е.М.' },
+      { start: '09:50', end: '10:40', subject: 'Деректер қорын басқару жүйелері',
+        building: 'IT-орталық', room: '305', group: 'IT-21', type: 'Зертханалық', teacher: 'Имашова И.Қ.' },
       { start: '10:45', end: '11:35', subject: 'Бағдарламалау негіздері',
-        building: 'IT-орталық', room: '412', group: 'БН, "П"', type: 'Практикалық', teacher: 'Нұрланұлы А.' }
+        building: 'IT-орталық', room: '412', group: 'IT-23', type: 'Практикалық', teacher: 'Нұрланұлы А.' }
     ],
     'Жұма': [
       { start: '08:55', end: '09:45', subject: 'Веб-технологиялар',
-        building: 'IT-орталық', room: '301', group: 'ВТ, "Д"', type: 'Дәрістер', teacher: 'Жұмабаев А.С.' },
-      { start: '09:50', end: '10:40', subject: 'Математикалық анализ',
-        building: '№1 корпус', room: '301', group: 'МА, "П"', type: 'Практикалық', teacher: 'Ахметов Н.Б.' },
+        building: 'IT-орталық', room: '301', group: 'IT-22', type: 'Дәрістер', teacher: 'Жұмабаев А.С.' },
+      { start: '09:50', end: '10:40', subject: 'Компьютерлік жүйелердегі ақпаратты қорғау',
+        building: 'IT-орталық', room: '318', group: 'IT-21', type: 'Зертханалық', teacher: 'Имашова И.Қ.' },
       { start: '10:45', end: '11:35', subject: 'Физика',
-        building: '№2 корпус', room: '215', group: 'Физика, "З"', type: 'Зертханалық', teacher: 'Серікбаева Г.Т.' }
+        building: '№2 корпус', room: '215', group: 'IT-21', type: 'Зертханалық', teacher: 'Серікбаева Г.Т.' }
     ],
     'Сенбі': []
   };
@@ -1478,11 +1658,11 @@ input:focus, select:focus { outline: none; }
 
   const EXAMS = [
     { date: '15.01.2026', start: '09:00', subject: 'Деректер қорын басқару жүйелері',
-      building: '№7 корпус', room: '213', teacher: 'Жантасова Ж.З.' },
+      building: '№7 корпус', room: '213', teacher: 'Имашова И.Қ.' },
     { date: '17.01.2026', start: '11:00', subject: 'Эксперттік жүйелер және ЖИ негіздері',
-      building: '№7 корпус', room: '219', teacher: 'Карменова М.А.' },
+      building: '№7 корпус', room: '219', teacher: 'Имашова И.Қ.' },
     { date: '20.01.2026', start: '09:00', subject: 'Компьютерлік жүйелердегі ақпаратты қорғау',
-      building: '№7 корпус', room: '405', teacher: 'Қайдарова М.А.' }
+      building: '№7 корпус', room: '405', teacher: 'Имашова И.Қ.' }
   ];
 
   const IGA = [
@@ -1490,22 +1670,20 @@ input:focus, select:focus { outline: none; }
       building: 'Актовый зал', room: '—', teacher: 'Комиссия' }
   ];
 
-  /* ============================================================
-     ДЕРЕКТЕР — БАҒАЛАР (STUDENT)
-  ============================================================ */
   const GRADES = [
     { subject: 'Математикалық анализ', teacher: 'Ахметов Н.Б.', r1: 88, r2: 92, exam: 90, total: 'A', credits: 5 },
     { subject: 'Физика', teacher: 'Серікбаева Г.Т.', r1: 78, r2: 82, exam: 80, total: 'B+', credits: 4 },
     { subject: 'Бағдарламалау негіздері', teacher: 'Нұрланұлы А.', r1: 95, r2: 98, exam: 96, total: 'A', credits: 5 },
     { subject: 'Ағылшын тілі', teacher: 'Johnson M.', r1: 88, r2: 90, exam: 92, total: 'A-', credits: 3 },
     { subject: 'Алгоритмдер және деректер құрылымы', teacher: 'Тұрсынов Е.М.', r1: 90, r2: 94, exam: 92, total: 'A', credits: 5 },
-    { subject: 'Деректер қоры', teacher: 'Әбдіраш Д.Қ.', r1: 85, r2: 88, exam: 86, total: 'A-', credits: 4 },
+    { subject: 'Деректер қоры', teacher: 'Имашова И.Қ.', r1: 85, r2: 88, exam: 86, total: 'A-', credits: 4 },
     { subject: 'Веб-технологиялар', teacher: 'Жұмабаев А.С.', r1: 92, r2: 95, exam: 93, total: 'A', credits: 4 },
+    { subject: 'Эксперттік жүйелер және ЖИ негіздері', teacher: 'Имашова И.Қ.', r1: 90, r2: 93, exam: 91, total: 'A', credits: 5 },
     { subject: 'Қазақстан тарихы', teacher: 'Оспанова Л.Т.', r1: 74, r2: 79, exam: 81, total: 'B', credits: 3 }
   ];
 
   /* ============================================================
-     ДЕРЕКТЕР — СТУДЕНТТЕР (TEACHER)
+     ДЕРЕКТЕР — СТУДЕНТТЕР (3 топ)
   ============================================================ */
   const STUDENTS = [
     { id: 1, name: 'Асқар Нұрлан', group: 'IT-21' },
@@ -1517,15 +1695,20 @@ input:focus, select:focus { outline: none; }
     { id: 7, name: 'Нұрсұлтан Оспанов', group: 'IT-22' },
     { id: 8, name: 'Сая Қайрат', group: 'IT-22' },
     { id: 9, name: 'Темірлан Жақсылық', group: 'IT-22' },
-    { id: 10, name: 'Ұлжан Мұрат', group: 'IT-22' }
+    { id: 10, name: 'Ұлжан Мұрат', group: 'IT-22' },
+    { id: 11, name: 'Аида Тұрсынбай', group: 'IT-23' },
+    { id: 12, name: 'Бекзат Ерғали', group: 'IT-23' },
+    { id: 13, name: 'Гүлмира Сәрсен', group: 'IT-23' },
+    { id: 14, name: 'Данияр Оспан', group: 'IT-23' },
+    { id: 15, name: 'Еркебұлан Мұрат', group: 'IT-23' }
   ];
 
   /* ============================================================
-     АУТЕНТИФИКАЦИЯ
+     USERS
   ============================================================ */
   const USERS = {
     student: { pass: '1234', role: 'student', name: 'Асқар Нұрлан' },
-    teacher: { pass: '1234', role: 'teacher', name: 'Карменова М.А.' }
+    teacher: { pass: '1234', role: 'teacher', name: 'Имашова Инабат Қайырбекқызы' }
   };
 
   const isLoggedIn = () => safeGet('loggedIn') === 'true';
@@ -1553,11 +1736,18 @@ input:focus, select:focus { outline: none; }
     });
   });
 
-  /* Language switch */
+  /* Language */
   function switchLang(lang) {
     currentLang = lang;
     safeSet('lang', lang);
     applyTranslations();
+    // Re-render dynamic parts
+    if (isLoggedIn()) {
+      renderSchedule();
+      if (currentRole === 'student') renderGrades(); else renderJournal();
+      renderHome();
+      loadProfile();
+    }
   }
 
   $$('.lang-btn, .lang-option').forEach(btn => {
@@ -1566,7 +1756,7 @@ input:focus, select:focus { outline: none; }
 
   $('#langToggleTop').addEventListener('click', () => {
     switchLang(currentLang === 'kk' ? 'ru' : 'kk');
-    showToast(currentLang === 'kk' ? 'Тіл ауыстырылды: Қазақша' : 'Язык изменён: Русский');
+    showToast(currentLang === 'kk' ? 'Тіл: Қазақша' : 'Язык: Русский');
   });
 
   /* Login */
@@ -1591,11 +1781,7 @@ input:focus, select:focus { outline: none; }
       safeSet('role', u.role);
       safeSet('displayName', u.name);
       currentRole = u.role;
-
-      setTimeout(() => {
-        showApp();
-        showToast(t('welcome'));
-      }, 200);
+      setTimeout(() => { showApp(); showToast(t('welcome')); }, 200);
     } else {
       err.textContent = t('errWrong');
       $('#loginCard').classList.add('shake');
@@ -1617,7 +1803,7 @@ input:focus, select:focus { outline: none; }
   $('#headerLogout').addEventListener('click', logout);
 
   /* ============================================================
-     НАВИГАЦИЯ / BOTTOM NAV
+     NAVIGATION
   ============================================================ */
   const NAV_STUDENT = [
     { key: 'home', icon: '🏠', label: 'navHome' },
@@ -1633,8 +1819,6 @@ input:focus, select:focus { outline: none; }
     { key: 'profile', icon: '👤', label: 'navProfile' }
   ];
 
-  let currentPage = 'home';
-
   function renderBottomNav() {
     const nav = $('#bottomNav');
     const items = currentRole === 'teacher' ? NAV_TEACHER : NAV_STUDENT;
@@ -1643,10 +1827,7 @@ input:focus, select:focus { outline: none; }
       const btn = document.createElement('button');
       btn.className = 'bottom-nav-item' + (item.key === currentPage ? ' active' : '');
       btn.dataset.nav = item.key;
-      btn.innerHTML = `
-        <span class="nav-icon">${item.icon}</span>
-        <span>${t(item.label)}</span>
-      `;
+      btn.innerHTML = `<span class="nav-icon">${item.icon}</span><span>${t(item.label)}</span>`;
       btn.addEventListener('click', () => navigateTo(item.key));
       nav.appendChild(btn);
     });
@@ -1676,10 +1857,11 @@ input:focus, select:focus { outline: none; }
   }
 
   /* ============================================================
-     КЕСТЕ
+     SCHEDULE
   ============================================================ */
   let activeDay = getTodayKey();
   let activeTab = 'classes';
+  let scheduleSearch = '';
 
   function getTodayKey() {
     const map = ['Дүйсенбі','Сейсенбі','Сәрсенбі','Бейсенбі','Жұма','Сенбі'];
@@ -1688,16 +1870,24 @@ input:focus, select:focus { outline: none; }
     return map[idx - 1] || 'Дүйсенбі';
   }
 
+  function filterLessons(lessons) {
+    if (!scheduleSearch) return lessons;
+    const q = scheduleSearch.toLowerCase();
+    return lessons.filter(l =>
+      l.subject.toLowerCase().includes(q) ||
+      l.teacher.toLowerCase().includes(q) ||
+      (l.room && l.room.toLowerCase().includes(q))
+    );
+  }
+
   function renderSchedule() {
-    // Tabs
     $$('.tab-pill').forEach(p => {
       if (p.dataset.tab) p.classList.toggle('active', p.dataset.tab === activeTab);
     });
 
-    // Day strip
     const strip = $('#dayStrip');
     strip.innerHTML = '';
-    if (activeTab === 'classes') {
+    if (activeTab === 'classes' || activeTab === 'week') {
       DAY_ORDER.forEach(day => {
         const chip = document.createElement('button');
         chip.className = 'day-chip' + (day === activeDay ? ' active' : '');
@@ -1711,18 +1901,50 @@ input:focus, select:focus { outline: none; }
     list.innerHTML = '';
 
     if (activeTab === 'classes') {
-      const lessons = SCHEDULE[activeDay] || [];
+      let lessons = SCHEDULE[activeDay] || [];
+      lessons = filterLessons(lessons);
       if (lessons.length === 0) {
-        list.innerHTML = `<div class="empty-state"><div class="icon">🎉</div><p>${
-          currentLang === 'kk' ? 'Бұл күні сабақ жоқ' : 'В этот день занятий нет'
-        }</p></div>`;
+        list.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><p>${t('noLessonsToday')}</p></div>`;
         return;
       }
       lessons.forEach((l, i) => list.appendChild(buildLessonCard(l, i)));
     } else if (activeTab === 'exams') {
-      EXAMS.forEach((e, i) => list.appendChild(buildExamCard(e, i)));
-    } else {
+      let exams = EXAMS;
+      if (scheduleSearch) {
+        const q = scheduleSearch.toLowerCase();
+        exams = exams.filter(e => e.subject.toLowerCase().includes(q) || e.teacher.toLowerCase().includes(q));
+      }
+      exams.forEach((e, i) => list.appendChild(buildExamCard(e, i)));
+    } else if (activeTab === 'iga') {
       IGA.forEach((e, i) => list.appendChild(buildExamCard(e, i)));
+    } else if (activeTab === 'week') {
+      DAY_ORDER.forEach(day => {
+        let lessons = SCHEDULE[day] || [];
+        lessons = filterLessons(lessons);
+        const block = document.createElement('div');
+        block.className = 'week-day-block';
+        const title = document.createElement('div');
+        title.className = 'week-day-title';
+        title.innerHTML = `<span>${t('daysFull')[day]}</span><span class="week-day-count">${lessons.length} ${t('lessonsCount')}</span>`;
+        block.appendChild(title);
+        if (lessons.length === 0) {
+          const empty = document.createElement('div');
+          empty.style.cssText = 'text-align:center;padding:14px;color:var(--gray);font-size:12px;';
+          empty.textContent = '—';
+          block.appendChild(empty);
+        } else {
+          lessons.forEach(l => {
+            const item = document.createElement('div');
+            item.className = 'week-lesson-item';
+            item.innerHTML = `
+              <div><span class="wl-time">${l.start}–${l.end}</span><span class="wl-subject">${l.subject}</span></div>
+              <div class="wl-info">📍 ${l.building}, ${l.room} • 🎓 ${l.teacher} • ${l.type}</div>
+            `;
+            block.appendChild(item);
+          });
+        }
+        list.appendChild(block);
+      });
     }
   }
 
@@ -1739,8 +1961,7 @@ input:focus, select:focus { outline: none; }
         <div class="lesson-subject">${l.subject}</div>
         <div class="lesson-info">
           <div class="info-row"><span class="info-icon">📍</span><span class="info-text">${l.building}, ${l.room}</span></div>
-          <div class="info-row"><span class="info-icon">👥</span><span class="info-text">${l.group}</span></div>
-          <div class="info-row"><span class="info-icon">📖</span><span class="info-text">${l.type}</span></div>
+          <div class="info-row"><span class="info-icon">👥</span><span class="info-text">${l.group} • ${l.type}</span></div>
           <div class="info-row"><span class="info-icon">🎓</span><span class="info-text strong">— ${l.teacher}</span></div>
         </div>
       </div>
@@ -1763,7 +1984,6 @@ input:focus, select:focus { outline: none; }
     return card;
   }
 
-  // Tab switch
   document.addEventListener('click', function (e) {
     const pill = e.target.closest('.tab-pill[data-tab]');
     if (pill) {
@@ -1772,8 +1992,13 @@ input:focus, select:focus { outline: none; }
     }
   });
 
+  $('#scheduleSearch').addEventListener('input', function () {
+    scheduleSearch = this.value.trim();
+    renderSchedule();
+  });
+
   /* ============================================================
-     БАҒАЛАР (STUDENT)
+     GRADES
   ============================================================ */
   function renderGrades() {
     const gradePoint = { 'A': 4.0, 'A-': 3.67, 'B+': 3.33, 'B': 3.0, 'B-': 2.67, 'C+': 2.33 };
@@ -1821,39 +2046,79 @@ input:focus, select:focus { outline: none; }
     setTimeout(() => {
       const n = $('#notification');
       n.innerHTML = `🔔 <div><b>${currentLang === 'kk' ? 'Жаңа хабарлама' : 'Новое уведомление'}:</b> ${
-        currentLang === 'kk' ? 'Емтихан бағасы жарияланды' : 'Опубликована оценка за экзамен'
-      } — «Математикалық анализ»: <b>A</b></div>`;
+        currentLang === 'kk' ? 'Емтихан бағасы жарияланды' : 'Опубликована оценка'
+      } — «Эксперттік жүйелер»: <b>A</b></div>`;
       n.classList.remove('hidden');
     }, 2000);
   }
 
+  /* CSV Export */
+  $('#exportBtn').addEventListener('click', function () {
+    const header = ['Пән', 'Оқытушы', '1-РК', '2-РК', 'Емтихан', 'Қорытынды', 'Кредит'];
+    const rows = GRADES.map(g => [g.subject, g.teacher, g.r1, g.r2, g.exam, g.total, g.credits]);
+    const csv = [header, ...rows]
+      .map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(','))
+      .join('\n');
+
+    const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `grades_${new Date().toISOString().slice(0,10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast(t('exported'));
+  });
+
   /* ============================================================
-     ЖУРНАЛ (TEACHER)
+     JOURNAL (TEACHER)
   ============================================================ */
   let activeJournalTab = 'attendance';
+  let activeGroupFilter = 'all';
   let attendanceData = {};
   let gradeEntryData = {};
+
+  const GROUPS = ['all', 'IT-21', 'IT-22', 'IT-23'];
+
+  function renderGroupFilter() {
+    const gf = $('#groupFilter');
+    gf.innerHTML = '';
+    GROUPS.forEach(g => {
+      const chip = document.createElement('button');
+      chip.className = 'group-chip' + (g === activeGroupFilter ? ' active' : '');
+      chip.textContent = g === 'all' ? (currentLang === 'kk' ? 'Барлығы' : 'Все') : g;
+      chip.addEventListener('click', () => {
+        activeGroupFilter = g;
+        renderGroupFilter();
+        renderJournalList();
+      });
+      gf.appendChild(chip);
+    });
+  }
 
   function renderJournal() {
     $$('[data-jtab]').forEach(p => {
       p.classList.toggle('active', p.dataset.jtab === activeJournalTab);
     });
+    renderGroupFilter();
     renderJournalList();
   }
 
   function renderJournalList() {
     const search = ($('#studentSearch').value || '').toLowerCase().trim();
-    const filtered = STUDENTS.filter(s =>
-      !search || s.name.toLowerCase().includes(search) || s.group.toLowerCase().includes(search)
-    );
+    const filtered = STUDENTS.filter(s => {
+      if (activeGroupFilter !== 'all' && s.group !== activeGroupFilter) return false;
+      if (!search) return true;
+      return s.name.toLowerCase().includes(search) || s.group.toLowerCase().includes(search);
+    });
 
     const list = $('#journalList');
     list.innerHTML = '';
 
     if (filtered.length === 0) {
-      list.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><p>${
-        currentLang === 'kk' ? 'Ешкім табылмады' : 'Никого не найдено'
-      }</p></div>`;
+      list.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><p>${t('noResults')}</p></div>`;
       return;
     }
 
@@ -1861,7 +2126,6 @@ input:focus, select:focus { outline: none; }
       const row = document.createElement('div');
       row.className = 'student-row';
       row.style.animationDelay = (i * 0.03) + 's';
-
       const initials = s.name.split(' ').map(w => w[0]).slice(0,2).join('');
 
       if (activeJournalTab === 'attendance') {
@@ -1873,9 +2137,9 @@ input:focus, select:focus { outline: none; }
             <div class="student-meta">${s.group}</div>
           </div>
           <div class="attendance-btns">
-            <button class="att-btn present ${status === 'present' ? 'active' : ''}" data-id="${s.id}" data-status="present" title="${t('present')}">✓</button>
-            <button class="att-btn late ${status === 'late' ? 'active' : ''}" data-id="${s.id}" data-status="late" title="${t('late')}">⏱</button>
-            <button class="att-btn absent ${status === 'absent' ? 'active' : ''}" data-id="${s.id}" data-status="absent" title="${t('absent')}">✕</button>
+            <button class="att-btn present ${status === 'present' ? 'active' : ''}" data-id="${s.id}" data-status="present">✓</button>
+            <button class="att-btn late ${status === 'late' ? 'active' : ''}" data-id="${s.id}" data-status="late">⏱</button>
+            <button class="att-btn absent ${status === 'absent' ? 'active' : ''}" data-id="${s.id}" data-status="absent">✕</button>
           </div>
         `;
       } else {
@@ -1892,7 +2156,6 @@ input:focus, select:focus { outline: none; }
       list.appendChild(row);
     });
 
-    // Attach events
     list.querySelectorAll('.att-btn').forEach(btn => {
       btn.addEventListener('click', function () {
         const id = parseInt(this.dataset.id);
@@ -1910,7 +2173,7 @@ input:focus, select:focus { outline: none; }
           if (isNaN(n)) n = 0;
           if (n < 0) n = 0;
           if (n > 100) n = 100;
-          if (n !== parseInt(v)) this.value = n;
+          this.value = n;
         }
         gradeEntryData[id] = this.value;
       });
@@ -1936,7 +2199,7 @@ input:focus, select:focus { outline: none; }
   });
 
   /* ============================================================
-     БАСТЫ БЕТ
+     HOME
   ============================================================ */
   function renderHome() {
     const hour = new Date().getHours();
@@ -1947,16 +2210,54 @@ input:focus, select:focus { outline: none; }
     const profile = getProfileData();
     $('#heroGreeting').textContent = t(greetKey) + ' 👋';
     $('#heroName').textContent = (profile.fullName || 'User') +
-      (currentRole === 'student' ? ' • ' + (profile.group || '—') : ' • ' + (profile.department || '—'));
+      (currentRole === 'student' ? ' • ' + (profile.group || '—') : '');
 
-    // Role bar
     $('#roleBarIcon').textContent = currentRole === 'student' ? '🎓' : '👨‍🏫';
     $('#roleBarText').textContent = currentRole === 'student' ? t('roleStudent') : t('roleTeacher');
     $('#roleBarSub').textContent = t('roleActiveMode');
 
-    // Title
     $('#todayTitle').textContent = currentRole === 'student' ? t('todayTitle') : t('todayTitleTeacher');
     $('#quickTitle').textContent = t('quickTitle');
+
+    // Teacher stats
+    const statsGrid = $('#teacherStats');
+    if (currentRole === 'teacher') {
+      statsGrid.classList.remove('hidden');
+      const teacherName = safeGet('displayName') || 'Имашова Инабат Қайырбекқызы';
+      let lessonCount = 0;
+      Object.values(SCHEDULE).forEach(day => {
+        lessonCount += day.filter(l => l.teacher === teacherName).length;
+      });
+      // Fake stats
+      const avgGrade = 84;
+      const attendanceRate = 92;
+      const studentsCount = STUDENTS.length;
+
+      statsGrid.innerHTML = `
+        <div class="stat-card success">
+          <div class="stat-label">${t('statAvgGrade')}</div>
+          <div class="stat-value">${avgGrade}</div>
+          <div class="stat-sub">100-ден</div>
+        </div>
+        <div class="stat-card info">
+          <div class="stat-label">${t('statAttendance')}</div>
+          <div class="stat-value">${attendanceRate}%</div>
+          <div class="stat-sub">Орташа</div>
+        </div>
+        <div class="stat-card warning">
+          <div class="stat-label">${t('statStudents')}</div>
+          <div class="stat-value">${studentsCount}</div>
+          <div class="stat-sub">3 топ</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">${t('statLessons')}</div>
+          <div class="stat-value">${lessonCount}</div>
+          <div class="stat-sub">жұп</div>
+        </div>
+      `;
+    } else {
+      statsGrid.classList.add('hidden');
+    }
 
     // Today preview
     const dayMap = ['Дүйсенбі','Сейсенбі','Сәрсенбі','Бейсенбі','Жұма','Сенбі','Жексенбі'];
@@ -1964,9 +2265,8 @@ input:focus, select:focus { outline: none; }
     const todayKey = dayMap[today];
     let todayLessons = SCHEDULE[todayKey] || [];
 
-    // If teacher — show lessons they teach
     if (currentRole === 'teacher') {
-      const teacherName = safeGet('displayName') || 'Карменова М.А.';
+      const teacherName = safeGet('displayName') || 'Имашова Инабат Қайырбекқызы';
       todayLessons = todayLessons.filter(l => l.teacher === teacherName);
     }
 
@@ -2005,7 +2305,7 @@ input:focus, select:focus { outline: none; }
   }
 
   /* ============================================================
-     ПРОФИЛЬ
+     PROFILE
   ============================================================ */
   const DEFAULT_STUDENT_PROFILE = {
     fullName: 'Асқар Нұрлан',
@@ -2014,8 +2314,8 @@ input:focus, select:focus { outline: none; }
     group: 'IT-21'
   };
   const DEFAULT_TEACHER_PROFILE = {
-    fullName: 'Карменова М.А.',
-    email: 'karmenova@university.kz',
+    fullName: 'Имашова Инабат Қайырбекқызы',
+    email: 'imashova@university.kz',
     phone: '+7 701 234 5678',
     department: 'Информатика кафедрасы'
   };
@@ -2041,7 +2341,7 @@ input:focus, select:focus { outline: none; }
       $('#groupRow').style.display = 'none';
       $('#deptRow').style.display = 'block';
       $('#department').value = data.department || '';
-      $('#profileAvatar').textContent = '👨‍🏫';
+      $('#profileAvatar').textContent = '👩‍🏫';
       $('#roleBadge').textContent = t('roleBadgeTeacher');
     } else {
       $('#groupRow').style.display = 'block';
@@ -2081,42 +2381,88 @@ input:focus, select:focus { outline: none; }
     setTimeout(() => { msg.textContent = ''; }, 2500);
   });
 
+  /* Notification toggle */
+  $('#notifyToggle').addEventListener('click', function () {
+    const isOn = this.classList.toggle('on');
+    safeSet('notifications', isOn);
+    if (isOn && 'Notification' in window) {
+      Notification.requestPermission().then(perm => {
+        if (perm === 'granted') {
+          new Notification('University App', { body: 'Хабарламалар қосылды! 🔔' });
+          showToast(t('notifEnabled'));
+        } else {
+          showToast(t('notifEnabled'));
+        }
+      });
+    } else {
+      showToast(isOn ? t('notifEnabled') : t('notifDisabled'));
+    }
+  });
+
+  /* ============================================================
+     APPLY TRANSLATIONS
+  ============================================================ */
+  function applyTranslations() {
+    document.documentElement.lang = currentLang;
+
+    $('#loginTitle').textContent = t('loginTitle');
+    $('#loginSubtitle').textContent = t('loginSubtitle');
+    $('#loginBtn').textContent = t('loginBtn');
+    $('#username').placeholder = currentLang === 'kk' ? 'Логин' : 'Логин';
+    $('#password').placeholder = currentLang === 'kk' ? 'Құпия сөз' : 'Пароль';
+
+    $('#roleStudent').querySelector('span').textContent = t('roleStudent');
+    $('#roleTeacher').querySelector('span').textContent = t('roleTeacher');
+
+    $('#hintBox').innerHTML = `💡 ${t('hint')}: <b id="hintCred">${currentRole === 'student' ? 'student / 1234' : 'teacher / 1234'}</b>`;
+
+    $$('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === currentLang));
+    $$('.lang-option').forEach(b => b.classList.toggle('active', b.dataset.lang === currentLang));
+
+    // Update schedule search placeholder
+    const ss = $('#scheduleSearch');
+    if (ss) ss.placeholder = t('searchSchedule');
+    const stuS = $('#studentSearch');
+    if (stuS) stuS.placeholder = t('searchStudent');
+
+    // Export btn label
+    const eb = $('#exportBtn');
+    if (eb) eb.textContent = currentLang === 'kk' ? '📥 Excel/CSV экспорттау' : '📥 Экспорт в Excel/CSV';
+
+    renderBottomNav();
+    updateTopbarTitle();
+    applyDarkMode();
+  }
+
   /* ============================================================
      INIT
   ============================================================ */
   function renderAll() {
     applyTranslations();
     renderSchedule();
-    if (currentRole === 'student') {
-      renderGrades();
-    } else {
-      renderJournal();
-    }
+    if (currentRole === 'student') renderGrades();
+    else renderJournal();
     renderHome();
     loadProfile();
-    // Show/hide pages based on role
-    if (currentRole === 'student') {
-      // ok
-    } else {
-      // Ensure teacher doesn't see grades page
-      // Navigation handled by bottom nav
-    }
+
+    // Restore notify toggle
+    const notify = safeGet('notifications') === 'true';
+    $('#notifyToggle').classList.toggle('on', notify);
   }
 
   function init() {
     currentLang = safeGet('lang') || 'kk';
     currentRole = safeGet('role') || 'student';
+    isDark = safeGet('dark') === 'true';
 
-    // Restore role selection on login screen
     $$('.role-btn').forEach(b => b.classList.toggle('active', b.dataset.role === currentRole));
 
     applyTranslations();
+    applyDarkMode();
 
     if (isLoggedIn()) {
-      // Use saved role
       const savedRole = safeGet('role');
       if (savedRole) currentRole = savedRole;
-      // Restore data
       try {
         const a = safeGet('attendance'); if (a) attendanceData = JSON.parse(a);
         const g = safeGet('grades_entry'); if (g) gradeEntryData = JSON.parse(g);
