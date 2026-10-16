@@ -96,12 +96,11 @@ body.dark .grade-input { background: var(--input-bg); color: var(--dark); border
 body.dark .hint-box { background: var(--primary-soft); border-color: #334155; }
 body.dark .week-lesson-item { background: #0F172A; }
 
-/* ВАЖНО: белый фон логотипа на темной теме */
-body.dark .brand-logo,
-body.dark .logo-img {
-  background: #fff;
-  padding: 3px;
-  border-radius: 8px;
+/* 🌟 ТЕМНАЯ ТЕМА — БЕЛЫЙ ЛОГОТИП (инвертируем) */
+body.dark .brand-logo-img,
+body.dark .topbar-logo-img {
+  filter: brightness(0) invert(1);
+  opacity: 0.95;
 }
 
 html, body { height: 100%; }
@@ -122,9 +121,21 @@ a { text-decoration: none; color: inherit; }
 input:focus, select:focus { outline: none; }
 
 /* ============================================================
-   LOGO — жалпы стильдер
+   🌟 ЛОГОТИП — ТОЛЬКО САМ ЛОГОТИП, БЕЗ ФОНА И БЛОКА
 ============================================================ */
-.logo-img {
+.brand-logo-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+  transition: filter 0.3s;
+}
+
+.topbar-logo-img {
   display: block;
   width: 100%;
   height: 100%;
@@ -133,6 +144,7 @@ input:focus, select:focus { outline: none; }
   user-select: none;
   -webkit-user-drag: none;
   pointer-events: none;
+  transition: filter 0.3s;
 }
 
 /* ============================================================
@@ -177,7 +189,7 @@ body.role-teacher .shape-2 { background: #FFB3BC; }
   background: rgba(255,255,255,0.98);
   backdrop-filter: blur(20px);
   border-radius: 22px;
-  padding: 22px 26px 24px;
+  padding: 24px 26px 24px;
   width: 100%; max-width: 440px;
   box-shadow: 0 20px 50px rgba(0,0,0,0.25);
   animation: slideUp 0.6s cubic-bezier(0.16,1,0.3,1);
@@ -188,60 +200,25 @@ body.role-teacher .shape-2 { background: #FFB3BC; }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ============================================================
-   🔥 LOGIN ЛОГОТИП — жоғарғы сол жақ
-============================================================ */
-.login-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--border);
-}
-
-.login-brand .brand-logo-box {
-  width: 52px;
-  height: 52px;
-  border-radius: 12px;
-  background: #fff;
+/* 🌟 ЛОГОТИП В ЛОГИНЕ — ТОЛЬКО ЛОГОТИП, БЕЗ КОРОБКИ */
+.login-logo {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  padding: 4px;
-  border: 1px solid var(--border);
+  margin: 0 auto 18px;
+  width: 100%;
+  max-width: 240px;
+  height: 64px;
+  padding: 0;
+  background: transparent;
+  border: none;
 }
 
-.login-brand .brand-text {
-  flex: 1;
-  min-width: 0;
-  text-align: left;
+body.dark .login-logo .brand-logo-img {
+  filter: brightness(0) invert(1);
+  opacity: 0.95;
 }
 
-.login-brand .brand-name {
-  font-size: 12px;
-  font-weight: 900;
-  color: var(--primary);
-  letter-spacing: 0.4px;
-  line-height: 1.15;
-  text-transform: uppercase;
-}
-
-.login-brand .brand-sub {
-  font-size: 9.5px;
-  font-weight: 600;
-  color: var(--gray);
-  letter-spacing: 0.5px;
-  margin-top: 2px;
-  line-height: 1.2;
-  text-transform: uppercase;
-}
-
-/* ============================================================
-   TOP CONTROLS (lang + dark)
-============================================================ */
 .top-controls {
   display: flex;
   justify-content: space-between;
@@ -276,21 +253,8 @@ body.role-teacher .shape-2 { background: #FFB3BC; }
   transition: all 0.2s;
 }
 
-.logo-circle {
-  width: 60px; height: 60px; margin: 0 auto 12px;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  border-radius: 16px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 30px;
-  box-shadow: 0 12px 30px rgba(37,99,235,0.35);
-  transition: box-shadow 0.3s;
-}
-body.role-teacher .logo-circle {
-  box-shadow: 0 12px 30px rgba(200,16,46,0.35);
-}
-
 .login-card h1 {
-  font-size: 21px; font-weight: 900;
+  font-size: 22px; font-weight: 900;
   color: var(--primary);
   margin-bottom: 3px; letter-spacing: -0.5px;
   text-align: center;
@@ -402,9 +366,7 @@ body.role-teacher .hint-box { border-color: #FECACA; }
 #appView { display: none; min-height: 100vh; min-height: 100dvh; }
 #appView.active { display: block; }
 
-/* ============================================================
-   🔥 TOPBAR ЛОГОТИП + БАТЫРМАЛАР
-============================================================ */
+/* 🌟 TOPBAR ЛОГОТИП — ТОЛЬКО ЛОГОТИП */
 .topbar {
   position: sticky; top: 0;
   background: var(--white);
@@ -420,31 +382,22 @@ body.role-teacher .hint-box { border-color: #FECACA; }
 .topbar-left {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   flex-shrink: 0;
   min-width: 0;
+  flex: 1;
 }
 
-/* 🔥 ЛОГОТИП В TOPBAR */
-.topbar-brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-}
-
-.topbar-logo-box {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.topbar-logo {
+  width: 110px;
+  height: 34px;
   flex-shrink: 0;
-  padding: 3px;
-  border: 1px solid var(--border);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
 .topbar-title {
@@ -455,6 +408,8 @@ body.role-teacher .hint-box { border-color: #FECACA; }
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .topbar-right {
@@ -996,7 +951,10 @@ body.role-teacher .semester-banner {
   border-radius: 11px;
   display: flex; align-items: center; justify-content: center;
   font-weight: 900; font-size: 14px;
+  padding: 0 6px;
 }
+/* 🌟 НОВЫЕ ЦВЕТА ДЛЯ A+ */
+.grade-Ap { background: linear-gradient(135deg, #A7F3D0, #6EE7B7); color: #064E3B; box-shadow: 0 2px 8px rgba(16,185,129,0.35); }
 .grade-A  { background: #D1FAE5; color: #065F46; }
 .grade-A- { background: #D1FAE5; color: #065F46; }
 .grade-B+ { background: #DBEAFE; color: #1E40AF; }
@@ -1684,15 +1642,19 @@ body.dark .toast { background: #0F172A; }
 .toast.error { background: linear-gradient(135deg, #DC2626, #EF4444); }
 
 /* ============================================================
-   RESPONSIVE — мобиль үшін
+   RESPONSIVE
 ============================================================ */
+@media (max-width: 500px) {
+  .topbar-logo { width: 92px; height: 30px; }
+  .topbar-title { font-size: 14px; }
+}
+
 @media (max-width: 400px) {
   .topbar { padding: calc(8px + var(--safe-top)) 10px 8px; }
-  .topbar-logo-box { width: 32px; height: 32px; border-radius: 9px; padding: 2px; }
-  .topbar-title { font-size: 13.5px; }
+  .topbar-logo { width: 78px; height: 26px; }
+  .topbar-title { font-size: 12.5px; }
   .icon-btn { width: 32px; height: 32px; font-size: 15px; }
-  .topbar-left { gap: 6px; }
-  .topbar-brand { gap: 6px; }
+  .login-logo { max-width: 200px; height: 54px; }
 }
 
 @media (max-width: 360px) {
@@ -1703,15 +1665,16 @@ body.dark .toast { background: #0F172A; }
   .lesson-time .time-end { font-size: 11px; }
   .lesson-subject { font-size: 13px; }
   .info-row { font-size: 11px; }
-  .login-brand .brand-logo-box { width: 44px; height: 44px; }
-  .login-brand .brand-name { font-size: 11px; }
-  .login-brand .brand-sub { font-size: 8.5px; }
+  .login-logo { max-width: 180px; height: 48px; }
+  .topbar-logo { width: 68px; height: 24px; }
+  .topbar-title { font-size: 11.5px; }
 }
 
 @media (max-width: 340px) {
-  .topbar-logo-box { width: 28px; height: 28px; }
-  .topbar-title { font-size: 12px; }
+  .topbar-logo { width: 58px; height: 22px; }
+  .topbar-title { font-size: 11px; }
   .icon-btn { width: 30px; height: 30px; font-size: 14px; }
+  .login-logo { max-width: 160px; height: 44px; }
 }
 </style>
 </head>
@@ -1728,15 +1691,9 @@ body.dark .toast { background: #0F172A; }
 
   <div class="login-card" id="loginCard">
 
-    <!-- 🔥 ЛОГОТИП — жоғарғы сол жақ -->
-    <div class="login-brand">
-      <div class="brand-logo-box">
-        <img src="logo_vkgu_amanzholov.png" alt="AMANZHOLOV UNIVERSITY" class="logo-img">
-      </div>
-      <div class="brand-text">
-        <div class="brand-name">AMANZHOLOV<br>UNIVERSITY</div>
-        <div class="brand-sub">Университет порталы</div>
-      </div>
+    <!-- 🌟 ЛОГОТИП БЕЗ БЛОКА, БЕЗ ФОНА -->
+    <div class="login-logo">
+      <img src="logo_vkgu_amanzholov.png" alt="AMANZHOLOV UNIVERSITY" class="brand-logo-img">
     </div>
 
     <div class="top-controls">
@@ -1747,7 +1704,6 @@ body.dark .toast { background: #0F172A; }
       <button class="dark-toggle" id="darkToggleLogin" title="Dark mode">🌙</button>
     </div>
 
-    <div class="logo-circle">🎓</div>
     <h1 id="loginTitle">University App</h1>
     <p class="subtitle" id="loginSubtitle">Университет порталы</p>
 
@@ -1785,15 +1741,13 @@ body.dark .toast { background: #0F172A; }
 ============================================================ -->
 <div id="appView">
 
-  <!-- 🔥 TOPBAR — логотип сол жақта -->
+  <!-- 🌟 TOPBAR — ЛОГОТИП СЛЕВА БЕЗ БЛОКА -->
   <header class="topbar">
     <div class="topbar-left">
-      <div class="topbar-brand">
-        <div class="topbar-logo-box">
-          <img src="logo_vkgu_amanzholov.png" alt="AMANZHOLOV" class="logo-img">
-        </div>
-        <div class="topbar-title" id="topbarTitle">—</div>
+      <div class="topbar-logo">
+        <img src="logo_vkgu_amanzholov.png" alt="AMANZHOLOV" class="topbar-logo-img">
       </div>
+      <div class="topbar-title" id="topbarTitle">—</div>
     </div>
     <div class="topbar-right">
       <button class="icon-btn" id="darkToggleTop" title="Dark mode">🌙</button>
@@ -1804,7 +1758,6 @@ body.dark .toast { background: #0F172A; }
 
   <main class="page-content">
 
-    <!-- HOME -->
     <section class="page" id="page-home">
       <div class="role-bar">
         <div class="role-icon" id="roleBarIcon">🎓</div>
@@ -1843,7 +1796,6 @@ body.dark .toast { background: #0F172A; }
       <div class="quick-grid" id="quickGrid"></div>
     </section>
 
-    <!-- SCHEDULE -->
     <section class="page active" id="page-schedule">
       <div class="search-box">
         <span class="search-icon">🔍</span>
@@ -1861,7 +1813,6 @@ body.dark .toast { background: #0F172A; }
       <div id="lessonsList"></div>
     </section>
 
-    <!-- GRADES (STUDENT) -->
     <section class="page" id="page-grades">
       <div class="semester-banner">
         <div class="sb-title" id="semTitle">Оқу жылы</div>
@@ -1875,7 +1826,6 @@ body.dark .toast { background: #0F172A; }
       <div id="notification" class="notification hidden"></div>
     </section>
 
-    <!-- JOURNAL (TEACHER) -->
     <section class="page" id="page-journal">
       <div class="tabs-row">
         <button class="tab-pill active" data-jtab="attendance">Қатысу</button>
@@ -1893,7 +1843,6 @@ body.dark .toast { background: #0F172A; }
       <button class="save-fab" id="saveFab" title="Сақтау">✓</button>
     </section>
 
-    <!-- PROFILE -->
     <section class="page" id="page-profile">
       <div class="profile-hero">
         <div class="profile-avatar-lg" id="profileAvatar">👤</div>
@@ -1982,6 +1931,52 @@ body.dark .toast { background: #0F172A; }
     t.classList.add('show');
     clearTimeout(t._t);
     t._t = setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  /* ============================================================
+     🌟 ГЛАВНАЯ ФУНКЦИЯ — БУКВЕННАЯ ОЦЕНКА ПО ЧИСЛУ
+     95-100 → A+
+     90-94  → A
+     85-89  → A-
+     80-84  → B+
+     75-79  → B
+     70-74  → B-
+     65-69  → C+
+     60-64  → C
+     55-59  → C-
+     50-54  → D
+     < 50   → F
+  ============================================================ */
+  function scoreToLetter(score) {
+    const s = Number(score);
+    if (isNaN(s)) return '—';
+    if (s >= 95) return 'A+';
+    if (s >= 90) return 'A';
+    if (s >= 85) return 'A-';
+    if (s >= 80) return 'B+';
+    if (s >= 75) return 'B';
+    if (s >= 70) return 'B-';
+    if (s >= 65) return 'C+';
+    if (s >= 60) return 'C';
+    if (s >= 55) return 'C-';
+    if (s >= 50) return 'D';
+    return 'F';
+  }
+
+  // GPA-шкала
+  function letterToGpa(letter) {
+    const map = {
+      'A+': 4.0, 'A': 4.0, 'A-': 3.67,
+      'B+': 3.33, 'B': 3.0, 'B-': 2.67,
+      'C+': 2.33, 'C': 2.0, 'C-': 1.67,
+      'D': 1.0, 'F': 0
+    };
+    return map[letter] || 0;
+  }
+
+  // CSS класс для цвета бейджа
+  function letterClass(letter) {
+    return 'grade-' + letter.replace('+', 'p').replace('-', '-');
   }
 
   /* I18N */
@@ -2138,7 +2133,6 @@ body.dark .toast { background: #0F172A; }
     'Сенбі': []
   };
 
-  const TEACHER_NAME_SHORT = 'Имашова И.Қ.';
   const TEACHER_NAME_FULL = 'Имашова Инабат Қайырбекқызы';
 
   const TEACHER_SCHEDULE = {
@@ -2176,41 +2170,32 @@ body.dark .toast { background: #0F172A; }
   ];
   const IGA = [{ date: '25.01.2026', start: '10:00', subject: 'Кешенді мемлекеттік емтихан', building: 'Актовый зал', room: '—', teacher: 'Комиссия' }];
 
+  // 🌟 ОЦЕНКИ — только числа, буква вычисляется автоматом
   const GRADES = [
-    { subject: 'Жасанды интеллект және машиналық оқыту', teacher: 'Имашова И.Қ.', r1: 90, r2: 93, exam: 91, total: 'A', credits: 5 },
-    { subject: 'Деректер қорын басқару жүйелері', teacher: 'Имашова И.Қ.', r1: 85, r2: 88, exam: 86, total: 'A-', credits: 4 },
-    { subject: 'Веб-бағдарламалау', teacher: 'Нұрланұлы А.', r1: 92, r2: 95, exam: 93, total: 'A', credits: 4 },
-    { subject: 'Компьютерлік жабдықты жөндеу негіздері', teacher: 'Имашова И.Қ.', r1: 88, r2: 90, exam: 89, total: 'A-', credits: 4 },
-    { subject: 'Алгоритмдер және деректер құрылымы', teacher: 'Тұрсынов Е.М.', r1: 90, r2: 94, exam: 92, total: 'A', credits: 5 },
-    { subject: 'Деректер қоры', teacher: 'Имашова И.Қ.', r1: 85, r2: 88, exam: 86, total: 'A-', credits: 4 },
-    { subject: 'Киберқауіпсіздік', teacher: 'Имашова И.Қ.', r1: 90, r2: 92, exam: 91, total: 'A', credits: 4 },
-    { subject: 'Веб-технологиялар', teacher: 'Жұмабаев А.С.', r1: 92, r2: 95, exam: 93, total: 'A', credits: 4 },
-    { subject: 'Физика', teacher: 'Серікбаева Г.Т.', r1: 78, r2: 82, exam: 80, total: 'B+', credits: 4 },
-    { subject: 'Бағдарламалау негіздері', teacher: 'Нұрланұлы А.', r1: 95, r2: 98, exam: 96, total: 'A', credits: 5 },
-    { subject: 'Қазақстан тарихы', teacher: 'Оспанова Л.Т.', r1: 74, r2: 79, exam: 81, total: 'B', credits: 3 }
+    { subject: 'Жасанды интеллект және машиналық оқыту', teacher: 'Имашова И.Қ.', r1: 97, r2: 96, exam: 98, credits: 5 },
+    { subject: 'Деректер қорын басқару жүйелері', teacher: 'Имашова И.Қ.', r1: 92, r2: 90, exam: 94, credits: 4 },
+    { subject: 'Веб-бағдарламалау', teacher: 'Нұрланұлы А.', r1: 96, r2: 95, exam: 95, credits: 4 },
+    { subject: 'Компьютерлік жабдықты жөндеу негіздері', teacher: 'Имашова И.Қ.', r1: 88, r2: 90, exam: 89, credits: 4 },
+    { subject: 'Алгоритмдер және деректер құрылымы', teacher: 'Тұрсынов Е.М.', r1: 92, r2: 94, exam: 93, credits: 5 },
+    { subject: 'Деректер қоры', teacher: 'Имашова И.Қ.', r1: 86, r2: 88, exam: 87, credits: 4 },
+    { subject: 'Киберқауіпсіздік', teacher: 'Имашова И.Қ.', r1: 95, r2: 96, exam: 97, credits: 4 },
+    { subject: 'Веб-технологиялар', teacher: 'Жұмабаев А.С.', r1: 92, r2: 95, exam: 93, credits: 4 },
+    { subject: 'Физика', teacher: 'Серікбаева Г.Т.', r1: 78, r2: 82, exam: 80, credits: 4 },
+    { subject: 'Бағдарламалау негіздері', teacher: 'Нұрланұлы А.', r1: 95, r2: 98, exam: 97, credits: 5 },
+    { subject: 'Қазақстан тарихы', teacher: 'Оспанова Л.Т.', r1: 74, r2: 79, exam: 81, credits: 3 }
   ];
 
   const STUDENTS = [
-    { id: 1, name: 'Асқар Нұрлан', group: 'ИС' },
-    { id: 2, name: 'Айгүл Сейітқали', group: 'ИС' },
-    { id: 3, name: 'Дәурен Бекмұратов', group: 'ИС' },
-    { id: 4, name: 'Жанна Әбенова', group: 'ИС' },
-    { id: 5, name: 'Ержан Қуаныш', group: 'ИС' },
-    { id: 6, name: 'Мадина Серікбай', group: 'ИС' },
-    { id: 7, name: 'Нұрсұлтан Оспанов', group: 'КМ' },
-    { id: 8, name: 'Сая Қайрат', group: 'КМ' },
-    { id: 9, name: 'Темірлан Жақсылық', group: 'КМ' },
-    { id: 10, name: 'Ұлжан Мұрат', group: 'КМ' },
-    { id: 11, name: 'Аида Тұрсынбай', group: 'КМ' },
-    { id: 12, name: 'Бекзат Ерғали', group: 'МИ' },
-    { id: 13, name: 'Гүлмира Сәрсен', group: 'МИ' },
-    { id: 14, name: 'Данияр Оспан', group: 'МИ' },
-    { id: 15, name: 'Еркебұлан Мұрат', group: 'МИ' },
-    { id: 16, name: 'Жанар Сейдахмет', group: 'ИНФ' },
-    { id: 17, name: 'Ислам Тұрғанбай', group: 'ИНФ' },
-    { id: 18, name: 'Камила Нұрлан', group: 'ИНФ' },
-    { id: 19, name: 'Лаура Оспанова', group: 'ИНФ' },
-    { id: 20, name: 'Мұрат Ержан', group: 'ИНФ' }
+    { id: 1, name: 'Асқар Нұрлан', group: 'ИС' }, { id: 2, name: 'Айгүл Сейітқали', group: 'ИС' },
+    { id: 3, name: 'Дәурен Бекмұратов', group: 'ИС' }, { id: 4, name: 'Жанна Әбенова', group: 'ИС' },
+    { id: 5, name: 'Ержан Қуаныш', group: 'ИС' }, { id: 6, name: 'Мадина Серікбай', group: 'ИС' },
+    { id: 7, name: 'Нұрсұлтан Оспанов', group: 'КМ' }, { id: 8, name: 'Сая Қайрат', group: 'КМ' },
+    { id: 9, name: 'Темірлан Жақсылық', group: 'КМ' }, { id: 10, name: 'Ұлжан Мұрат', group: 'КМ' },
+    { id: 11, name: 'Аида Тұрсынбай', group: 'КМ' }, { id: 12, name: 'Бекзат Ерғали', group: 'МИ' },
+    { id: 13, name: 'Гүлмира Сәрсен', group: 'МИ' }, { id: 14, name: 'Данияр Оспан', group: 'МИ' },
+    { id: 15, name: 'Еркебұлан Мұрат', group: 'МИ' }, { id: 16, name: 'Жанар Сейдахмет', group: 'ИНФ' },
+    { id: 17, name: 'Ислам Тұрғанбай', group: 'ИНФ' }, { id: 18, name: 'Камила Нұрлан', group: 'ИНФ' },
+    { id: 19, name: 'Лаура Оспанова', group: 'ИНФ' }, { id: 20, name: 'Мұрат Ержан', group: 'ИНФ' }
   ];
 
   const GROUPS = [
@@ -2366,16 +2351,8 @@ body.dark .toast { background: #0F172A; }
     if (target === 'home') renderHome();
   }
 
-  function timeToMinutes(str) {
-    const [h, m] = str.split(':').map(Number);
-    return h * 60 + m;
-  }
-
-  function nowMinutes() {
-    const d = new Date();
-    return d.getHours() * 60 + d.getMinutes();
-  }
-
+  function timeToMinutes(str) { const [h, m] = str.split(':').map(Number); return h * 60 + m; }
+  function nowMinutes() { const d = new Date(); return d.getHours() * 60 + d.getMinutes(); }
   function getTodayKey() {
     const idx = new Date().getDay();
     if (idx === 0) return 'Жексенбі';
@@ -2595,16 +2572,19 @@ body.dark .toast { background: #0F172A; }
     renderSchedule();
   });
 
+  /* 🌟 ОЦЕНКИ — используем scoreToLetter() */
   function renderGrades() {
     if (currentRole !== 'student') return;
-    const gradePoint = { 'A': 4.0, 'A-': 3.67, 'B+': 3.33, 'B': 3.0, 'B-': 2.67, 'C+': 2.33 };
+
     let totalPoints = 0, totalCredits = 0;
     GRADES.forEach(g => {
-      totalPoints += (gradePoint[g.total] || 0) * g.credits;
+      const avg = Math.round((g.r1 + g.r2 + g.exam) / 3);
+      const letter = scoreToLetter(avg);
+      totalPoints += letterToGpa(letter) * g.credits;
       totalCredits += g.credits;
     });
     const gpa = (totalPoints / totalCredits).toFixed(2);
-    const avg = Math.round(GRADES.reduce((s, g) => s + (g.r1 + g.r2 + g.exam) / 3, 0) / GRADES.length);
+    const overallAvg = Math.round(GRADES.reduce((s, g) => s + (g.r1 + g.r2 + g.exam) / 3, 0) / GRADES.length);
 
     $('#semTitle').textContent = t('semesterLabel');
     $('#semValue').textContent = t('semesterValue');
@@ -2613,14 +2593,15 @@ body.dark .toast { background: #0F172A; }
     $('#gradesSummary').innerHTML = `
       <div class="summary-card gpa"><div class="icon">🎯</div><div class="value">${gpa}</div><div class="label">${t('gpa')}</div></div>
       <div class="summary-card credits"><div class="icon">📚</div><div class="value">${totalCredits}</div><div class="label">${t('credits')}</div></div>
-      <div class="summary-card rank"><div class="icon">📈</div><div class="value">${avg}</div><div class="label">${t('average')}</div></div>
+      <div class="summary-card rank"><div class="icon">📈</div><div class="value">${overallAvg}</div><div class="label">${t('average')}</div></div>
     `;
 
     const list = $('#gradesList');
     list.innerHTML = '';
     GRADES.forEach((g, i) => {
       const avgScore = Math.round((g.r1 + g.r2 + g.exam) / 3);
-      const badgeClass = 'grade-' + g.total.replace('+','\\+').replace('-','\\-');
+      const letter = scoreToLetter(avgScore);           // 🌟 A+ / A / A- / ...
+      const badgeClass = letterClass(letter);
       const card = document.createElement('div');
       card.className = 'grade-card';
       card.style.animationDelay = (i * 0.04) + 's';
@@ -2630,7 +2611,7 @@ body.dark .toast { background: #0F172A; }
             <div class="grade-subject">${g.subject}</div>
             <div class="grade-teacher">👨‍🏫 ${g.teacher}</div>
           </div>
-          <div class="grade-badge ${badgeClass}">${g.total}</div>
+          <div class="grade-badge ${badgeClass}">${letter}</div>
         </div>
         <div class="grade-scores">
           <div class="score-item"><div class="score-label">1-РК</div><div class="score-value">${g.r1}</div></div>
@@ -2647,15 +2628,18 @@ body.dark .toast { background: #0F172A; }
       const n = $('#notification');
       n.innerHTML = `🔔 <div><b>${currentLang === 'kk' ? 'Жаңа хабарлама' : 'Новое уведомление'}:</b> ${
         currentLang === 'kk' ? 'Емтихан бағасы жарияланды' : 'Опубликована оценка'
-      } — «Жасанды интеллект»: <b>A</b></div>`;
+      } — «Жасанды интеллект»: <b>A+</b></div>`;
       n.classList.remove('hidden');
     }, 2000);
   }
 
   $('#exportBtn').addEventListener('click', function () {
     if (currentRole !== 'student') return;
-    const header = ['Пән', 'Оқытушы', '1-РК', '2-РК', 'Емтихан', 'Қорытынды', 'Кредит'];
-    const rows = GRADES.map(g => [g.subject, g.teacher, g.r1, g.r2, g.exam, g.total, g.credits]);
+    const header = ['Пән', 'Оқытушы', '1-РК', '2-РК', 'Емтихан', 'Қорытынды (әріп)', 'Кредит'];
+    const rows = GRADES.map(g => {
+      const avg = Math.round((g.r1 + g.r2 + g.exam) / 3);
+      return [g.subject, g.teacher, g.r1, g.r2, g.exam, scoreToLetter(avg), g.credits];
+    });
     const csv = [header, ...rows].map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
     const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
@@ -2847,10 +2831,11 @@ body.dark .toast { background: #0F172A; }
     const wrap = $('#gpaPreview');
     if (currentRole !== 'student') { wrap.style.display = 'none'; return; }
     wrap.style.display = 'flex';
-    const gradePoint = { 'A': 4.0, 'A-': 3.67, 'B+': 3.33, 'B': 3.0, 'B-': 2.67, 'C+': 2.33 };
     let totalPoints = 0, totalCredits = 0;
     GRADES.forEach(g => {
-      totalPoints += (gradePoint[g.total] || 0) * g.credits;
+      const avg = Math.round((g.r1 + g.r2 + g.exam) / 3);
+      const letter = scoreToLetter(avg);
+      totalPoints += letterToGpa(letter) * g.credits;
       totalCredits += g.credits;
     });
     const gpa = (totalPoints / totalCredits).toFixed(2);
